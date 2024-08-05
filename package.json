@@ -1,0 +1,77 @@
+{
+  "name": "sponge-fe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@emotion/is-prop-valid": "^1.2.2",
+    "@mdi/font": "^5.9.55",
+    "@vueuse/core": "^10.7.2",
+    "animated-number-vue": "^1.0.0",
+    "animejs": "^3.2.1",
+    "click-outside-vue3": "^4.0.1",
+    "core-js": "^3.8.3",
+    "css-loader": "^6.8.1",
+    "date-fns": "^3.3.1",
+    "dotenv": "^16.4.5",
+    "moment": "^2.29.4",
+    "sass-loader": "^13.3.2",
+    "swiper": "^11.0.7",
+    "vue": "^3.3.4",
+    "vue-cookies": "^1.8.4",
+    "vue-moment": "^4.1.0",
+    "vue-number-animation": "^2.0.2",
+    "vue-router": "^4.2.4",
+    "vue3-click-outside": "^0.0.1",
+    "vue3-datepicker": "^0.4.0",
+    "vuex": "^4.1.0",
+    "vuex-persistedstate": "^4.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.2",
+    "vite": "^5.3.5",
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "^5.0.8",
+    "chromedriver": "^120.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "geckodriver": "^4.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.69.0",
+    "ts-node": "^10.9.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}
