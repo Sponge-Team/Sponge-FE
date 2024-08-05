@@ -1,0 +1,73 @@
+@charset "utf-8";
+
+/************************************
+* default
+************************************/
+*{
+  margin:0;
+  padding:0;
+  font:inherit;
+  color:inherit;
+}
+*, :after, :before {
+  box-sizing:border-box;
+}
+:root {
+  -webkit-tap-highlight-color:transparent;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+  cursor:default;
+  line-height:1.5;
+  overflow-wrap:break-word;
+  word-break:break-word;tab-size:4}
+html, body {
+  height:100%;
+  //min-width: 1920px;
+  //min-height: 900px;
+  //overflow: hidden;
+  //overflow-y: auto;
+  letter-spacing: -1px;
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+img, picture, video, canvas, svg {
+  display: block;
+  max-width:100%;
+}
+button {
+  background:none;
+  border:0;
+  cursor:pointer;
+}
+a {
+  text-decoration:none
+}
+table {
+  border-collapse:collapse;border-spacing:0
+}
+
+ul, ol, li{
+  list-style: none;
+}
+
+
+
+/*********************************************
+* 스크롤바 디자인
+**********************************************/
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px
+}
+::-webkit-scrollbar-thumb {
+  background-color: #adadad;
+  border-radius: 10px;
+  &:hover{
+    background-color: #65aafc;
+  }
+}
+::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 10px;
+}
