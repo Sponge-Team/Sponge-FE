@@ -8,6 +8,7 @@ import vueCookies from "vue-cookies"
 import '@/assets/css/default.scss'
 import '@/assets/css/font.scss'
 import '@/assets/css/reset.scss'
+import '@/assets/css/components.scss'
 
 const app = createApp(App)
 

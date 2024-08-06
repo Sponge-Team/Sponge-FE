@@ -1,9 +1,12 @@
 <template>
-  <div :class="[style, state, size, shape, color]">
+  <div class="inp-wrap">
     <label>
       {{label}}
-      <input :type="type" :value="value" :placeholder="placeholder" @input="inpInputEvt" @change="inpChangeEvt" :readonly="state==='disabled'"/>
-      <slot name="icon"></slot>
+      <span class="ds-flx">
+        <input :type="type" :value="value" :placeholder="placeholder" @input="inpInputEvt" @change="inpChangeEvt" :readonly="state==='disabled'"
+               :class="[style, state, size, shape, color]"/>
+        <slot name="icon"></slot>
+      </span>
     </label>
   </div>
 </template>
