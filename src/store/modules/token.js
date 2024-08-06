@@ -2,7 +2,7 @@ export default{
     state: {
         access_token: '',
         refresh_token: '',
-        lgn_id: '',
+        id: '',
     },
     mutations: {
         SET_TOKEN: (state, token) => {
@@ -14,8 +14,6 @@ export default{
             state.access_token = ''
             state.refresh_token = ''
             state.lgn_id = ''
-            state.nm = ''
-            state.bld_id = ''
         },
     },
     actions: {
