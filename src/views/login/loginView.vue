@@ -15,8 +15,15 @@
       <Input class="mb-2" :type="'number'" :placeholder="'숫자만 입력하세요.'"/>
       <Input class="mb-2" :type="'file'"/>
     </div>
+    <div>
+      <Button color="primary" size="l">무료로 진단 받아보기</Button>
+      <Button color="secondary" size="m">무료로 진단 받아보기</Button>
+      <Button color="tertiary" size="s">팝업버튼</Button>
+      <Button color="tertiary" size="s" rounded="square">서브버튼</Button>
+    </div>
   </div>
 </template>
 <script setup>
   import Input from "@/components/core/Input.vue";
+  import Button from "@/components/core/Button.vue";
 </script>
