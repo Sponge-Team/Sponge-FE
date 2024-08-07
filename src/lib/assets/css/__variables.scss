@@ -7,21 +7,10 @@
   --s-semantic-primary-font-strong-default: var(--s-palette-main-lighten-950);
   --s-semantic-primary-font-light-default: var(--s-palette-gray-400);
 
-  --s-semantic-secondary-background-normal-default: var(--s-palette-gray-200);
-  --s-semantic-secondary-background-strong-default: var(--s-palette-gray-200);
-
-  --s-semantic-secondary-font-normal-default: #A9A9A9;
-  --s-semantic-secondary-font-storng-default: var(--s-palette-main-lighten-200);
-}
-
-:root[theme=g100] {
-  --s-semantic-primary-background-normal-default: var(--s-palette-main-lighten-950);
-  --s-semantic-primary-background-strong-default: var(--s-palette-gray-700);
-  --s-semantic-primary-background-light-default: var(--s-palette-gray-300);
-
-  --s-semantic-primary-font-normal-default: var(--s-palette-main-lighten-white);
-  --s-semantic-primary-font-strong-default: var(--s-palette-main-lighten-950);
-  --s-semantic-primary-font-light-default: var(--s-palette-gray-400);
+  --s-semantic-primary-stroke-normal-default: var(--s-palette-main-lighten-950);
+  --s-semantic-primary-stroke-strong-default: var(--s-palette-gray-700);
+  --s-semantic-primary-stroke-info-default: var(--s-palette-gray-200);
+  --s-semantic-primary-stroke-light-default: var(--s-palette-gray-300);
 
   --s-semantic-secondary-background-normal-default: var(--s-palette-gray-200);
   --s-semantic-secondary-background-strong-default: var(--s-palette-gray-200);
@@ -29,3 +18,19 @@
   --s-semantic-secondary-font-normal-default: #A9A9A9;
   --s-semantic-secondary-font-storng-default: var(--s-palette-main-lighten-200);
 }
+
+//:root[theme=g100] {
+//  --s-semantic-primary-background-normal-default: var(--s-palette-main-lighten-950);
+//  --s-semantic-primary-background-strong-default: var(--s-palette-gray-700);
+//  --s-semantic-primary-background-light-default: var(--s-palette-gray-300);
+//
+//  --s-semantic-primary-font-normal-default: var(--s-palette-main-lighten-white);
+//  --s-semantic-primary-font-strong-default: var(--s-palette-main-lighten-950);
+//  --s-semantic-primary-font-light-default: var(--s-palette-gray-400);
+//
+//  --s-semantic-secondary-background-normal-default: var(--s-palette-gray-200);
+//  --s-semantic-secondary-background-strong-default: var(--s-palette-gray-200);
+//
+//  --s-semantic-secondary-font-normal-default: #A9A9A9;
+//  --s-semantic-secondary-font-storng-default: var(--s-palette-main-lighten-200);
+//}

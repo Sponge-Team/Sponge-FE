@@ -1,72 +1,62 @@
 <template>
   <div>
     <div>
-      <span>{{label}}</span>
-      <span v-if="required === true">*</span>
+      <span>{{ label }}</span>
+      <span v-if="required">*</span>
     </div>
     <span class="flex">
-      <input :type="type" :value="value" :placeholder="placeholder" @input="inpInputEvt" @change="inpChangeEvt"
-             :readonly="state==='disabled'" :class="[style, state, size, shape, color]"
-
+      <input :type="type" :value="value" :placeholder="placeholder" @input="handleInput" @change="handleInput"
+             :readonly="state === 'disabled'" :class="inputClasses"
       />
       <slot name="icon"></slot>
     </span>
   </div>
 </template>
+
 <script setup>
+import { computed } from 'vue';
+
 const props = defineProps({
-  placeholder : {
+  placeholder: {
     type: String,
   },
-  type : {
+  type: {
     type: String,
     default: 'text',
-    validator: function (value) {
-      return ['text', 'number', 'file', 'range'].indexOf(value) !== -1
-    }
+    validator: value => ['text', 'number', 'file', 'range'].includes(value)
   },
   style: {
     type: String,
     default: 'text',
-    validator: function (value) {
-      return ['filled', 'outlined', 'text'].indexOf(value) !== -1
-    }
+    validator: value => ['filled', 'outlined', 'text'].includes(value)
   },
-  state : {
+  state: {
     type: String,
     default: 'enabled',
-    validator: function (value) {
-      return ['enabled', 'disabled', 'error'].indexOf(value) !== -1
-    }
+    validator: value => ['enabled', 'disabled', 'error'].includes(value)
   },
-  size : {
+  size: {
     type: String,
     default: 'm',
-    validator: function (value) {
-      return ['sm', 'm', 'l', 'xl'].indexOf(value) !== -1
-    }
+    validator: value => ['sm', 'm', 'l', 'xl'].includes(value)
   },
-  shape : {
+  shape: {
     type: String,
     default: 'circle',
-    validator: function (value) {
-      return ['square', 'rounded', 'circle'].indexOf(value) !== -1
-    }
+    validator: value => ['square', 'rounded', 'circle'].includes(value)
   },
-  color : {
+  color: {
     type: String,
     default: 'primary',
-    validator: function (value) {
-      return ['primary', 'secondary', 'tertiary'].indexOf(value) !== -1
-    }
+    validator: value => ['primary', 'secondary', 'tertiary'].includes(value)
   },
-  value : {
-    type: Object,
+  value: {
+    type: [String, Number, Object],
   },
   model: {
     type: Object,
   },
-  label : {
+  label: {
     type: String,
     default: ''
   },
@@ -74,13 +64,41 @@ const props = defineProps({
     type: Boolean,
     default: false
   }
-})
+});
 
-const emit = defineEmits(['updateInput', 'changeInput'])
-const inpChangeEvt = (e) => {
-  emit('updateInput', e.target.value)
-}
-const inpInputEvt = (e) => {
-  emit('updateInput', e.target.value)
-}
+const inputClasses = computed(() => {
+  return {
+    'primary-color': props.color === 'primary',
+    'text-style': props.style === 'text',
+    'enabled-state': props.state === 'enabled',
+    // 필요한 다른 클래스 추가
+  };
+});
+
+const emit = defineEmits(['updateInput', 'changeInput']);
+const handleInput = (e) => {
+  emit('updateInput', e.target.value);
+  emit('changeInput', e.target.value);
+};
 </script>
+
+<style scoped>
+.primary-color::placeholder {
+  color: var(--s-placeholder-color-primary);
+}
+
+.text-style {
+  border: 1px solid var(--s-semantic-primary-stroke-info-default);
+}
+
+.enabled-state::before {
+  content: '';
+  /* 추가 스타일 */
+}
+
+.enabled-state::after {
+  content: '';
+  /* 추가 스타일 */
+}
+
+</style>
