@@ -1,8 +1,9 @@
 <template>
   <div>
+    안녕하세유
     <Input :placeholder="'내용을 입력하세요'">
       <template #icon>
-        <img src="@/assets/img/icon/ic_search.svg" alt="검색 버튼" style="position: absolute;">
+        <img src="@/lib/assets/svg/ic_search.svg" alt="검색 버튼">
       </template>
     </Input>
   </div>

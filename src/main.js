@@ -5,10 +5,12 @@ import moment from 'moment'
 import vClickOutside from "click-outside-vue3"
 import vueCookies from "vue-cookies"
 
-import '@/assets/css/default.scss'
-import '@/assets/css/font.scss'
-import '@/assets/css/reset.scss'
-import '@/assets/css/components.scss'
+import 'virtual:uno.css'
+import '@/lib/assets/css/__globals.scss'
+import '@/lib/assets/css/__fonts.scss'
+import '@/lib/assets/css/__colors.scss'
+import '@/lib/assets/css/__variables.scss'
+import '@/lib/assets/css/__typos.scss'
 
 const app = createApp(App)
 

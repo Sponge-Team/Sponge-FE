@@ -1,13 +1,16 @@
 <template>
-  <div class="inp-wrap">
-    <label>
-      {{label}}
-      <span class="ds-flx">
-        <input :type="type" :value="value" :placeholder="placeholder" @input="inpInputEvt" @change="inpChangeEvt" :readonly="state==='disabled'"
-               :class="[style, state, size, shape, color]"/>
-        <slot name="icon"></slot>
-      </span>
-    </label>
+  <div>
+    <div>
+      <span>{{label}}</span>
+      <span v-if="required === true">*</span>
+    </div>
+    <span class="flex">
+      <input :type="type" :value="value" :placeholder="placeholder" @input="inpInputEvt" @change="inpChangeEvt"
+             :readonly="state==='disabled'" :class="[style, state, size, shape, color]"
+
+      />
+      <slot name="icon"></slot>
+    </span>
   </div>
 </template>
 <script setup>
@@ -67,6 +70,10 @@ const props = defineProps({
     type: String,
     default: ''
   },
+  required: {
+    type: Boolean,
+    default: false
+  }
 })
 
 const emit = defineEmits(['updateInput', 'changeInput'])
