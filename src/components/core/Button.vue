@@ -1,5 +1,5 @@
 <template>
-  <button :class="buttonClasses">
+  <button :class="buttonClasses" @click="handleClick">
     <span class="button-content" >
       <slot></slot>
       <slot name="icon"></slot>
@@ -14,12 +14,12 @@ const props = defineProps({
   color: {
     type: String,
     default: 'primary',
-    validator: value => ['primary', 'secondary', 'tertiary'].includes(value)
+    validator: value => ['primary', 'secondary', 'tertiary', 'quaternary', 'quinary'].includes(value)
   },
   size: {
     type: String,
     default: 'm',
-    validator: value => ['s', 'm', 'l', 'xl'].includes(value)
+    validator: value => ['s', 'm', 'l'].includes(value)
   },
   rounded: {
     type: String,
@@ -33,6 +33,8 @@ const buttonClasses = computed(() => {
     'primary-color': props.color === 'primary',
     'secondary-color': props.color === 'secondary',
     'tertiary-color': props.color === 'tertiary',
+    'quaternary-color': props.color === 'quaternary',
+    'quinary-color': props.color === 'quinary',
     'text-style': props.style === 'text',
     'size-sm': props.size === 'sm',
     'size-m': props.size === 'm',
@@ -41,6 +43,12 @@ const buttonClasses = computed(() => {
     'rounded-square': props.rounded === 'square',
   };
 });
+
+const handleClick = (event) => {
+  if (props.onClick) {
+    props.onClick(event);
+  }
+};
 </script>
 
 <style scoped>
@@ -76,6 +84,16 @@ button {
   color: var(--s-palette-gray-400);
 }
 
+.quaternary-color {
+  background-color: var(--s-palette-main-lighten-400);
+  color: var(--s-palette-main-lighten-950);
+}
+
+.quinary-color {
+  background-color: var(--s-palette-gray-100);
+  color: var(--s-palette-gray-400);
+}
+
 .size-s {
   font-size: 0.75rem;
   padding: 0.25em 0.5em;
@@ -98,4 +116,5 @@ button {
 .rounded-square {
   border-radius: 0.5em;
 }
+
 </style>
