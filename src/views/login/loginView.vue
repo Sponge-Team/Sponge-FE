@@ -30,7 +30,7 @@
       <Button color="primary" size="s">팝업버튼</Button>
       <Button color="quaternary" size="s">팝업버튼</Button>
       <Button color="quinary" size="s" rounded="square">서브버튼</Button>
-      <Button color="primary" size="s" rounded="square">서브버튼</Button>
+      <Button color="outline-primary" size="s" rounded="square">서브버튼</Button>
 
     </div>
   </div>
