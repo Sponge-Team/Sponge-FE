@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import signRouter from '@/router/modules/signRouter'
+import indexRouter from '@/router/modules/indexRouter.js'
+import compRouter from "@/router/modules/compRouter.js";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,9 +9,10 @@ const router = createRouter({
     {
 			path: '/',
 			name: 'index',
-			redirect: '/sign'
+			redirect: '/'
 		},
-    signRouter,
+    indexRouter,
+    compRouter
   ]
 })
 

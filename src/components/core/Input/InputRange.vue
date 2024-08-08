@@ -6,8 +6,6 @@
            class="rangeInput"
            ref="rangeInput"
     />
-<!--    <div class="range-label" :style="labelStyle">{{ value }}</div>-->
-    <slot name="icon"></slot>
   </div>
 </template>
 
@@ -43,25 +41,16 @@ const handleInput = (e) => {
   emit('updateInput', rangeValue.value);
   emit('changeInput', rangeValue.value);
   updateBackground(e.target);
-  updateLabelPosition();
 };
 
 const updateBackground = (target) => {
   let gradientValue = 100 / target.max;
-  target.style.background = `linear-gradient(to right, #FFE283 0%, #FFE283 ${gradientValue * target.value}%, #ececec ${gradientValue * target.value}%, #ececec 100%)`;
+  target.style.background = `linear-gradient(to right, var(--s-semantic-primary-background-normal-default) 0%, var(--s-semantic-primary-background-normal-default) ${gradientValue * target.value}%, var(--s-semantic-primary-background-light-default) ${gradientValue * target.value}%, var(--s-semantic-primary-background-light-default) 100%)`;
 };
 
-const updateLabelPosition = () => {
-  const range = rangeInput.value;
-  const label = document.querySelector('.range-label');
-  const value = ((range.value - range.min) / (range.max - range.min)) * 100;
-  const newPosition = value * (range.offsetWidth / 100) - (label.offsetWidth / 2) + 'px';
-  label.style.left = newPosition;
-};
 
 onMounted(() => {
   updateBackground(rangeInput.value);
-  updateLabelPosition();
 });
 
 watch(() => props.value, (newValue) => {
@@ -69,45 +58,41 @@ watch(() => props.value, (newValue) => {
     rangeInput.value.value = newValue;
     rangeValue.value = newValue;
     updateBackground(rangeInput.value);
-    updateLabelPosition();
   }
 });
 
-const labelStyle = computed(() => {
-  return {
-    position: 'absolute',
-    bottom: '30px', /* Adjust this value to position the label below the slider handle */
-    transform: 'translateX(-50%)'
-  };
-});
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .range-container {
   width: 100%;
 }
 
-.range-label {
-  position: absolute;
-  left: 50%;
-  bottom: 0px; /* Adjust this value to position the label below the slider handle */
-  transform: translateX(-50%);
-  padding: 2px 5px;
-  border-radius: 3px;
-  pointer-events: none;
-  color: var(--s-palette-gray-600);
-}
 
 /* Range Track */
 .rangeInput {
+  position: relative;
   width: 100%;
-  height: 20px; /* Adjust this value to change the height of the track */
+  height: 4px; /* Adjust this value to change the height of the track */
   background: linear-gradient(to right, #FFE283 0%, #FFE283 50%, #ececec 50%, #ececec 100%);
   border-radius: 8px;
   outline: none;
   transition: background 450ms ease-in;
   -webkit-appearance: none;
   accent-color: #ffca1d;
+  &:before{
+    position: absolute;
+    content: '';
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    width: 23px;
+    height: 23px;
+    background-color: red;
+    border-radius: 50%;
+    border: 3px solid var(--s-palette-main-lighten-white);
+    background: var(--s-semantic-primary-background-normal-default);
+  }
 }
 
 /* Webkit (Chrome, Safari) */
@@ -115,12 +100,22 @@ const labelStyle = computed(() => {
   position: relative;
   -webkit-appearance: none;
   appearance: none;
-  width: 25px;
-  height: 25px; /* Adjust this value to change the height of the thumb */
-  background: #4CAF50;
+  border: 3px solid var(--s-palette-main-lighten-white);
+  width: 23px;
+  height: 23px; /* Adjust this value to change the height of the thumb */
+  background: var(--s-semantic-primary-background-normal-default);
   cursor: pointer;
   border-radius: 50%;
-  margin-top: -2.5px; /* Adjust this value to vertically center the thumb */
+}
+
+.rangeInput::-webkit-slider-thumb::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-color: red;
 }
 
 /* Firefox */
