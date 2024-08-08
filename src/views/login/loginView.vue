@@ -10,10 +10,17 @@
       <InputTextarea placeholder="간단한 자기소개를 입력하면 견주들이 신뢰도를 얻는데 도움이 될 수 있어요." class="mb-3"/>
       <InputRange class="mb-3" :value="0"/>
     </div>
+    <div>
+      <Button color="primary" size="l">무료로 진단 받아보기</Button>
+      <Button color="secondary" size="m">무료로 진단 받아보기</Button>
+      <Button color="tertiary" size="s">팝업버튼</Button>
+      <Button color="tertiary" size="s" rounded="square">서브버튼</Button>
+    </div>
   </div>
 </template>
 <script setup>
   import Input from "@/components/core/Input/Input.vue";
   import InputTextarea from "@/components/core/Input/InputTextarea.vue";
   import InputRange from "@/components/core/Input/InputRange.vue";
+  import Button from "@/components/core/Button.vue";
 </script>
