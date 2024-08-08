@@ -1,22 +1,19 @@
 <template>
   <div>
-    <div class="m3">
-      <Input class="mb-2" :placeholder="'내용을 입력하세요'">
+    <div class="m5">
+      <Input type="outlined" :icon="true" placeholder="내용을 입력하세요" class="mb-3">
         <template #icon>
-          <img src="@/lib/assets/svg/ic_search.svg" alt="검색 버튼">
+          <img src="@/lib/assets/svg/ic_search.svg" alt="검색 버튼" class="pl3" style="width: max-content; height: max-content;">
         </template>
       </Input>
-      <Input class="mb-2" :placeholder="'경력을 입력해주세요'">
-        <template #icon>
-          <img src="@/lib/assets/svg/ic_arrow_right.svg" alt="검색 버튼">
-        </template>
-      </Input>
-      <Input class="mb-2" :type="'range'"/>
-      <Input class="mb-2" :type="'number'" :placeholder="'숫자만 입력하세요.'"/>
-      <Input class="mb-2" :type="'file'"/>
+      <Input color="secondary" type="text" shape="square" placeholder="내용을 입력하세요" class="mb-3"/>
+      <InputTextarea placeholder="간단한 자기소개를 입력하면 견주들이 신뢰도를 얻는데 도움이 될 수 있어요." class="mb-3"/>
+      <InputRange class="mb-3" :value="0"/>
     </div>
   </div>
 </template>
 <script setup>
-  import Input from "@/components/core/Input.vue";
+  import Input from "@/components/core/Input/Input.vue";
+  import InputTextarea from "@/components/core/Input/InputTextarea.vue";
+  import InputRange from "@/components/core/Input/InputRange.vue";
 </script>

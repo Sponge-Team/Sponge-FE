@@ -2,6 +2,7 @@
   --s-semantic-primary-background-normal-default: var(--s-palette-main-lighten-950);
   --s-semantic-primary-background-strong-default: var(--s-palette-gray-700);
   --s-semantic-primary-background-light-default: var(--s-palette-gray-300);
+  --s-semantic-primary-background-white-default: var(--s-palette-main-lighten-white);
 
   --s-semantic-primary-font-normal-default: var(--s-palette-main-lighten-white);
   --s-semantic-primary-font-strong-default: var(--s-palette-main-lighten-950);
@@ -17,6 +18,8 @@
 
   --s-semantic-secondary-font-normal-default: #A9A9A9;
   --s-semantic-secondary-font-storng-default: var(--s-palette-main-lighten-200);
+
+  --s-semantic-placeholder-font-normal-default: #D2D1CF;
 }
 
 //:root[theme=g100] {
