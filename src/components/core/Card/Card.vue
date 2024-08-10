@@ -28,3 +28,4 @@ const style = computed(() => {
     borderRadius: '14px'
   };
 })
+</script>
