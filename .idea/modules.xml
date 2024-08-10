@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Sponge-FE.iml" filepath="$PROJECT_DIR$/Sponge-FE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sponge.iml" filepath="$PROJECT_DIR$/sponge.iml" />
     </modules>
   </component>
 </project>

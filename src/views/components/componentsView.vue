@@ -32,27 +32,6 @@
         </template>
       </Button>
     </div>
-    <div>
-    <Card class="mb-2">
-      <template #default>
-        <h3 class="text-lg font-bold">제가 없을 때 아이가 계속 짖어요</h3>
-        <p>내용</p>
-      </template>
-      <template #footer>
-        <small style="display: flex;justify-content: flex-end;">추천12</small>
-      </template>
-    </Card>
-    <Card colorClass="light">
-      <template #default>
-        <h3 class="text-lg font-bold">견주로 로그인하기</h3>
-        <p>문제행동 작성하고</p>
-        <p>훈련사에게 상담받기</p>
-      </template>
-      <template #image>
-        <img src="@/lib/assets/svg/mongmi_logo.svg" alt="로고 이미지" class="ml-2">
-      </template>
-    </Card>
-    </div>
   </div>
 </template>
 <script setup>
@@ -60,5 +39,4 @@
   import InputTextarea from "@/components/core/Input/InputTextarea.vue";
   import InputRange from "@/components/core/Input/InputRange.vue";
   import Button from "@/components/core/Button/Button.vue";
-  import Card from "@/components/core/Card/Card.vue";
 </script>
