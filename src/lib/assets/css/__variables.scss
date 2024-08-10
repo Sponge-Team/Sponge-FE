@@ -9,6 +9,7 @@
   --s-semantic-primary-font-normal-default: var(--s-palette-main-lighten-white);
   --s-semantic-primary-font-strong-default: var(--s-palette-main-lighten-950);
   --s-semantic-primary-font-light-default: var(--s-palette-gray-400);
+  --s-semantic-primary-font-info-default: #808080;
 
   --s-semantic-primary-stroke-normal-default: var(--s-palette-main-lighten-950);
   --s-semantic-primary-stroke-strong-default: var(--s-palette-gray-700);
@@ -21,6 +22,8 @@
   --s-semantic-secondary-font-normal-default: #A9A9A9;
   --s-semantic-secondary-font-light-default: #d2d1cf;
   --s-semantic-secondary-font-storng-default: var(--s-palette-gray-400);
+
+  --s-semantic-desc-font-normal-default: #D2D1CF;
 
   --s-semantic-tag-background-primary-default: var(--s-palette-main-lighten-200);
   --s-semantic-tag-background-secondary-default: var(--s-palette-gray-300);

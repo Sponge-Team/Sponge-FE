@@ -1,5 +1,7 @@
 <template>
-  <div class="s-caption-01" :style="style">{{text}}</div>
+  <div class="s-caption-01" :style="style">
+    <p>{{text}}</p>
+  </div>
 </template>
 <script setup>
 import {computed} from "vue";
@@ -13,7 +15,7 @@ const props = defineProps({
     type: String,
     default: 'primary',
     validator: value => ['primary', 'secondary'].includes(value)
-  }
+  },
 })
 const style = computed( () => {
   let { color } = props;

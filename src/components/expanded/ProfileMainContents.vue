@@ -12,7 +12,7 @@
         <p>정보를 입력해주세요</p>
       </template>
     </ProfileDesc>
-    <ProfileMainOption title="프로필">
+    <ProfileItem title="프로필">
       <template #body-content>
         <Card color="secondary">
           <template #body-content>
@@ -26,7 +26,7 @@
                 <p class="s-title-02"><span class="mr-2">남</span>010-0000-0000</p>
               </div>
               <div>
-                <Button color="tertiary">
+                <Button color="transparent">
                   <template #icon>
                     <img src="@/lib/assets/svg/ic_arrow_right.svg" alt="프로필 상세 작성하기 버튼">
                   </template>
@@ -36,33 +36,31 @@
           </template>
         </Card>
       </template>
-    </ProfileMainOption>
-    <ProfileMainOption title="경력">
+    </ProfileItem>
+    <ProfileItem title="경력">
       <template #body-content>
         <div class="flex">
           <Input type="text" shape="square" color="secondary" placeholder="경력을 입력해주세요"/>
-          <Button color="tertiary">
+          <Button color="transparent">
             <template #icon>
               <img src="@/lib/assets/svg/ic_arrow_right.svg" alt="경력 상세 작성하기 버튼">
             </template>
           </Button>
         </div>
       </template>
-    </ProfileMainOption>
-    <ProfileMainOption title="지역">
+    </ProfileItem>
+    <ProfileItem title="지역">
       <template #body-content>
         <div class="flex">
           <Input type="text" shape="square" color="secondary" placeholder="경력을 입력해주세요"/>
-          <Button color="tertiary">
+          <Button color="transparent">
             <template #icon>
               <img src="@/lib/assets/svg/ic_arrow_right.svg" alt="경력 상세 작성하기 버튼">
             </template>
           </Button>
         </div>
       </template>
-    </ProfileMainOption>
-    <Tag text="태그"/>
-    <Tag text="태그" color="secondary"/>
+    </ProfileItem>
     <Button color="tertiary" size="l" style="width: 100%;">
       <template #default>
         <p class="s-heading-02">다음</p>
@@ -71,11 +69,10 @@
   </div>
 </template>
 <script setup>
-import ProfileMainOption from "@/components/expanded/ProfileMainOption.vue";
+import ProfileItem from "@/components/expanded/ProfileItem.vue";
 import Card from "@/components/core/Card/Card.vue";
 import Button from "@/components/core/Button/Button.vue";
 import Input from "@/components/core/Input/Input.vue";
-import Tag from "@/components/core/Tag/Tag.vue";
 import ProfileDesc from "@/components/expanded/ProfileDesc.vue";
 
 const props = defineProps({})
