@@ -1,6 +1,6 @@
 <template>
-  <button :class="buttonClasses" @click="handleClick">
-    <span class="button-content" >
+  <button :class="buttonClasses" class="flex flex-justify-center items-align-center" @click="handleClick">
+    <span class="button-content">
       <slot></slot>
       <slot name="icon"></slot>
     </span>
@@ -31,7 +31,7 @@ const props = defineProps({
 const buttonClasses = computed(() => {
   return {
     'primary-color': props.color === 'primary',
-    'outline-primary-color': props.color === 'outline-primary',    
+    'outline-primary-color': props.color === 'outline-primary',
     'secondary-color': props.color === 'secondary',
     'tertiary-color': props.color === 'tertiary',
     'quaternary-color': props.color === 'quaternary',
@@ -120,6 +120,7 @@ button {
 .size-l {
   font-size: 1.2rem;
   padding: 0.5em 1em;
+  height: 60px;
 }
 
 .rounded-circle {
