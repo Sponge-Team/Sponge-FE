@@ -48,7 +48,8 @@
       <template #body-content>
         <div class="flex">
           <Input type="text" shape="square" color="secondary" placeholder="경력을 입력해주세요"/>
-          <Button color="transparent" @click="store.dispatch('setProfileLevel', {mode: 'DETAIL', title: '지역', step: 'REGION', percentage: 0})">
+          <Button color="transparent"
+                  @click="store.dispatch('setProfileLevel', {mode: 'DETAIL', title: '지역', step: 'REGION', percentage: 0})">
             <template #icon>
               <img src="@/lib/assets/svg/ic_arrow_right.svg" alt="경력 상세 작성하기 버튼">
             </template>
