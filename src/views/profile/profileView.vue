@@ -1,17 +1,17 @@
 <template>
-  <div class="p5">
-    <Button color="transparent" style="padding: 0;">
-      <template #icon>
-        <img src="@/lib/assets/svg/ic_arrow_right_lg.svg" alt="정보 입력 전단계로 이동 버튼">
-      </template>
-    </Button>
-    <ProfileMainContents/>
+  <div class="p4">
+    <ProfileHeader title="경력" :mode="store.getters.getProfileLevel.mode"/>
+    <ProfileContents/>
   </div>
 </template>
 <script setup>
-import ProfileMainContents from "@/components/expanded/ProfileMainContents.vue";
-import Button from "@/components/core/Button/Button.vue";
-import {ref} from "vue";
+import ProfileHeader from "@/components/expanded/ProfileHeader.vue";
+import ProfileContents from "@/components/expanded/ProfileContents.vue";
+import store from "@/store/index.js";
+import {onMounted} from "vue";
 
-const mode = ref('')
+onMounted(()=>{
+  store.dispatch('setProfileLevel', {mode: 'LIST', step: 'MAIN', percentage: 0})
+})
+
 </script>

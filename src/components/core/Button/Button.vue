@@ -1,5 +1,5 @@
 <template>
-  <button :class="buttonClasses" class="flex flex-justify-center items-align-center" @click="handleClick">
+  <button :class="buttonClasses" class="flex flex-justify-center flex-items-center" @click="handleClick">
     <span class="button-content">
       <slot></slot>
       <slot name="icon"></slot>

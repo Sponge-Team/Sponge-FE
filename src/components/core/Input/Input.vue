@@ -74,7 +74,7 @@ const styles = computed(() => {
     borderBottom: type === 'outlined' || type === 'text' ? `1.5px solid ${ borderColor } !important` : 'none',
     backgroundColor: type === 'filled' ? backgroundColor : 'var(--s-palette-main-lighten-white)',
     borderRadius: borderRadius,
-    padding: '0 15px',
+    padding: type === 'text' ? '0' : '0 15px',
     alignItems: icon === true ? 'center' : ''
   };
 });

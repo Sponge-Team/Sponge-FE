@@ -1,6 +1,11 @@
 <template>
-  <div class="flex align-middle" :style="styles">
-    <input type="file" :value="value" @input="handleInput" @change="handleInput" class="border-none"/>
+  <div class="flex flex-justify-center flex-items-center" :style="styles">
+    <label for="file">
+      <span>
+        <img src="@/lib/assets/svg/ic_camera.svg" alt="파일 업로드 버튼">
+      </span>
+    </label>
+    <input type="file" name="file" id="file" :value="value" @input="handleInput" @change="handleInput" style="display: none"/>
   </div>
 </template>
 
@@ -32,14 +37,11 @@ const props = defineProps({
 const styles = computed(() => {
   let { size } = props
 
-  let height = size === 'md' ? '119px' : '338px'
-
   return {
-    width: '100%',
-    height: height,
-    borderRadius: '14px',
-    background: 'var(--s-semantic-primary-background-light-default)',
-    padding: '15px',
+    width: size === 'md' ? '30px' : '45px',
+    height: size === 'md' ? '30px' : '45px',
+    borderRadius: '100px',
+    background: '#D9D9D9',
   };
 });
 

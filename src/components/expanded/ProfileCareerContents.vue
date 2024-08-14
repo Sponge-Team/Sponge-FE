@@ -11,7 +11,7 @@
       <ProfileItem title="이력">
         <template #body-content>
           <div class="flex flex-items-center">
-            <Input type="text" shape="square" color="secondary" placeholder="예) 강훈련"/>
+            <Input type="text" shape="square" color="secondary" placeholder="이력을 추가해주세요"/>
             <Button>
               <template #icon>
                 <img src="@/lib/assets/svg/ic_plus.svg" alt="이력 추가하기 버튼">

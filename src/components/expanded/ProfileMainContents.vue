@@ -1,11 +1,5 @@
 <template>
   <div>
-    <div class="pt-2 pb-2 flex flex-justify-between flex-items-center">
-      <div class="position-relative" style="width: 70%; height: 6px; content: ''; background-color: var(--s-semantic-primary-background-neutral-default);">
-        <span class="position-absolute" style="height: 6px; content: '';"></span>
-      </div>
-      <span class="s-heading-02" style="color: var(--s-semantic-secondary-font-light-default)">완성도 0%</span>
-    </div>
     <ProfileDesc>
       <template #default>
         <p>훈련사 등록에 필요한</p>
@@ -17,16 +11,17 @@
         <Card color="secondary">
           <template #body-content>
             <div class="flex flex-items-center flex-justify-between">
-              <div class="flex flex-justify-center flex-items-center" style="width: 82px; height: 82px; border-radius: 100px; background-color: var(--s-palette-main-lighten-white);">
+              <div class="flex flex-justify-center flex-items-center position-relative"
+                   style="width: 82px; height: 82px; border-radius: 100px; background-color: var(--s-palette-main-lighten-white);">
                 <img src="@/lib/assets/svg/ic_user.svg" alt="유저 기본 이미지">
-<!--                <Inputfile></Inputfile>-->
+                <Inputfile class="position-absolute" style="bottom: 0; right: 0;"/>
               </div>
               <div style="color: var(--s-semantic-secondary-font-light-default)">
                 <p class="s-title-02">이름을 입력하세요</p>
                 <p class="s-title-02"><span class="mr-2">남</span>010-0000-0000</p>
               </div>
               <div>
-                <Button color="transparent">
+                <Button color="transparent" @click="store.dispatch('setProfileLevel', {mode: 'DETAIL', title: '프로필', step: 'INFO', percentage: 0})">
                   <template #icon>
                     <img src="@/lib/assets/svg/ic_arrow_right.svg" alt="프로필 상세 작성하기 버튼">
                   </template>
@@ -41,7 +36,7 @@
       <template #body-content>
         <div class="flex">
           <Input type="text" shape="square" color="secondary" placeholder="경력을 입력해주세요"/>
-          <Button color="transparent">
+          <Button color="transparent" @click="store.dispatch('setProfileLevel', {mode: 'DETAIL', title: '경력', step: 'CAREER', percentage: 0})">
             <template #icon>
               <img src="@/lib/assets/svg/ic_arrow_right.svg" alt="경력 상세 작성하기 버튼">
             </template>
@@ -53,7 +48,7 @@
       <template #body-content>
         <div class="flex">
           <Input type="text" shape="square" color="secondary" placeholder="경력을 입력해주세요"/>
-          <Button color="transparent">
+          <Button color="transparent" @click="store.dispatch('setProfileLevel', {mode: 'DETAIL', title: '지역', step: 'REGION', percentage: 0})">
             <template #icon>
               <img src="@/lib/assets/svg/ic_arrow_right.svg" alt="경력 상세 작성하기 버튼">
             </template>
@@ -74,6 +69,8 @@ import Card from "@/components/core/Card/Card.vue";
 import Button from "@/components/core/Button/Button.vue";
 import Input from "@/components/core/Input/Input.vue";
 import ProfileDesc from "@/components/expanded/ProfileDesc.vue";
+import Inputfile from "@/components/core/Input/Inputfile.vue";
+import store from "@/store/index.js";
 
 const props = defineProps({})
 </script>
