@@ -88,8 +88,8 @@ button {
 }
 
 .tertiary-color {
-  background-color: var(--s-palette-gray-300);
-  color: var(--s-palette-gray-400);
+  background-color: var(--s-semantic-secondary-background-normal-default);
+  color: var(--s-semantic-secondary-font-storng-default);
 }
 
 .quaternary-color {

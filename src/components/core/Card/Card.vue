@@ -15,13 +15,19 @@ const props = defineProps({
   color: {
     type: String,
     default: 'primary',
-    validator: value => ['primary', 'secondary'].includes(value)
+    validator: value => ['primary', 'secondary', 'white'].includes(value),
   },
 })
 const style = computed(() => {
   let {type, color} = props;
-  let componentColor = color === 'primary' ? 'var(--s-semantic-primary-background-normal-default)' : 'var(--s-semantic-primary-background-light-default)'
-
+  let componentColor;
+  if (color === 'primary') {
+    componentColor = 'var(--s-semantic-primary-background-normal-default)';
+  } else if (color === 'secondary') {
+    componentColor = 'var(--s-semantic-primary-background-light-default)';
+  } else if (color === 'white') {
+    componentColor = 'var(--s-semantic-primary-background-white-default)';
+  }
   return {
     background: type === 'filled' ? componentColor : 'transparent',
     border: type === 'outlined' ? `1px solid ${componentColor}` : 'none',
