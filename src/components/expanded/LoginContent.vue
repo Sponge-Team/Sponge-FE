@@ -4,7 +4,7 @@
     <img src="@/lib/assets/svg/mongmi_logo.svg" alt="로고 이미지">
   </div>
   <div class="p1 mt-5">
-    <Card color="secondary">
+    <Card color="secondary" @click="redirectToGoogleOauth(2)">
       <template #body-content>
         <div class="flex flex-items-center flex-justify-between">
           <div class="p2">
@@ -19,7 +19,7 @@
         </div>
       </template>
     </Card>
-    <Card color="secondary" class="mt-5">
+    <Card color="secondary" class="mt-5" @click="redirectToGoogleOauth(1)">
       <template #body-content>
         <div class="flex flex-items-center flex-justify-between">
           <div class="p2">
@@ -40,4 +40,10 @@
 
 <script setup>
 import Card from "@/components/core/Card/Card.vue";
+
+function redirectToGoogleOauth(role) {
+  const googleOauthUrl = `https://oauth2.example.com/auth?role=${role}`;
+  console.log(`Redirecting to: ${googleOauthUrl}`);
+  //window.location.href = googleOauthUrl;
+}
 </script>
