@@ -8,7 +8,6 @@
   </div>
 </template>
 <script setup>
-
 import ProfileProgressbar from "@/components/expanded/ProfileProgressbar.vue";
 import ProfileInfoContents from "@/components/expanded/ProfileInfoContents.vue";
 import ProfileCareerContents from "@/components/expanded/ProfileCareerContents.vue";
