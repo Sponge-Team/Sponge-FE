@@ -3,8 +3,11 @@
     <div>
       <ProfileItem title="연차">
         <template #body-content>
-          <div class="flex">
-            <InputRange />
+          <div>
+            <div class="flex flex-justify-center s-heading-02">
+              <p>{{year > 0 ? '~ ' : ''}}{{year}}년차</p>
+            </div>
+            <InputRange @update-input="(data)=>{year = data}"/>
           </div>
         </template>
       </ProfileItem>
@@ -81,6 +84,9 @@ import Checkbox from "@/components/core/Checkbox/Checkbox.vue";
 import Dialog from "@/components/core/Dialog/Dialog.vue";
 
 import { useDialog } from "@/composables/useDialog";
+import {ref} from "vue";
 
 const { isActive, translateY, openModal, closeModal } = useDialog();
+
+const year = ref(0)
 </script>

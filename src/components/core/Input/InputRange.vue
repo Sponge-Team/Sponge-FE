@@ -1,129 +1,137 @@
 <template>
   <div class="range-container">
-    <input type="range" :value="value"
-           min="0" max="10"
-           @input="handleInput"
-           class="rangeInput"
-           ref="rangeInput"
+    <input
+        type="range"
+        :value="value"
+        min="0"
+        max="10"
+        @input="handleInput"
+        class="rangeInput"
+        ref="rangeInput"
     />
+    <span
+        class="rangeValue s-body-02"
+        :style="rangeValueStyle"
+    >{{ value }}년</span>
   </div>
 </template>
 
 <script setup>
-import { ref, watch, onMounted, computed } from 'vue';
+import {ref, computed, watch, onMounted} from 'vue';
 
 const props = defineProps({
-  placeholder: {
-    type: String,
-  },
   value: {
-    type: [String, Number, Object],
-  },
-  model: {
-    type: Object,
-  },
-  label: {
-    type: String,
-    default: ''
-  },
-  required: {
-    type: Boolean,
-    default: false
+    type: Number,
+    default: 0,
   }
 });
 
 const emit = defineEmits(['updateInput', 'changeInput']);
 const rangeInput = ref(null);
-const rangeValue = ref(props.value);
+const value = ref(props.value);
 
+// 핸들러 함수
 const handleInput = (e) => {
-  rangeValue.value = e.target.value;
-  emit('updateInput', rangeValue.value);
-  emit('changeInput', rangeValue.value);
+  value.value = Number(e.target.value);
+  emit('updateInput', value.value);
+  emit('changeInput', value.value);
   updateBackground(e.target);
 };
 
+// 슬라이더 배경을 업데이트하는 함수
 const updateBackground = (target) => {
-  let gradientValue = 100 / target.max;
-  target.style.background = `linear-gradient(to right, var(--s-semantic-primary-background-normal-default) 0%, var(--s-semantic-primary-background-normal-default) ${gradientValue * target.value}%, var(--s-semantic-primary-background-light-default) ${gradientValue * target.value}%, var(--s-semantic-primary-background-light-default) 100%)`;
+  const valuePercent = (target.value - target.min) / (target.max - target.min) * 100;
+  target.style.background = `linear-gradient(to right, #FFE283 ${valuePercent}%, #ececec ${valuePercent}%)`;
 };
 
+// 슬라이더 thumb의 위치에 따라 span 위치 조정
+const rangeValueStyle = computed(() => {
+  if (!rangeInput.value) return {};
 
+  const rangeWidth = rangeInput.value.offsetWidth;
+  const thumbWidth = 23; // 슬라이더 thumb의 너비
+  const valuePercent = (value.value - 0) / (10 - 0);
+  const offset = valuePercent * (rangeWidth - thumbWidth);
+
+  return {
+    left: `${offset + thumbWidth / 2}px`,
+    transform: 'translateX(-50%)',
+    top: '30px'
+  };
+});
+
+// 컴포넌트가 마운트되었을 때 배경과 span 위치 업데이트
 onMounted(() => {
   updateBackground(rangeInput.value);
+  rangeValueStyle.value = updateRangeValueStyle();
 });
 
+// props.value가 변경될 때마다 배경과 span 위치 업데이트
 watch(() => props.value, (newValue) => {
-  if (rangeInput.value) {
-    rangeInput.value.value = newValue;
-    rangeValue.value = newValue;
-    updateBackground(rangeInput.value);
-  }
+  value.value = newValue;
+  updateBackground(rangeInput.value);
+  rangeValueStyle.value = updateRangeValueStyle();
 });
 
+function updateRangeValueStyle() {
+  if (!rangeInput.value) return {};
+  const rangeWidth = rangeInput.value.offsetWidth;
+  const thumbWidth = 23; // 슬라이더 thumb의 너비
+  const valuePercent = (value.value - 0) / (10 - 0);
+  const offset = valuePercent * (rangeWidth - thumbWidth);
+
+  return {
+    left: `${offset + thumbWidth / 2}px`,
+    transform: 'translateX(-50%)',
+  };
+}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .range-container {
-  width: 100%;
-}
-
-
-/* Range Track */
-.rangeInput {
   position: relative;
   width: 100%;
-  height: 4px; /* Adjust this value to change the height of the track */
-  background: linear-gradient(to right, #FFE283 0%, #FFE283 50%, #ececec 50%, #ececec 100%);
-  border-radius: 8px;
-  outline: none;
-  transition: background 450ms ease-in;
-  -webkit-appearance: none;
-  accent-color: #ffca1d;
-  &:before{
+  .rangeInput {
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #FFE283 0%, #ececec 0%);
+    border-radius: 8px;
+    outline: none;
+    transition: background 450ms ease-in;
+    -webkit-appearance: none;
+    accent-color: #ffca1d;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      border: 3px solid var(--s-palette-main-lighten-white);
+      width: 23px;
+      height: 23px;
+      background: var(--s-semantic-primary-background-normal-default);
+      cursor: pointer;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    &::-moz-range-thumb {
+      width: 23px;
+      height: 23px;
+      background: var(--s-semantic-primary-background-normal-default);
+      cursor: pointer;
+      border-radius: 50%;
+    }
+  }
+
+
+
+  .rangeValue {
     position: absolute;
-    content: '';
-    top: 50%;
-    transform: translateY(-50%);
-    left: 0;
-    width: 23px;
-    height: 23px;
-    background-color: red;
-    border-radius: 50%;
-    border: 3px solid var(--s-palette-main-lighten-white);
-    background: var(--s-semantic-primary-background-normal-default);
+    top: 30px;
+    white-space: nowrap;
+    transition: left 0.1s ease-in-out;
+    color: var(--s-semantic-primary-font-info-default);
   }
 }
 
-/* Webkit (Chrome, Safari) */
-.rangeInput::-webkit-slider-thumb {
-  position: relative;
-  -webkit-appearance: none;
-  appearance: none;
-  border: 3px solid var(--s-palette-main-lighten-white);
-  width: 23px;
-  height: 23px; /* Adjust this value to change the height of the thumb */
-  background: var(--s-semantic-primary-background-normal-default);
-  cursor: pointer;
-  border-radius: 50%;
-}
 
-.rangeInput::-webkit-slider-thumb::before {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: '';
-  width: 20px;
-  height: 20px;
-  background-color: red;
-}
-
-/* Firefox */
-.rangeInput::-moz-range-thumb {
-  width: 25px;
-  height: 25px; /* Adjust this value to change the height of the thumb */
-  background: #4CAF50;
-  cursor: pointer;
-  border-radius: 50%;
-}
 </style>
