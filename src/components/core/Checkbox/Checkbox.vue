@@ -1,9 +1,9 @@
 <template>
   <div>
     <label for="checkbox" @click="toggleCheckbox">
-      <div class="flex">
+      <div class="flex items-center">
         <img :src="imageSrc" alt="체크박스 이미지">
-        <span class="pl-2 s-title-02" :style="textStyle">{{text}}</span>
+        <span v-if="text" class="pl-2 s-title-02" :style="textStyle">{{ text }}</span>
       </div>
     </label>
     <input type="checkbox" name="checkbox" id="checkbox" style="display: none;" :checked="isActive">
@@ -18,7 +18,7 @@ import checkYImg from '@/lib/assets/svg/ic_check_y.svg';
 const props = defineProps({
   text: {
     type: String,
-    default: 'text'
+    default: ''
   },
   modelValue: {
     type: Boolean,

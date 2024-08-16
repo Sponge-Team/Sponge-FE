@@ -48,8 +48,8 @@ import { fetchPosts } from '@/apis/fakeApi.js';
 import defaultImage from '@/lib/assets/svg/ic_user.svg';
 
 const tokenGetter = computed(() => store.getters['token/getToken'] || { access_token: '' });
-const isLoggedIn = computed(() => !!tokenGetter.value.access_token);
-// const isLoggedIn = computed(() => true);
+// const isLoggedIn = computed(() => !!tokenGetter.value.access_token);
+const isLoggedIn = computed(() => true);
 
 const userProfile = computed(() => {
   const profile = {
@@ -69,6 +69,7 @@ onMounted(async () => {
   try {
     const response = await fetchPosts();
     posts.value = response.map(post => ({
+      id: post.id,
       tags: post.tag,
       title: post.title,
       body: post.content.substring(0, 58) + '...',
