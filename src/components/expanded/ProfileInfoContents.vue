@@ -34,7 +34,7 @@
     <ProfileItem title="전화번호">
       <template #body-content>
         <div class="flex">
-          <Input type="text" shape="square" color="secondary" placeholder="예) 01012341234"/>
+          <Input input-type="number" type="text" shape="square" color="secondary" placeholder="예) 01012341234"/>
         </div>
       </template>
     </ProfileItem>

@@ -1,6 +1,6 @@
 <template>
   <div class="pt-5 pb-5">
-    <div class="flex s-heading-02 pt-2 pb-2" style="color:var(--s-semantic-secondary-font-storng-default);">
+    <div class="flex s-heading-02 pt-2 pb-2" style="color:var(--s-semantic-secondary-font-strong-default);">
       <p>{{title}}</p>
       <span v-if="required === true" class="s-heading-03" style="color:var(--s-semantic-head-font-hightlight-default);">*</span>
       <span class="s-title-02 ml-2" style="color:var(--s-semantic-desc-font-normal-default);">{{desc}}</span>

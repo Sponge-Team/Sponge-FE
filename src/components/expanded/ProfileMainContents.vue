@@ -14,7 +14,7 @@
               <div class="flex flex-justify-center flex-items-center position-relative"
                    style="width: 82px; height: 82px; border-radius: 100px; background-color: var(--s-palette-main-lighten-white);">
                 <img src="@/lib/assets/svg/ic_user.svg" alt="유저 기본 이미지">
-                <Inputfile class="position-absolute" style="bottom: 0; right: 0;"/>
+                <Inputfile class="position-absolute" style="bottom: 0; right: 0;" :disabled="true"/>
               </div>
               <div style="color: var(--s-semantic-secondary-font-light-default)">
                 <p class="s-title-02">이름을 입력하세요</p>
@@ -35,7 +35,7 @@
     <ProfileItem title="경력">
       <template #body-content>
         <div class="flex">
-          <Input type="text" shape="square" color="secondary" placeholder="경력을 입력해주세요"/>
+          <Input type="text" shape="square" color="secondary" placeholder="경력을 입력해주세요" :read-only="true"/>
           <Button color="transparent" @click="store.dispatch('setProfileLevel', {mode: 'DETAIL', title: '경력', step: 'CAREER', percentage: 0})">
             <template #icon>
               <img src="@/lib/assets/svg/ic_arrow_right.svg" alt="경력 상세 작성하기 버튼">
@@ -47,7 +47,7 @@
     <ProfileItem title="지역">
       <template #body-content>
         <div class="flex">
-          <Input type="text" shape="square" color="secondary" placeholder="경력을 입력해주세요"/>
+          <Input type="text" shape="square" color="secondary" placeholder="경력을 입력해주세요" :read-only="true"/>
           <Button color="transparent"
                   @click="store.dispatch('setProfileLevel', {mode: 'DETAIL', title: '지역', step: 'REGION', percentage: 0})">
             <template #icon>

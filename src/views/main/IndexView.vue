@@ -86,7 +86,7 @@ const userProfile = computed(() => {
 
 .user-name {
   font-size: 16px;
-  color: var(--s-semantic-secondary-font-storng-default);
+  color: var(--s-semantic-secondary-font-strong-default);
 }
 
 .user-name span {

@@ -1,7 +1,7 @@
 <template>
   <div class="flex align-middle" :style="styles">
-    <input type="text" :value="value" :placeholder="placeholder" @input="handleInput" @change="handleInput"
-           class="border-none" :readonly="state === 'disabled'"
+    <input :type="inputType" :value="value" :placeholder="placeholder" @input="handleInput" @change="handleInput"
+           class="border-none" :readonly="readOnly"
     />
     <slot name="icon"></slot>
   </div>
@@ -13,6 +13,10 @@ import { computed } from 'vue';
 const props = defineProps({
   placeholder: {
     type: String,
+  },
+  inputType: {
+    type: String,
+    default: 'text'
   },
   type: {
     type: String,
@@ -56,6 +60,10 @@ const props = defineProps({
   icon: {
     type: Boolean,
     default: false
+  },
+  readOnly: {
+    type: Boolean,
+    default: false,
   }
 });
 

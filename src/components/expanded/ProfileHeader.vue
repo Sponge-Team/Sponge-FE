@@ -13,7 +13,7 @@
         <img src="@/lib/assets/svg/ic_close_lg.svg" :alt="store.getters.getProfileLevel.title+' 작성 페이지 닫기 버튼'">
       </template>
     </Button>
-    <div class="position-absolute s-heading-02" style="color: var(--s-semantic-secondary-font-storng-default);top: 50%; left: 50%; transform: translate(-50%, -50%)">
+    <div class="position-absolute s-heading-02" style="color: var(--s-semantic-secondary-font-strong-default);top: 50%; left: 50%; transform: translate(-50%, -50%)">
       {{ store.getters.getProfileLevel.title }}
     </div>
   </div>

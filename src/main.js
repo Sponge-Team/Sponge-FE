@@ -11,6 +11,7 @@ import '@/lib/assets/css/__fonts.scss'
 import '@/lib/assets/css/__colors.scss'
 import '@/lib/assets/css/__variables.scss'
 import '@/lib/assets/css/__typos.scss'
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const app = createApp(App)
 

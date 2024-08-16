@@ -49,13 +49,9 @@
     <ProfileItem title="기간">
       <template #body-content>
         <Checkbox text="현재 진행 중" />
-        <div class="flex flex-items-center">
-          <Input type="text" shape="square" color="secondary" placeholder="이력을 추가해주세요" />
-          <Button style="width: 22px; min-width: 22px; height: 22px; padding: 0; border-radius: 100px;">
-            <template #icon>
-              <img src="@/lib/assets/svg/ic_plus.svg" alt="이력 추가하기 버튼" />
-            </template>
-          </Button>
+        <div class="flex flex-items-center mt-2">
+          <Datepicker v-model="startDate" class="mr-2" placeholder="시작일" locale="kr" :format="format"/>
+          <Datepicker v-model="endDate" placeholder="종료일" locale="kr" :format="format"/>
         </div>
       </template>
     </ProfileItem>
@@ -82,6 +78,7 @@ import InputRange from "@/components/core/Input/InputRange.vue";
 import InputTextarea from "@/components/core/Input/InputTextarea.vue";
 import Checkbox from "@/components/core/Checkbox/Checkbox.vue";
 import Dialog from "@/components/core/Dialog/Dialog.vue";
+import Datepicker from '@vuepic/vue-datepicker';
 
 import { useDialog } from "@/composables/useDialog";
 import {ref} from "vue";
@@ -89,4 +86,7 @@ import {ref} from "vue";
 const { isActive, translateY, openModal, closeModal } = useDialog();
 
 const year = ref(0)
+const startDate = ref(null);
+const endDate = ref(null);
+const format = 'yyyy-MM-dd';
 </script>

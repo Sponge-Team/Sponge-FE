@@ -89,7 +89,7 @@ button {
 
 .tertiary-color {
   background-color: var(--s-semantic-secondary-background-normal-default);
-  color: var(--s-semantic-secondary-font-storng-default);
+  color: var(--s-semantic-secondary-font-strong-default);
 }
 
 .quaternary-color {

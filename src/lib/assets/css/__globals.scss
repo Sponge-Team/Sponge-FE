@@ -68,3 +68,10 @@ ul, ol, li{
   height: 0;
   display: none;
 }
+
+.dp__today{
+  border: 1px solid var(--s-semantic-primary-background-normal-default) !important;
+}
+.dp__range_end, .dp__range_start, .dp__active_date, .dp__overlay_cell_active, .dp__action_buttons .dp__action_select{
+  background: var(--s-semantic-primary-background-normal-default) !important;
+}

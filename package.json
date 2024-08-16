@@ -16,6 +16,7 @@
     "@emotion/is-prop-valid": "^1.2.2",
     "@mdi/font": "^5.9.55",
     "@unocss/vite": "^0.61.9",
+    "@vuepic/vue-datepicker": "^9.0.2",
     "@vueuse/core": "^10.7.2",
     "animated-number-vue": "^1.0.0",
     "animejs": "^3.2.1",

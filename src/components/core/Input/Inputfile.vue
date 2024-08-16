@@ -5,7 +5,7 @@
         <img src="@/lib/assets/svg/ic_camera.svg" alt="파일 업로드 버튼">
       </span>
     </label>
-    <input type="file" name="file" id="file" :value="value" @input="handleInput" @change="handleInput" style="display: none"/>
+    <input type="file" name="file" id="file" :value="value" :disabled="disabled" @input="handleInput" @change="handleInput" style="display: none"/>
   </div>
 </template>
 
@@ -32,6 +32,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  disabled: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 const styles = computed(() => {
