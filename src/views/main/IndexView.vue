@@ -24,8 +24,9 @@
     </Input>
     <MainBanner/>
     <MainContent
-      :buttons="['전체', '분리불안', '사회성', '요구성 짖음', '입질 / 경계']"
-      :cards="posts"
+      :buttons="['전체', '분리불안', '사회성', '요구성 짖음', '입질']"
+      :cards="filteredPosts"
+      @filterPosts="filterPostsByTag"
     >
       <template #title>최신 진단 사례</template>
     </MainContent>
@@ -47,8 +48,8 @@ import { fetchPosts } from '@/apis/fakeApi.js';
 import defaultImage from '@/lib/assets/svg/ic_user.svg';
 
 const tokenGetter = computed(() => store.getters['token/getToken'] || { access_token: '' });
-// const isLoggedIn = computed(() => !!tokenGetter.value.access_token);
-const isLoggedIn = computed(() => true);
+const isLoggedIn = computed(() => !!tokenGetter.value.access_token);
+// const isLoggedIn = computed(() => true);
 
 const userProfile = computed(() => {
   const profile = {
@@ -56,30 +57,45 @@ const userProfile = computed(() => {
     image: '',
     role: 1,
   };
-
   const role = profile.role === 1 ? '훈련사님' : '견주님';
-
   const image = profile.image || defaultImage;
-
   return { name: profile.name, role, image };
 });
 
 const posts = ref([]);
+const filteredPosts = ref([]);
 
 onMounted(async () => {
   try {
     const response = await fetchPosts();
-    posts.value = response.slice(0, 5).map(post => ({
+    posts.value = response.map(post => ({
       tags: post.tag,
       title: post.title,
       body: post.content.substring(0, 58) + '...',
       commentsCount: post.comment.length,
       recommendsCount: post.recommend
     }));
+    filteredPosts.value = posts.value;
   } catch (error) {
     console.error("데이터를 불러오는데 실패했습니다.", error);
   }
 });
+function filterPostsByTag(tag) {
+  if (tag === '전체') {
+    filteredPosts.value = posts.value;
+  } else {
+    filteredPosts.value = posts.value
+      .filter(post => post.tags.includes(tag))
+      .map(post => {
+        const tagIndex = post.tags.indexOf(tag);
+        if (tagIndex > -1) {
+          post.tags.splice(tagIndex, 1);
+          post.tags.unshift(tag);
+        }
+        return post;
+      });
+  }
+}
 </script>
 
 <style scoped>

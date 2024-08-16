@@ -3,7 +3,9 @@
     <!-- Title -->
     <div class="flex ml-3 mt-3 items-center">
       <span class="s-title-01"><slot name="title"></slot></span>
-      <img src="@/lib/assets/svg/ic_arrow_right.svg" alt="오른쪽 화살표" class="ml-2">
+      <RouterLink to="#">
+        <img src="@/lib/assets/svg/ic_arrow_right.svg" alt="오른쪽 화살표" class="ml-2">
+      </RouterLink>
     </div>
 
     <!-- Buttons -->
@@ -12,7 +14,7 @@
         v-for="(buttonText, index) in buttons"
         :key="index"
         :class="{'active-button': activeButtonIndex === index}"
-        @click="setActiveButton(index)"
+        @click="handleButtonClick(index, buttonText)"
         color="transparent"
         size="s"
       >
@@ -27,7 +29,7 @@
         :key="index"
         color="white"
         class="mt-3 ml-5"
-        style="width: 90%; height: 180px;"
+        style="width: 90%; height: 160px;"
       >
         <template #body-content>
           <div class="flex items-center gap-2">
@@ -44,10 +46,10 @@
           </div>
 
           <div class="footer mt-1 s-body-02">
-            <img src="@/lib/assets/svg/ic_chat.svg" alt="답변" class="icon" />
+            <img src="@/lib/assets/svg/ic_chat_y.svg" alt="답변" class="icon" />
             <span class="primary">훈련사 답변 {{ card.commentsCount }}</span>
             <span class="secondary">|</span>
-            <img src="@/lib/assets/svg/Ic_like.svg" alt="추천" class="icon" />
+            <img src="@/lib/assets/svg/ic_like.svg" alt="추천" class="icon" />
             <span class="secondary">추천 {{ card.recommendsCount }}</span>
           </div>
         </template>
@@ -72,11 +74,13 @@ const props = defineProps({
     required: true
   }
 });
-
 const activeButtonIndex = ref(0);
 
-function setActiveButton(index) {
+// 필터링
+const emit = defineEmits(['filterPosts']);
+function handleButtonClick(index, buttonText) {
   activeButtonIndex.value = index;
+  emit('filterPosts', buttonText);
 }
 </script>
 
@@ -122,16 +126,18 @@ function setActiveButton(index) {
 .icon {
   width: 16px;
   height: 16px;
-  background-color: var(--s-semantic-secondary-font-strong-default); /* 배경색은 나중에 삭제할 것 */
+  vertical-align: middle;
 }
 
 .primary {
   color: var(--s-semantic-primary-font-strong-default);
   margin: 0 4px;
+  vertical-align: middle;
 }
 
 .secondary {
   color: var(--s-semantic-secondary-font-strong-default);
   margin: 0 4px;
+  vertical-align: middle;
 }
 </style>
