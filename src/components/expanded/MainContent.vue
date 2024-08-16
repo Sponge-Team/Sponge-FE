@@ -31,9 +31,11 @@
       >
         <template #body-content>
           <div class="flex items-center gap-2">
-            <Tag v-for="(tag, index) in card.tags" :key="index">
-              #{{ tag }}
-            </Tag>
+            <Tag 
+            v-for="(tag, index) in card.tags" 
+            :key="index" :text="'#' + tag" 
+            :color="index === 0 ? 'primary' : 'secondary'"
+            />
           </div>
 
           <div class="mt-2">
@@ -41,8 +43,12 @@
             <p class="content-body mt-2 s-body-02">{{ card.body }}</p>
           </div>
 
-          <div class="float-right mt-1 s-body-02">
-            <p>{{ card.footer }}</p>
+          <div class="footer mt-1 s-body-02">
+            <img src="@/lib/assets/svg/ic_chat.svg" alt="답변" class="icon" />
+            <span class="primary">훈련사 답변 {{ card.commentsCount }}</span>
+            <span class="secondary">|</span>
+            <img src="@/lib/assets/svg/Ic_like.svg" alt="추천" class="icon" />
+            <span class="secondary">추천 {{ card.recommendsCount }}</span>
           </div>
         </template>
       </Card>
@@ -103,5 +109,29 @@ function setActiveButton(index) {
 .cards-container {
   background-color: var(--s-semantic-primary-background-light-default);
   width: 100%;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--s-semantic-secondary-font-strong-default);
+  white-space: nowrap;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  background-color: var(--s-semantic-secondary-font-strong-default); /* 배경색은 나중에 삭제할 것 */
+}
+
+.primary {
+  color: var(--s-semantic-primary-font-strong-default);
+  margin: 0 4px;
+}
+
+.secondary {
+  color: var(--s-semantic-secondary-font-strong-default);
+  margin: 0 4px;
 }
 </style>

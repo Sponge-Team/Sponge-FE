@@ -25,11 +25,7 @@
     <MainBanner/>
     <MainContent
       :buttons="['전체', '분리불안', '사회성', '요구성 짖음', '입질 / 경계']"
-      :cards="[
-        { tags: ['분리불안', '요구성 짖음', '외출'], title: '제가 없을 때 아이가 계속 짖어요', body: '아이가 제가 외출하려고 나가면 집에 혼자서 계속 짖어요. 펫캠으로 확인했을 때 최대 2시간까지 허공을 보고 짖어서 너무 걱정입니...', footer: '훈련사 답변 3 | 추천 12' },
-        { tags: ['분리불안', '요구성 짖음', '외출'], title: '제가 없을 때 아이가 계속 짖어요', body: '아이가 제가 외출하려고 나가면 집에 혼자서 계속 짖어요. 펫캠으로 확인했을 때 최대 2시간까지 허공을 보고 짖어서 너무 걱정입니...', footer: '훈련사 답변 3 | 추천 12' },
-        { tags: ['분리불안', '요구성 짖음', '외출'], title: '제가 없을 때 아이가 계속 짖어요', body: '아이가 제가 외출하려고 나가면 집에 혼자서 계속 짖어요. 펫캠으로 확인했을 때 최대 2시간까지 허공을 보고 짖어서 너무 걱정입니...', footer: '훈련사 답변 3 | 추천 12' }
-      ]"
+      :cards="posts"
     >
       <template #title>최신 진단 사례</template>
     </MainContent>
@@ -44,13 +40,15 @@ import Button from "@/components/core/Button/Button.vue";
 import Input from "@/components/core/Input/Input.vue";
 import MainBanner from "@/components/expanded/MainBanner.vue";
 import MainContent from "@/components/expanded/MainContent.vue";
-import { computed } from 'vue';
 import store from "@/store/index.js";
+import { computed, ref, onMounted } from 'vue';
+import { fetchPosts } from '@/apis/fakeApi.js';
 
 import defaultImage from '@/lib/assets/svg/ic_user.svg';
+
 const tokenGetter = computed(() => store.getters['token/getToken'] || { access_token: '' });
-const isLoggedIn = computed(() => !!tokenGetter.value.access_token);
-// const isLoggedIn = computed(() => true);
+// const isLoggedIn = computed(() => !!tokenGetter.value.access_token);
+const isLoggedIn = computed(() => true);
 
 const userProfile = computed(() => {
   const profile = {
@@ -59,13 +57,28 @@ const userProfile = computed(() => {
     role: 1,
   };
 
-  const role = profile.role === 1
-    ? `훈련사님`
-    : `견주님`;
+  const role = profile.role === 1 ? '훈련사님' : '견주님';
 
   const image = profile.image || defaultImage;
 
   return { name: profile.name, role, image };
+});
+
+const posts = ref([]);
+
+onMounted(async () => {
+  try {
+    const response = await fetchPosts();
+    posts.value = response.slice(0, 5).map(post => ({
+      tags: post.tag,
+      title: post.title,
+      body: post.content.substring(0, 58) + '...',
+      commentsCount: post.comment.length,
+      recommendsCount: post.recommend
+    }));
+  } catch (error) {
+    console.error("데이터를 불러오는데 실패했습니다.", error);
+  }
 });
 </script>
 
