@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "email": "user1@example.com",
+    "name": "김민수",
+    "gender": 1,
+    "phone": "010-1234-5678",
+    "profile_img_url": "",
+    "created_at": "2023-01-15T12:34:56Z",
+    "modified_at": "2023-01-15T12:34:56Z"
+  },
+  {
+    "id": 2,
+    "email": "user2@example.com",
+    "name": "박소연",
+    "gender": 3,
+    "phone": "010-2345-6789",
+    "profile_img_url": "",
+    "created_at": "2023-02-10T14:20:00Z",
+    "modified_at": "2023-02-10T14:20:00Z"
+  },
+  {
+    "id": 3,
+    "email": "user3@example.com",
+    "name": "이재현",
+    "gender": 1,
+    "phone": "010-3456-7890",
+    "profile_img_url": "",
+    "created_at": "2023-03-05T16:15:32Z",
+    "modified_at": "2023-03-05T16:15:32Z"
+  },
+  {
+    "id": 4,
+    "email": "user4@example.com",
+    "name": "최은지",
+    "gender": 3,
+    "phone": "010-4567-8901",
+    "profile_img_url": "",
+    "created_at": "2023-04-22T11:05:47Z",
+    "modified_at": "2023-04-22T11:05:47Z"
+  },
+  {
+    "id": 5,
+    "email": "user5@example.com",
+    "name": "정현우",
+    "gender": 1,
+    "phone": "010-5678-9012",
+    "profile_img_url": "",
+    "created_at": "2023-05-18T13:22:10Z",
+    "modified_at": "2023-05-18T13:22:10Z"
+  }
+]

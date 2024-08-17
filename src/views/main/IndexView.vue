@@ -22,7 +22,7 @@
         <img src="@/lib/assets/svg/ic_search.svg" alt="검색 버튼" class="pl3" style="width: max-content; height: max-content;">
       </template>
     </Input>
-    <MainBanner/>
+    <MainBanner :userId="userProfile.userId" :isLoggedIn="isLoggedIn" />
     <MainContent
       :buttons="['전체', '분리불안', '사회성', '요구성 짖음', '입질']"
       :cards="filteredPosts"
@@ -43,7 +43,7 @@ import MainBanner from "@/components/expanded/MainBanner.vue";
 import MainContent from "@/components/expanded/MainContent.vue";
 import store from "@/store/index.js";
 import { computed, ref, onMounted } from 'vue';
-import { fetchPosts } from '@/apis/fakeApi.js';
+import { fetchUserById, fetchProbelmPosts } from '@/apis/fakeApi.js';
 
 import defaultImage from '@/lib/assets/svg/ic_user.svg';
 
@@ -51,23 +51,32 @@ const tokenGetter = computed(() => store.getters['token/getToken'] || { access_t
 // const isLoggedIn = computed(() => !!tokenGetter.value.access_token);
 const isLoggedIn = computed(() => true);
 
-const userProfile = computed(() => {
-  const profile = {
-    name: '강훈련',
-    image: '',
-    role: 1,
-  };
-  const role = profile.role === 1 ? '훈련사님' : '견주님';
-  const image = profile.image || defaultImage;
-  return { name: profile.name, role, image };
+const userProfile = ref({
+  id: null,
+  name: null,
+  image: null,
+  role: null
 });
 
 const posts = ref([]);
 const filteredPosts = ref([]);
 
+// 아이디가 1인 유저를 호출하는 경우 예시, 나중에 삭제할 것
 onMounted(async () => {
   try {
-    const response = await fetchPosts();
+    const userId = 1;
+    const fetchedUser = await fetchUserById(userId);
+    
+    if (fetchedUser) {
+      userProfile.value.userId = userId;
+      userProfile.value.name = fetchedUser.name;
+      userProfile.value.image = fetchedUser.profile_img_url || defaultImage;
+      userProfile.value.role = '견주님';
+    } else {
+      console.error("유저를 찾을 수 없습니다.");
+    }
+
+    const response = await fetchProbelmPosts();
     posts.value = response.map(post => ({
       id: post.id,
       tags: post.tag,
@@ -81,6 +90,8 @@ onMounted(async () => {
     console.error("데이터를 불러오는데 실패했습니다.", error);
   }
 });
+
+// 필터
 function filterPostsByTag(tag) {
   if (tag === '전체') {
     filteredPosts.value = posts.value;
