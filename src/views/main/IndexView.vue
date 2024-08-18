@@ -77,7 +77,7 @@ onMounted(async () => {
     }
 
     const response = await fetchProbelmPosts();
-    posts.value = response.map(post => ({
+    posts.value = response.slice(0, 5).map(post => ({
       id: post.id,
       tags: post.tag,
       title: post.title,

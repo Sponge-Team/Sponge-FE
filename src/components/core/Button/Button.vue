@@ -93,7 +93,7 @@ button {
 }
 
 .quaternary-color {
-  background-color: var(--s-palette-main-lighten-400);
+  background-color: var(--s-palette-main-lighten-300);
   color: var(--s-palette-main-lighten-950);
 }
 

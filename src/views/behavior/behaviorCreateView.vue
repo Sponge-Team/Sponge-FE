@@ -17,7 +17,13 @@
     </div>
     <div class="p3">
       <template v-if="dogs.length > 0">
-        <Card v-for="dog in dogs" :key="dog.id" color="secondary" class="mb-3">
+        <Card 
+          v-for="dog in dogs" 
+          :key="dog.id" 
+          color="secondary"
+          class="mb-3"
+          :class="{'active-card': checkedDogsMap[dog.id]}"
+        >
           <template #body-content>
             <div class="flex flex-items-center flex-justify-between">
               <div class="flex flex-justify-center flex-items-center position-relative"
@@ -30,7 +36,7 @@
                 <span class="s-body-01 text-color">{{ dog.age }}살</span>
                 <p class="s-body-01 text-color">{{ dog.city }} {{ dog.town }}</p>
               </div>
-              <Checkbox />
+              <Checkbox v-model="checkedDogsMap[dog.id]" @change="handleCheckboxChange(dog.id)" />
             </div>
           </template>
         </Card>
@@ -64,17 +70,25 @@ import defaultImage from '@/lib/assets/svg/ic_user.svg';
 const router = useRouter();
 const route = useRoute();
 const dogs = ref([]);
+const checkedDogsMap = ref({});
 
 onMounted(async () => {
   const userId = parseInt(route.query.userId);
   if (userId) {
     try {
       dogs.value = await fetchDogsByUserId(userId);
+      dogs.value.forEach(dog => {
+        checkedDogsMap.value[dog.id] = false;
+      });
     } catch (error) {
       console.error("데이터를 불러오는 중 오류가 발생했습니다.", error);
     }
   }
 });
+
+function handleCheckboxChange() {
+  Object.keys(checkedDogsMap.value).filter(id => checkedDogsMap.value[id])
+}
 
 function goBack() {
   router.back();
@@ -101,5 +115,10 @@ function goBack() {
 
 .text-color {
   color: var(--s-semantic-primary-font-info-default);
+}
+
+.active-card {
+  background-color: var(--s-palette-main-lighten-300) !important; 
+  position: relative;
 }
 </style>
