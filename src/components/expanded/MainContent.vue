@@ -113,6 +113,7 @@ function handleButtonClick(index, buttonText) {
 .cards-container {
   background-color: var(--s-semantic-primary-background-light-default);
   width: 100%;
+  padding-bottom: 80px;
 }
 
 .footer {

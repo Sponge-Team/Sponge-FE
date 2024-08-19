@@ -64,7 +64,7 @@ const filteredPosts = ref([]);
 // 아이디가 1인 유저를 호출하는 경우 예시, 나중에 삭제할 것
 onMounted(async () => {
   try {
-    const userId = 1;
+    const userId = 4;
     const fetchedUser = await fetchUserById(userId);
     
     if (fetchedUser) {

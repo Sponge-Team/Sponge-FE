@@ -56,20 +56,6 @@
     "user_id": 4
   },
   {
-    "id": 5,
-    "name": "찰리",
-    "breed": "코커 스패니얼",
-    "gender": 2,
-    "age": 7,
-    "city": "대전",
-    "town": "중구",
-    "duration": 130,
-    "problem_type": 200,
-    "created_at": "2023-05-10T07:30:22Z",
-    "modified_at": "2023-05-10T07:30:22Z",
-    "user_id": 5
-  },
-  {
     "id": 6,
     "name": "데이지",
     "breed": "푸들",
@@ -110,33 +96,5 @@
     "created_at": "2023-07-10T16:50:30Z",
     "modified_at": "2023-07-10T16:50:30Z",
     "user_id": 3
-  },
-  {
-    "id": 9,
-    "name": "버스터",
-    "breed": "치와와",
-    "gender": 1,
-    "age": 3,
-    "city": "부산",
-    "town": "해운대구",
-    "duration": 80,
-    "problem_type": 100,
-    "created_at": "2023-08-03T14:18:00Z",
-    "modified_at": "2023-08-03T14:18:00Z",
-    "user_id": 4
-  },
-  {
-    "id": 10,
-    "name": "베일리",
-    "breed": "래브라도 리트리버",
-    "gender": 2,
-    "age": 6,
-    "city": "대전",
-    "town": "중구",
-    "duration": 150,
-    "problem_type": 300,
-    "created_at": "2023-09-01T10:15:12Z",
-    "modified_at": "2023-09-01T10:15:12Z",
-    "user_id": 5
   }
 ]
