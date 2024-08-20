@@ -11,11 +11,7 @@
         <Card color="secondary">
           <template #body-content>
             <div class="flex flex-items-center flex-justify-between">
-              <div class="flex flex-justify-center flex-items-center position-relative"
-                   style="width: 82px; height: 82px; border-radius: 100px; background-color: var(--s-palette-main-lighten-white);">
-                <img src="@/lib/assets/svg/ic_user.svg" alt="유저 기본 이미지">
-                <Inputfile class="position-absolute" style="bottom: 0; right: 0;" :disabled="true"/>
-              </div>
+              <Inputfile style="bottom: 0; right: 0;" :disabled="true"/>
               <div style="color: var(--s-semantic-secondary-font-light-default)">
                 <p class="s-title-02">이름을 입력하세요</p>
                 <p class="s-title-02"><span class="mr-2">남</span>010-0000-0000</p>

@@ -33,9 +33,9 @@
       >
         <template #body-content>
           <div class="flex items-center gap-2">
-            <Tag 
-            v-for="(tag, index) in card.tags" 
-            :key="index" :text="'#' + tag" 
+            <Tag
+            v-for="(tag, index) in card.tags"
+            :key="index" :text="'#' + tag"
             :color="index === 0 ? 'primary' : 'secondary'"
             />
           </div>
@@ -49,7 +49,7 @@
             <img src="@/lib/assets/svg/ic_chat_y.svg" alt="답변" class="icon" />
             <span class="primary">훈련사 답변 {{ card.commentsCount }}</span>
             <span class="secondary">|</span>
-            <img src="@/lib/assets/svg/ic_like.svg" alt="추천" class="icon" />
+            <img src="@/lib/assets/svg/Ic_like.svg" alt="추천" class="icon" />
             <span class="secondary">추천 {{ card.recommendsCount }}</span>
           </div>
         </template>

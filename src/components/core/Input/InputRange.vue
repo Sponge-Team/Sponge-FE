@@ -9,6 +9,7 @@
         class="rangeInput"
         ref="rangeInput"
     />
+    <span class="defaultValue s-body-02" :class="isMove === true ? 'visible' : 'hide'">0년</span>
     <span
         class="rangeValue s-body-02"
         :style="rangeValueStyle"
@@ -44,21 +45,29 @@ const updateBackground = (target) => {
   target.style.background = `linear-gradient(to right, #FFE283 ${valuePercent}%, #ececec ${valuePercent}%)`;
 };
 
+const leftValue = ref(0)
+
 // 슬라이더 thumb의 위치에 따라 span 위치 조정
 const rangeValueStyle = computed(() => {
   if (!rangeInput.value) return {};
 
   const rangeWidth = rangeInput.value.offsetWidth;
   const thumbWidth = 23; // 슬라이더 thumb의 너비
-  const valuePercent = (value.value - 0) / (10 - 0);
+  const valuePercent = (value.value - 0) / (10);
   const offset = valuePercent * (rangeWidth - thumbWidth);
-
+  leftValue.value = offset + thumbWidth / 2
   return {
     left: `${offset + thumbWidth / 2}px`,
     transform: 'translateX(-50%)',
     top: '30px'
   };
 });
+
+const isMove = ref(false)
+
+watch(leftValue,()=>{
+  isMove.value = leftValue.value > 11.5;
+})
 
 // 컴포넌트가 마운트되었을 때 배경과 span 위치 업데이트
 onMounted(() => {
@@ -92,6 +101,7 @@ function updateRangeValueStyle() {
   position: relative;
   width: 100%;
   .rangeInput {
+    position: relative;
     width: 100%;
     height: 4px;
     background: linear-gradient(to right, #FFE283 0%, #ececec 0%);
@@ -120,15 +130,42 @@ function updateRangeValueStyle() {
       cursor: pointer;
       border-radius: 50%;
     }
+
+    &:before{
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      content: '';
+      width: 23px;
+      height: 23px;
+      background-color: red;
+      border-radius: 50%;
+      background: var(--s-semantic-primary-background-normal-default);
+      border: 3px solid var(--s-palette-main-lighten-white);
+    }
   }
 
+  .visible{
+    display: block;
+  }
+  .hide{
+    display: none;
+  }
 
+  .defaultValue{
+    position: absolute;
+    top: 30px;
+    left: 0;
+    white-space: nowrap;
+    color: var(--s-semantic-primary-font-info-default);
+  }
 
   .rangeValue {
     position: absolute;
     top: 30px;
     white-space: nowrap;
-    transition: left 0.1s ease-in-out;
+    //transition: left 0.1s ease-in-out;
     color: var(--s-semantic-primary-font-info-default);
   }
 }

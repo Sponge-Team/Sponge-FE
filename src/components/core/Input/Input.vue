@@ -1,7 +1,7 @@
 <template>
   <div class="flex align-middle" :style="styles">
     <input :type="inputType" :value="value" :placeholder="placeholder" @input="handleInput" @change="handleInput"
-           class="border-none" :readonly="readOnly"
+           class="border-none" :readonly="readOnly" :max="max"
     />
     <slot name="icon"></slot>
   </div>
@@ -64,6 +64,10 @@ const props = defineProps({
   readOnly: {
     type: Boolean,
     default: false,
+  },
+  max: {
+    type: Number,
+    default: 20
   }
 });
 
