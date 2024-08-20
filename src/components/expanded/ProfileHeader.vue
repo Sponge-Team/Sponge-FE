@@ -1,5 +1,5 @@
 <template>
-  <div class="flex position-relative pt-2 pb-2">
+  <div class="flex position-relative" style="height: 40px">
     <Button v-if="store.getters.getProfileLevel.mode === 'LIST'" color="transparent" style="padding: 0;"
             @click="store.dispatch('setProfileLevel', {mode: 'LIST', title: '', step: 'MAIN', percentage: 0})">
       <template #icon>

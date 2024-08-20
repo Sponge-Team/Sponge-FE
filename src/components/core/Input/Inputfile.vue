@@ -17,8 +17,7 @@
 </template>
 
 <script setup>
-import {computed, ref} from 'vue';
-import Badge from "@/components/core/Badge/Badge.vue";
+import {computed, ref, watch} from 'vue';
 
 const props = defineProps({
   size: {
@@ -68,6 +67,8 @@ const imgStyles = computed(()=>{
   }
 })
 
+const emit = defineEmits(['fileUpload'])
+
 const imageData = ref(null); // 이미지 데이터를 저장하는 ref
 
 const onFileChange = (event) => {
@@ -77,6 +78,7 @@ const onFileChange = (event) => {
 
     reader.onload = (e) => {
       imageData.value = e.target.result; // base64 데이터로 변환된 이미지
+      emit('fileUpload', imageData.value)
     };
 
     reader.readAsDataURL(file); // 파일을 base64 형식으로 읽기
@@ -84,6 +86,7 @@ const onFileChange = (event) => {
     alert('Please upload a valid image file.');
   }
 };
+
 </script>
 
 <style scoped>

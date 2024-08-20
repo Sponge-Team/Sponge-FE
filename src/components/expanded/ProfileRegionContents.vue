@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col flex-justify-between">
-    <div>
+  <div class="flex flex-col flex-justify-between" style="height: 100%;">
+    <div class="overflow-auto">
       <ProfileItem title="주요 활동지역 선택" desc="(중복선택 가능)">
         <template #body-content>
           <div class="flex flex-wrap" :style="isActiveOtherRegions === true ? 'gap:10px;' : ''">
@@ -39,7 +39,7 @@
         </template>
       </ProfileItem>
     </div>
-    <Button size="l" style="width: 100%;">
+    <Button class="mt-5" size="l" style="width: 100%;">
       <template #default>
         <p class="s-heading-02">저장</p>
       </template>

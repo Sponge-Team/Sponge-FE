@@ -1,5 +1,5 @@
 <template>
-  <div class="p1">
+  <div class="p1" style="height: calc(100% - 40px);">
     <ProfileProgressbar v-if="store.getters.getProfileLevel.mode === 'LIST'"/>
     <ProfileMainContents v-if="store.getters.getProfileLevel.step === 'MAIN'"/>
     <ProfileInfoContents v-if="store.getters.getProfileLevel.step === 'INFO'"/>

@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col flex-justify-between">
-    <div>
+  <div class="flex flex-col flex-justify-between" style="height: 100%;">
+    <div class="overflow-auto">
       <ProfileItem title="연차">
         <template #body-content>
           <div>
@@ -27,7 +27,7 @@
         </template>
       </ProfileItem>
     </div>
-    <Button size="l" style="width: 100%;">
+    <Button class="mt-5" size="l" style="width: 100%;">
       <template #default>
         <p class="s-heading-02">저장</p>
       </template>

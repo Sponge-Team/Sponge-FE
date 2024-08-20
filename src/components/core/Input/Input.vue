@@ -1,7 +1,7 @@
 <template>
   <div class="flex align-middle" :style="styles">
-    <input :type="inputType" :value="value" :placeholder="placeholder" @input="handleInput" @change="handleInput"
-           class="border-none" :readonly="readOnly" :max="max"
+    <input :type="inputType" :value="value" :placeholder="placeholder" @input="updateInput" @change="changeInput"
+           class="border-none no-arrow" :readonly="readOnly" :max="max"
     />
     <slot name="icon"></slot>
   </div>
@@ -47,7 +47,7 @@ const props = defineProps({
     type: [String, Number, Object],
   },
   model: {
-    type: Object,
+    type: String,
   },
   label: {
     type: String,
@@ -92,8 +92,10 @@ const styles = computed(() => {
 });
 
 const emit = defineEmits(['updateInput', 'changeInput']);
-const handleInput = (e) => {
+const updateInput = (e) => {
   emit('updateInput', e.target.value);
+};
+const changeInput = (e) => {
   emit('changeInput', e.target.value);
 };
 </script>
@@ -109,5 +111,16 @@ input::placeholder {
 
 input:focus{
   outline: none;
+}
+/* 크롬, 사파리, 엣지 */
+.no-arrow::-webkit-inner-spin-button,
+.no-arrow::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* 파이어폭스 */
+.no-arrow[type='number'] {
+  -moz-appearance: textfield;
 }
 </style>
