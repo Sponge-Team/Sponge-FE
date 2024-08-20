@@ -18,12 +18,11 @@
           :class="{'active-card': checkedDogsMap[dog.id]}"
         >
           <template #body-content>
-            <div class="flex flex-items-center flex-justify-between">
-              <div class="flex flex-justify-center flex-items-center position-relative w40%"
-                style="width: 82px; height: 82px; border-radius: 100px; background-color: var(--s-palette-main-lighten-white);">
+            <div class="dog-card-content">
+              <div class="dog-image-container">
                 <img :src="dog.image || defaultImage" alt="강아지 이미지">
               </div>
-              <div class="p2 w50%">
+              <div class="dog-info-container">
                 <p class="s-title-01">{{ dog.name }} <span class="s-body-01 mb-3 text-color">{{ dog.breed }}</span></p>
                 <span class="mr-2 s-body-01 text-color">{{ dog.gender === 1 ? '수컷' : dog.gender === 3 ? '암컷' : '중성화' }}</span>
                 <span class="mr-2 s-body-01 text-color">•</span>
@@ -34,12 +33,19 @@
             </div>
           </template>
         </Card>
+        <RouterLink to="#">
+          <div class="text-color flex flex-justify-end mr-2 underline">수정하기</div>
+        </RouterLink>
       </template>
       <template v-else>
         <Card class="outline-card" color="secondary" type="outlined">
           <template #body-content>
-            <div class="center-content">
-              <Inputfile />
+            <div class="center-content p2">
+              <RouterLink to="#">
+                <div class="add-dog-icon">
+                  <img src="@/lib/assets/svg/ic_plus.svg" alt="강아지 추가하기">
+                </div>
+              </RouterLink>
               <p class="s-title-02 mb-3">강아지 추가하기</p>
               <p class="mb-3">등록된 강아지가 없어요.</p>
             </div>
@@ -57,7 +63,6 @@ import { fetchDogsByUserId } from '@/apis/fakeApi.js';
 
 import Button from "@/components/core/Button/Button.vue";
 import Card from "@/components/core/Card/Card.vue";
-import Inputfile from "@/components/core/Input/Inputfile.vue";
 import Checkbox from "@/components/core/Checkbox/Checkbox.vue";
 import defaultImage from '@/lib/assets/svg/ic_dog.svg';
 
@@ -112,5 +117,37 @@ watch(checkedDogsMap, (newValue) => {
 .active-card {
   background-color: var(--s-palette-main-lighten-300) !important; 
   position: relative;
+}
+
+.dog-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dog-image-container {
+  width: 82px;
+  height: 82px;
+  border-radius: 100px;
+  background-color: var(--s-palette-main-lighten-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dog-info-container {
+  padding: 0.5rem;
+  width: 50%;
+}
+
+.add-dog-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 100px;
+  background-color: var(--s-semantic-desc-font-normal-default);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
 </style>
