@@ -70,6 +70,12 @@ import Input from "@/components/core/Input/Input.vue";
 import ProfileDesc from "@/components/expanded/ProfileDesc.vue";
 import Inputfile from "@/components/core/Input/Inputfile.vue";
 import store from "@/store/index.js";
+import {onMounted, ref} from "vue";
 
 const props = defineProps({})
+const isExistsUserInfo = ref(false)
+
+onMounted(()=> {
+  isExistsUserInfo.value = !!localStorage.getItem('userInfo');
+})
 </script>

@@ -49,6 +49,7 @@ import Inputfile from "@/components/core/Input/Inputfile.vue";
 import Tag from "@/components/core/Tag/Tag.vue";
 import Badge from "@/components/core/Badge/Badge.vue";
 import {ref} from "vue";
+import store from "@/store/index.js";
 
 const props = defineProps({})
 
@@ -69,6 +70,8 @@ const saveInfo = () => {
     userGender: userGender.value,
     userTel: userTel.value,
   };
+
+  store.dispatch('setProfileLevel', {mode: 'LIST', title: '', step: 'MAIN', percentage: 0})
 
   localStorage.setItem('userInfo', JSON.stringify(userInfo));
 };
