@@ -25,7 +25,7 @@
     <MainBanner :userId="userProfile.userId" :isLoggedIn="isLoggedIn" />
     <MainContent
       :buttons="categoryName"
-      :cards="filteredPosts"
+      :cards="filteredPosts.slice(0, 5)"
       @filterPosts="filterPostsByCode"
     >
       <template #title>최신 진단 사례</template>
@@ -89,7 +89,7 @@ onMounted(async () => {
     }
       
     const response = await fetchProblemPosts();
-    posts.value = response.slice(0, 5).map(post => ({
+    posts.value = response.map(post => ({
       id: post.id,
       problemCode: post.problem_code,
       tags: post.tag,

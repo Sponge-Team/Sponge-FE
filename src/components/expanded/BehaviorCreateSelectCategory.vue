@@ -34,10 +34,7 @@ onMounted(async () => {
       categories.value = response.map(category => category.name);
     } catch (error) {
       console.error("데이터를 불러오는 중 오류가 발생했습니다.", error);
-    }
-});
-
-onMounted(() => {
+  }
   const savedCategories = JSON.parse(localStorage.getItem('selectedCategories')) || [];
   selectedCategories.value = savedCategories;
 });
