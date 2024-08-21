@@ -26,7 +26,7 @@
                 <p class="s-title-01">{{ dog.name }} <span class="s-body-01 mb-3 text-color">{{ dog.breed }}</span></p>
                 <span class="mr-2 s-body-01 text-color">{{ dog.gender === 1 ? '수컷' : dog.gender === 3 ? '암컷' : '중성화' }}</span>
                 <span class="mr-2 s-body-01 text-color">•</span>
-                <span class="s-body-01 text-color">{{ dog.age }}살</span>
+                <span class="s-body-01 text-color">{{ formatAge(dog.age) }}</span>
                 <p class="s-body-01 text-color">{{ dog.city }} {{ dog.town }}</p>
               </div>
               <Checkbox class="w10%" v-model="checkedDogsMap[dog.id]" />
@@ -90,6 +90,12 @@ watch(checkedDogsMap, (newValue) => {
     emit('dog-selected', { dogId, isChecked: newValue[dogId] });
   }
 }, { deep: true });
+
+const formatAge = (ageInMonths) => {
+  const years = Math.floor(ageInMonths / 12);
+  const months = ageInMonths % 12;
+  return years > 0 ? `${years}년 ${months}개월` : `${months}개월`;
+};
 </script>
 
 <style scoped>

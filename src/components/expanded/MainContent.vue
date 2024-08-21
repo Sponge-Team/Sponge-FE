@@ -9,17 +9,19 @@
     </div>
 
     <!-- Buttons -->
-    <div class="flex justify-between p-2 buttons-container">
-      <Button
-        v-for="(buttonText, index) in buttons"
-        :key="index"
-        :class="{'active-button': activeButtonIndex === index}"
-        @click="handleButtonClick(index, buttonText)"
-        color="transparent"
-        size="s"
-      >
-        {{ buttonText }}
-      </Button>
+    <div class="buttons-wrapper">
+      <div class="flex justify-between p-2 buttons-container">
+        <Button
+          v-for="(buttonText, index) in buttons"
+          :key="index"
+          :class="{'active-button': activeButtonIndex === index}"
+          @click="handleButtonClick(index, buttonText)"
+          color="transparent"
+          size="s"
+        >
+          {{ buttonText }}
+        </Button>
+      </div>
     </div>
 
     <!-- Cards -->
@@ -34,9 +36,9 @@
         <template #body-content>
           <div class="flex items-center gap-2">
             <Tag
-            v-for="(tag, index) in card.tags"
-            :key="index" :text="'#' + tag"
-            :color="index === 0 ? 'primary' : 'secondary'"
+              v-for="(tag, index) in card.tags"
+              :key="index" :text="'#' + tag"
+              :color="index === 0 ? 'primary' : 'secondary'"
             />
           </div>
 
@@ -85,8 +87,20 @@ function handleButtonClick(index, buttonText) {
 </script>
 
 <style scoped>
+.buttons-wrapper {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 0 10px;
+}
+
 .buttons-container {
   color: var(--s-semantic-primary-font-info-default);
+  gap: 20px;
+  width: max-content;
+}
+
+.buttons-container > * {
+  flex: 0 0 auto;
 }
 
 .active-button {

@@ -23,10 +23,19 @@
 <script setup>
 import { ref, onMounted  } from 'vue';
 import Button from "@/components/core/Button/Button.vue";
+import { fetchProblemCode } from '@/apis/fakeApi';
 
-// 추후 수정 -> DB 문제행동유형 저장된 코드로 불러오기 
-const categories = ['분리불안', '배변', '짖음', '사회성', '공격성', '기본교육', '식사교육', '기타'];
+const categories = ref([])
 const selectedCategories = ref([]);
+
+onMounted(async () => {
+  const response = await fetchProblemCode();
+    try {
+      categories.value = response.map(category => category.name);
+    } catch (error) {
+      console.error("데이터를 불러오는 중 오류가 발생했습니다.", error);
+    }
+});
 
 onMounted(() => {
   const savedCategories = JSON.parse(localStorage.getItem('selectedCategories')) || [];

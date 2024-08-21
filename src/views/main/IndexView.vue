@@ -24,9 +24,9 @@
     </Input>
     <MainBanner :userId="userProfile.userId" :isLoggedIn="isLoggedIn" />
     <MainContent
-      :buttons="['전체', '분리불안', '사회성', '요구성 짖음', '입질']"
+      :buttons="categoryName"
       :cards="filteredPosts"
-      @filterPosts="filterPostsByTag"
+      @filterPosts="filterPostsByCode"
     >
       <template #title>최신 진단 사례</template>
     </MainContent>
@@ -43,7 +43,7 @@ import MainBanner from "@/components/expanded/MainBanner.vue";
 import MainContent from "@/components/expanded/MainContent.vue";
 import store from "@/store/index.js";
 import { computed, ref, onMounted } from 'vue';
-import { fetchUserById, fetchProbelmPosts } from '@/apis/fakeApi.js';
+import { fetchUserById, fetchProblemPosts, fetchProblemCode } from '@/apis/fakeApi.js';
 
 import defaultImage from '@/lib/assets/svg/ic_user.svg';
 
@@ -58,6 +58,8 @@ const userProfile = ref({
   role: null
 });
 
+const categoryName = ref([]);
+const problemCodeMap = ref({});
 const posts = ref([]);
 const filteredPosts = ref([]);
 
@@ -76,9 +78,20 @@ onMounted(async () => {
       console.error("유저를 찾을 수 없습니다.");
     }
 
-    const response = await fetchProbelmPosts();
+    const ProblemCodes = await fetchProblemCode();
+    try {
+      categoryName.value = ['전체', ...ProblemCodes.map(category => category.name)];
+      ProblemCodes.forEach(category => {
+      problemCodeMap.value[category.name] = category.code;
+    });
+    } catch (error) {
+        console.error("데이터를 불러오는 중 오류가 발생했습니다.", error);
+    }
+      
+    const response = await fetchProblemPosts();
     posts.value = response.slice(0, 5).map(post => ({
       id: post.id,
+      problemCode: post.problem_code,
       tags: post.tag,
       title: post.title,
       body: post.content.substring(0, 58) + '...',
@@ -91,21 +104,13 @@ onMounted(async () => {
   }
 });
 
-// 필터
-function filterPostsByTag(tag) {
-  if (tag === '전체') {
+// 필터 --> 데이터가 없을 경우 화면 수정 필요함
+function filterPostsByCode(categoryName) {
+  if (categoryName === '전체') {
     filteredPosts.value = posts.value;
   } else {
-    filteredPosts.value = posts.value
-      .filter(post => post.tags.includes(tag))
-      .map(post => {
-        const tagIndex = post.tags.indexOf(tag);
-        if (tagIndex > -1) {
-          post.tags.splice(tagIndex, 1);
-          post.tags.unshift(tag);
-        }
-        return post;
-      });
+    const code = problemCodeMap.value[categoryName];
+    filteredPosts.value = posts.value.filter(post => post.problemCode === code);
   }
 }
 </script>

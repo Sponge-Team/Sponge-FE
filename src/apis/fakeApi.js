@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const fetchProbelmPosts = async () => {
-  return axios.get('/src/apis/probelmData.json')
+export const fetchProblemPosts = async () => {
+  return axios.get('/src/apis/problemData.json')
     .then(response => {
       return response.data;
     })
@@ -34,6 +34,16 @@ export const fetchDogsByUserId = async (userId) => {
 
 export const fetchCsePosts = async () => {
   return axios.get('/src/apis/caseData.json')
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      console.error("네트워크 오류", error);
+    });
+};
+
+export const fetchProblemCode = async () => {
+  return axios.get('/src/apis/problemCodeData.json')
     .then(response => {
       return response.data;
     })
