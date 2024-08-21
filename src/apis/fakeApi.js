@@ -31,3 +31,13 @@ export const fetchDogsByUserId = async (userId) => {
       console.error("네트워크 오류", error);
     });
 };
+
+export const fetchCsePosts = async () => {
+  return axios.get('/src/apis/caseData.json')
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      console.error("네트워크 오류", error);
+    });
+};

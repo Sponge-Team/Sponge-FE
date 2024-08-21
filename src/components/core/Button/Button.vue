@@ -23,8 +23,8 @@ const props = defineProps({
   },
   rounded: {
     type: String,
-    default: 'circle',
-    validator: value => ['circle', 'square'].includes(value)
+    default: 'rounded-circle',
+    validator: value => ['rounded-circle', 'square', 'circle'].includes(value)
   }
 });
 
@@ -41,8 +41,9 @@ const buttonClasses = computed(() => {
     'size-sm': props.size === 'sm',
     'size-m': props.size === 'm',
     'size-l': props.size === 'l',
-    'rounded-circle': props.rounded === 'circle',
+    'rounded-circle': props.rounded === 'rounded-circle',
     'rounded-square': props.rounded === 'square',
+    'circle': props.rounded === 'circle',
   };
 });
 
@@ -129,6 +130,13 @@ button {
 
 .rounded-square {
   border-radius: 0.5em;
+}
+
+.circle{
+  border-radius: 50%;
+  padding: 0;
+  width: 54px;
+  height: 54px;
 }
 
 </style>

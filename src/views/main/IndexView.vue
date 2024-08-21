@@ -66,7 +66,7 @@ onMounted(async () => {
   try {
     const userId = 4;
     const fetchedUser = await fetchUserById(userId);
-    
+
     if (fetchedUser) {
       userProfile.value.userId = userId;
       userProfile.value.name = fetchedUser.name;
@@ -133,16 +133,5 @@ function filterPostsByTag(tag) {
 .user-name span {
   color: var(--s-semantic-primary-font-strong-default);
   font-weight: 600;
-}
-
-.nav-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background-color: var(--s-semantic-primary-background-white-default);
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
 }
 </style>
