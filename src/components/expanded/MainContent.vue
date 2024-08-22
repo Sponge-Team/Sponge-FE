@@ -3,7 +3,7 @@
     <!-- Title -->
     <div class="flex ml-3 mt-3 items-center">
       <span class="s-title-01"><slot name="title"></slot></span>
-      <RouterLink to="#">
+      <RouterLink to="/case">
         <img src="@/lib/assets/svg/ic_arrow_right.svg" alt="오른쪽 화살표" class="ml-2">
       </RouterLink>
     </div>
@@ -43,7 +43,7 @@
           </div>
 
           <div class="mt-2">
-            <p class="s-title-01">{{ card.title }}</p>
+            <p class="s-title-01 card-title">{{ card.title }}</p>
             <p class="content-body mt-2 s-body-02">{{ card.body }}</p>
           </div>
 
@@ -127,6 +127,7 @@ function handleButtonClick(index, buttonText) {
 .cards-container {
   background-color: var(--s-semantic-primary-background-light-default);
   width: 100%;
+  min-height: 180px;
   padding-bottom: 80px;
 }
 
@@ -154,5 +155,11 @@ function handleButtonClick(index, buttonText) {
   color: var(--s-semantic-secondary-font-strong-default);
   margin: 0 4px;
   vertical-align: middle;
+}
+
+.card-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

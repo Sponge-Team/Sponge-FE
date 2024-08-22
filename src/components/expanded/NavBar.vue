@@ -7,7 +7,7 @@
         </RouterLink>
       </li>
       <li class="flex flex-justify-center w25%">
-        <RouterLink to="#">
+        <RouterLink to="/case">
           <img src="@/lib/assets/svg/ic_nav_ex_diag.svg" alt="진단사례">
         </RouterLink>
       </li>

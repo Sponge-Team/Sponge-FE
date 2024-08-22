@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="p5">
-      <Button class="secondary">1</Button>
+      <Button color="primary">1</Button>
       <Button color="primary" class="ml-3">2</Button>
       <Button class="secondary ml-3">3</Button>
     </div>
