@@ -1,7 +1,7 @@
 <template>
   <div class="flex align-middle" :style="styles">
     <input :type="inputType" :value="value" :placeholder="placeholder" @input="updateInput" @change="changeInput"
-           class="border-none no-arrow" :readonly="readOnly" :max="max"
+           class="border-none no-arrow s-title-02" :readonly="readOnly" :max="max"
     />
     <slot name="icon"></slot>
   </div>

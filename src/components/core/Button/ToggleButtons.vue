@@ -5,7 +5,7 @@
         :key="index"
         color="transparent"
         :class="{'active-button': activeButtonIndex === index}"
-        @click="activeButtonIndex = index"
+        @click="fnActiveButton(buttonText, index)"
         size="s"
         style="color:var(--s-palette-gray-400);"
     >
@@ -22,7 +22,13 @@ const props = defineProps({
     required: true
   },
 });
+const emit = defineEmits(['updateButton'])
 const activeButtonIndex = ref(0);
+
+const fnActiveButton = (item, idx) => {
+  activeButtonIndex.value = idx
+  emit('updateButton', item)
+}
 </script>
 <style>
 .active-button {
