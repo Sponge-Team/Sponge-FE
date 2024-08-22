@@ -1,6 +1,6 @@
 <template>
   <div class="p4">
-    <ProfileHeader title="경력" :mode="store.getters.getProfileLevel.mode"/>
+    <ProfileHeader title="경력" v-if="store.getters.getProfileLevel.mode !== ''" :mode="store.getters.getProfileLevel.mode"/>
     <ProfileContents/>
   </div>
 </template>

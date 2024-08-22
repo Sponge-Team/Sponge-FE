@@ -5,6 +5,8 @@
     <ProfileInfoContents v-if="store.getters.getProfileLevel.step === 'INFO'"/>
     <ProfileCareerContents v-if="store.getters.getProfileLevel.step === 'CAREER'"/>
     <ProfileRegionContents v-if="store.getters.getProfileLevel.step === 'REGION'"/>
+    <ProfileSelfIntroduction v-if="store.getters.getProfileLevel.step === 'INTRODUCTION'"/>
+    <ProfileFinish v-if="store.getters.getProfileLevel.step === 'FINISH'"/>
   </div>
 </template>
 <script setup>
@@ -14,4 +16,6 @@ import ProfileCareerContents from "@/components/expanded/ProfileCareerContents.v
 import ProfileRegionContents from "@/components/expanded/ProfileRegionContents.vue";
 import ProfileMainContents from "@/components/expanded/ProfileMainContents.vue";
 import store from "@/store/index.js";
+import ProfileSelfIntroduction from "@/components/expanded/ProfileSelfIntroduction.vue";
+import ProfileFinish from "@/components/expanded/ProfileFinish.vue";
 </script>

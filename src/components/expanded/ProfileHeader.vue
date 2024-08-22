@@ -7,7 +7,7 @@
              src="@/lib/assets/svg/ic_arrow_right_lg.svg" alt="이전 페이지로 가기 버튼">
       </template>
     </Button>
-    <Button v-else color="transparent" style="padding: 0;"
+    <Button v-if="store.getters.getProfileLevel.mode === 'DETAIL'" color="transparent" style="padding: 0;"
             @click="store.dispatch('setProfileLevel', {mode: 'LIST', title: '', step: 'MAIN', percentage: 0})">
       <template #icon>
         <img src="@/lib/assets/svg/ic_close_lg.svg" :alt="store.getters.getProfileLevel.title+' 작성 페이지 닫기 버튼'">

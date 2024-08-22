@@ -55,7 +55,7 @@
         </template>
       </ProfileItem>
     </div>
-    <Button class="mt-5" color="tertiary" size="l" style="width: 100%;">
+    <Button class="mt-5" color="tertiary" size="l" style="width: 100%;" @click="store.dispatch('setProfileLevel', {mode: 'LIST', title: '', step: 'INTRODUCTION', percentage: 75})">
       <template #default>
         <p class="s-heading-02">다음</p>
       </template>
