@@ -22,7 +22,7 @@
           </div>
         </template>
       </BehaviorCreateItem>
-      <BehaviorCreateItem :required="false" :value="content" @changeInput="(data)=>{content = data}" >
+      <BehaviorCreateItem :required="false" :value="content" @changeInput="(data)=>{content = data}" class="mb-2">
         <template #body-content>
           <InputTextarea 
             placeholder="강아지가 주로 행동하는 시간, 장소, 공간 등의 내용을 구체적으로 작성해보세요" 
@@ -31,7 +31,7 @@
           />
         </template>
       </BehaviorCreateItem>
-      <BehaviorCreateItem title="문제 행동 지속 기간">
+      <BehaviorCreateItem title="문제 행동 지속 기간" class="mb-2">
         <template #body-content>
           <div class="flex">
             <Input 
@@ -43,6 +43,18 @@
               @changeInput="(data)=>{duration = data}" 
             />
           </div>
+        </template>
+      </BehaviorCreateItem>
+      <BehaviorCreateItem title="파일 업로드 (선택사항)" :required="false" class="mb-2">
+        <template #body-content>
+          <Card class="outline-card" color="secondary" type="outlined">
+            <template #body-content>
+              <div class="flex flex-justify-center flex-col flex-items-center">
+                <Inputfile :showDefaultImage="false" class="mb-2" />
+                <p class="text-color">문제행동 시 사진이나 동영상을 첨부해주세요</p>
+              </div>
+            </template>
+          </Card>
         </template>
       </BehaviorCreateItem>
       <BehaviorCreateItem title="태그" :required="false">
@@ -67,9 +79,11 @@
 <script setup>
 import { ref } from "vue";
 import Button from "@/components/core/Button/Button.vue";
+import Card from "@/components/core/Card/Card.vue";
 import BehaviorCreateItem from "@/components/expanded/BehaviorCreateItem.vue";
 import Input from "@/components/core/Input/Input.vue";
 import InputTextarea from "@/components/core/Input/InputTextarea.vue";
+import Inputfile from "@/components/core/Input/Inputfile.vue";
 
 const title = ref('');
 const content = ref('');
@@ -98,5 +112,10 @@ const saveInfo = () => {
 .text-color {
   color: var(--s-semantic-primary-font-info-default);
 }
+
+.outline-card {
+  border: 3px dashed var(--s-semantic-primary-background-light-default) !important;
+}
+
 
 </style>

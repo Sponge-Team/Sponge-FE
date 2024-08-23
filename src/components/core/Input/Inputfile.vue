@@ -1,11 +1,12 @@
 <template>
   <div class="position-relative">
-    <div class="flex flex-justify-center flex-items-center position-relative"
-         :style="imgStyles">
-      <img v-if="!imageData" src="@/lib/assets/svg/ic_user.svg" alt="유저 기본 이미지" style="width: 28px; height: 28px;">
-      <img v-if="imageData" :src="imageData" alt="Uploaded Image Preview" style="width: auto; height: 100%;" />
-    </div>
-    <div class="flex flex-justify-center flex-items-center position-absolute" :style="styles">
+    <template v-if="showDefaultImage">
+      <div class="flex flex-justify-center flex-items-center position-relative" :style="imgStyles">
+        <img v-if="!imageData" src="@/lib/assets/svg/ic_user.svg" alt="유저 기본 이미지" style="width: 28px; height: 28px;">
+        <img v-if="imageData" :src="imageData" alt="Uploaded Image Preview" style="width: auto; height: 100%;" />
+      </div>
+    </template>
+    <div class="flex flex-justify-center flex-items-center position-relative" :style="styles">
       <label for="file">
       <span>
         <img src="@/lib/assets/svg/ic_camera.svg" alt="파일 업로드 버튼">
@@ -39,6 +40,10 @@ const props = defineProps({
   disabled: {
     type: Boolean,
     default: false,
+  },
+  showDefaultImage: {
+    type: Boolean,
+    default: true
   }
 });
 
