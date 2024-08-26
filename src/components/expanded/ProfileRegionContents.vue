@@ -3,11 +3,9 @@
     <div class="overflow-auto">
       <ProfileItem title="주요 활동지역 선택" desc="(중복선택 가능)">
         <template #body-content>
-          <div class="flex flex-wrap" :style="isActiveOtherRegions === true ? 'gap:10px;' : ''">
-            <div v-for="(item, i) in list"
-                 :style="isActiveOtherRegions === true ? 'flex: 1 1 calc(33.333% - 10px);' : 'flex: 1 1 calc(33.333% - 10px)' ">
+          <div class="flex flex-wrap">
+            <div v-for="(item, i) in modifiedList">
               <Button
-                  v-if="i < showCount"
                   :color="openMajorRegion === item.major ? 'primary' : 'tertiary'" rounded="square" :key="'major-list'+i"
                   @click="showRegionList(item.major)" style="width: 100%;">
                 <template #default>
@@ -15,7 +13,7 @@
                 </template>
               </Button>
             </div>
-            <Button v-if="isActiveOtherRegions === false" @click="isActiveOtherRegions = true, showCount = list.length" color="tertiary" rounded="square"><template #default>...</template></Button>
+            <Button v-if="isActiveOtherRegions === false" @click="[isActiveOtherRegions = true, setList()]" color="tertiary" rounded="square"><template #default>...</template></Button>
           </div>
           <div v-if="selectedRegionList.length > 0" class="mt-5 mb-5 flex-justify-start flex flex-items-center">
             <TagButton v-for="(item, i) in selectedRegionList" :key="'selectedRegionList'+i"
@@ -49,7 +47,7 @@
 <script setup>
 import ProfileItem from "@/components/expanded/ProfileItem.vue";
 import Button from "@/components/core/Button/Button.vue";
-import {computed, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import TagButton from "@/components/core/Tag/TagButton.vue";
 
 const props = defineProps({})
@@ -384,15 +382,26 @@ const list = ref([
     isActive: false,
   }
 ])
+const modifiedList = ref([])
+
+const setList = () => {
+  modifiedList.value = []
+  if(isActiveOtherRegions === true){
+    modifiedList.value.push(list.value)
+  }else{
+    for(let i = 0; i < list.value.length; i++){
+      let major = list.value[i].major
+      if(major === '서울' || major === '경기' || major === '인천' || major === '부산'){
+        modifiedList.value.push(list.value[i])
+      }
+    }
+  }
+}
+onMounted(()=>{
+  setList()
+})
 const isActiveOtherRegions = ref(false)
 const openMajorRegion = ref('')
-const showCount = ref(4)
-
-const buttonWrapStyles = computed(()=>{
-  return {
-
-  }
-})
 
 const showRegionList = (item) => {
   if(openMajorRegion.value !== item){
