@@ -53,22 +53,32 @@
         </Card>
       </template>
     </div>
+    <div class="p3 button-fixed">
+      <Button
+        class="w-full"
+        :color="isNextButtonEnabled ? 'primary' : 'tertiary'"
+        :disabled="!isNextButtonEnabled"
+        @click="$emit('next')"
+      >
+        다음
+      </Button>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
 import { ref, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { fetchDogsByUserId } from '@/apis/fakeApi.js';
-
-import Button from "@/components/core/Button/Button.vue";
 import Card from "@/components/core/Card/Card.vue";
 import Checkbox from "@/components/core/Checkbox/Checkbox.vue";
+import Button from "@/components/core/Button/Button.vue";
 import defaultImage from '@/lib/assets/svg/ic_dog.svg';
 
 const route = useRoute();
 const dogs = ref([]);
 const checkedDogsMap = ref({});
+const isNextButtonEnabled = ref(false);
 
 onMounted(async () => {
   const userId = parseInt(route.query.userId);
@@ -84,11 +94,8 @@ onMounted(async () => {
   }
 });
 
-const emit = defineEmits(['dog-selected']);
-watch(checkedDogsMap, (newValue) => {
-  for (const dogId in newValue) {
-    emit('dog-selected', { dogId, isChecked: newValue[dogId] });
-  }
+watch(checkedDogsMap, (newCheckedDogsMap) => {
+  isNextButtonEnabled.value = Object.values(newCheckedDogsMap).some(status => status);
 }, { deep: true });
 
 const formatAge = (ageInMonths) => {
@@ -99,6 +106,14 @@ const formatAge = (ageInMonths) => {
 </script>
 
 <style scoped>
+.button-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
 .secondary {
   background-color: var(--s-semantic-desc-font-normal-default);
   color: var(--s-palette-main-lighten-100);

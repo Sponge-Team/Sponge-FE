@@ -17,24 +17,44 @@
         {{ category }}
       </Button>
     </div>
+    <div class="button-fixed flex justify-center">
+      <Button
+        class="w45% mr-2"
+        color="quaternary"
+        @click="goBack"
+      >
+        뒤로
+      </Button>
+      <Button
+        class="w45%"
+        :color="selectedCategories.length > 0 ? 'primary' : 'tertiary'"
+        :disabled="selectedCategories.length === 0"
+        @click="goNext"
+      >
+        다음
+      </Button>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted  } from 'vue';
+import { ref, onMounted } from 'vue';
 import Button from "@/components/core/Button/Button.vue";
 import { fetchProblemCode } from '@/apis/fakeApi';
 
-const categories = ref([])
+const categories = ref([]);
 const selectedCategories = ref([]);
+const emit = defineEmits(['next', 'back']);
+const currentPage = ref(2);
 
 onMounted(async () => {
   const response = await fetchProblemCode();
-    try {
-      categories.value = response.map(category => category.name);
-    } catch (error) {
-      console.error("데이터를 불러오는 중 오류가 발생했습니다.", error);
+  try {
+    categories.value = response.map(category => category.name);
+  } catch (error) {
+    console.error("데이터를 불러오는 중 오류가 발생했습니다.", error);
   }
+  
   const savedCategories = JSON.parse(localStorage.getItem('selectedCategories')) || [];
   selectedCategories.value = savedCategories;
 });
@@ -51,11 +71,30 @@ function selectCategory(category) {
   }
   localStorage.setItem('selectedCategories', JSON.stringify(selectedCategories.value));
 }
+
+function goBack() {
+  localStorage.removeItem('selectedCategories');
+  emit('back');
+}
+
+function goNext() {
+  if (selectedCategories.value.length > 0) {
+    emit('next'); // 다음 페이지로 이동 (currentPage 3로)
+  }
+}
 </script>
 
 <style scoped>
 .secondary {
   background-color: var(--s-semantic-desc-font-normal-default);
   color: var(--s-palette-main-lighten-100);
+}
+
+.button-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
 }
 </style>
