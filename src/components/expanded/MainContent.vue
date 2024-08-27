@@ -25,7 +25,7 @@
     </div>
 
     <!-- Cards -->
-    <div class="cards-container flex flex-wrap gap-4 p-2">
+    <div class="cards-container flex flex-wrap gap-4 p2">
       <Card
         v-for="(card, index) in cards"
         :key="index"
@@ -43,16 +43,19 @@
           </div>
 
           <div class="mt-2">
-            <p class="s-title-01 card-title">{{ card.title }}</p>
-            <p class="content-body mt-2 s-body-02">{{ card.body }}</p>
+            <p class="s-title-01 truncate">{{ card.title }}</p>
+            <p class="mt-2 s-body-02" style="color: var(--s-semantic-primary-font-info-default);">{{ card.body }}</p>
           </div>
 
-          <div class="footer mt-1 s-body-02">
-            <img src="@/lib/assets/svg/ic_chat_y.svg" alt="답변" class="icon" />
-            <span class="primary">훈련사 답변 {{ card.commentsCount }}</span>
-            <span class="secondary">|</span>
-            <img src="@/lib/assets/svg/Ic_like.svg" alt="추천" class="icon" />
-            <span class="secondary">추천 {{ card.recommendsCount }}</span>
+          <div class="flex justify-between items-center mt-2 s-body-02">
+            <div class="flex items-center">
+              <img src="@/lib/assets/svg/ic_chat_y.svg" alt="답변" class="icon" />
+              <span class="primary">훈련사 답변 {{ card.commentsCount }}</span>
+              <span class="secondary">|</span>
+              <img src="@/lib/assets/svg/Ic_like.svg" alt="추천" class="icon" />
+              <span class="secondary">추천 {{ card.recommendsCount }}</span>
+            </div>
+            <span class="secondary">{{ timeAgo(card.createdAt) }}</span>
           </div>
         </template>
       </Card>
@@ -65,6 +68,8 @@ import { ref } from 'vue';
 import Button from "@/components/core/Button/Button.vue";
 import Card from "@/components/core/Card/Card.vue";
 import Tag from "@/components/core/Tag/Tag.vue";
+import { formatDistanceToNow } from 'date-fns';
+import { ko } from 'date-fns/locale';
 
 const props = defineProps({
   buttons: {
@@ -83,6 +88,12 @@ const emit = defineEmits(['filterPosts']);
 function handleButtonClick(index, buttonText) {
   activeButtonIndex.value = index;
   emit('filterPosts', buttonText);
+}
+
+// 작성일 계산 (date-fns 라이브러리)
+function timeAgo(dateString) {
+  const date = new Date(dateString);
+  return formatDistanceToNow(date, { addSuffix: true, locale: ko });
 }
 </script>
 
@@ -120,23 +131,11 @@ function handleButtonClick(index, buttonText) {
   border-radius: 0.25em;
 }
 
-.content-body {
-  color: var(--s-semantic-primary-font-info-default);
-}
-
 .cards-container {
   background-color: var(--s-semantic-primary-background-light-default);
   width: 100%;
   min-height: 180px;
   padding-bottom: 80px;
-}
-
-.footer {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  color: var(--s-semantic-secondary-font-strong-default);
-  white-space: nowrap;
 }
 
 .icon {
@@ -155,11 +154,5 @@ function handleButtonClick(index, buttonText) {
   color: var(--s-semantic-secondary-font-strong-default);
   margin: 0 4px;
   vertical-align: middle;
-}
-
-.card-title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 </style>

@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "userId": 1,
     "email": "user1@example.com",
     "name": "김민수",
     "gender": 1,
@@ -10,7 +10,7 @@
     "modified_at": "2023-01-15T12:34:56Z"
   },
   {
-    "id": 2,
+    "userId": 2,
     "email": "user2@example.com",
     "name": "박소연",
     "gender": 3,
@@ -20,7 +20,7 @@
     "modified_at": "2023-02-10T14:20:00Z"
   },
   {
-    "id": 3,
+    "userId": 3,
     "email": "user3@example.com",
     "name": "이재현",
     "gender": 1,
@@ -30,7 +30,7 @@
     "modified_at": "2023-03-05T16:15:32Z"
   },
   {
-    "id": 4,
+    "userId": 4,
     "email": "user4@example.com",
     "name": "최은지",
     "gender": 3,

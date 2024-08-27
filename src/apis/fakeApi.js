@@ -10,10 +10,10 @@ export const fetchProblemPosts = async () => {
     });
 };
 
-export const fetchUserById = async (id) => {
+export const fetchUserById = async (userId) => {
   return axios.get('/src/apis/userData.json')
     .then(response => {
-      const user = response.data.find(user => user.id === id);
+      const user = response.data.find(user => user.userId === userId);
       return user || null;
     })
     .catch(error => {

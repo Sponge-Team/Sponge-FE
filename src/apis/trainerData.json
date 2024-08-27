@@ -1,0 +1,89 @@
+[
+  {
+    "trainerId": 1,
+    "name": "김철수",
+    "gender": 1,
+    "phone": "010-1234-5678",
+    "profileImgUrl": "",
+    "content": "강아지와 함께하는 시간을 가장 소중하게 생각하는 훈련사입니다. 믿을 수 있는 방법으로 여러분의 반려견을 훈련하겠습니다.",
+    "years": 5,
+    "addressList": [
+      {
+        "city": "서울",
+        "town": "강서구"
+      }
+    ],
+    "historyList": [
+      {
+        "title": "강아지 훈련소 근무",
+        "startDt": "20170101",
+        "endDt": "20201231",
+        "description": "강아지 기본 복종 훈련 및 문제 행동 교정 업무를 담당하였습니다."
+      },
+      {
+        "title": "자유 강아지 훈련사",
+        "startDt": "20210101",
+        "endDt": "현재",
+        "description": "개인 맞춤형 강아지 훈련 서비스를 제공하고 있습니다."
+      }
+    ]
+  },
+  {
+    "trainerId": 2,
+    "name": "이영희",
+    "gender": 3,
+    "phone": "010-9876-5432",
+    "profileImgUrl": "",
+    "content": "다양한 강아지와의 경험을 바탕으로 문제 행동 교정과 복종 훈련에 뛰어난 강아지 훈련사입니다.",
+    "years": 7,
+    "addressList": [
+      {
+        "city": "부산",
+        "town": "해운대구"
+      }
+    ],
+    "historyList": [
+      {
+        "title": "부산 훈련소 근무",
+        "startDt": "20150101",
+        "endDt": "20191231",
+        "description": "강아지 행동 교정 및 사회화 훈련 프로그램을 운영하였습니다."
+      },
+      {
+        "title": "자유 강아지 훈련사",
+        "startDt": "20200101",
+        "endDt": "현재",
+        "description": "해운대구 지역에서 강아지 개인 훈련을 진행하고 있습니다."
+      }
+    ]
+  },
+  {
+    "trainerId": 3,
+    "name": "박민수",
+    "gender": 1,
+    "phone": "010-1122-3344",
+    "profileImgUrl": "",
+    "content": "강아지와 함께하는 훈련을 통해 반려견과 주인의 유대감을 높이는 데 중점을 둡니다.",
+    "years": 10,
+    "addressList": [
+      {
+        "city": "인천",
+        "town": "남동구"
+      }
+    ],
+    "historyList": [
+      {
+        "title": "인천 동물 병원 근무",
+        "startDt": "20120101",
+        "endDt": "20161231",
+        "description": "병원 내 반려견 훈련 프로그램을 운영하며, 문제 행동 교정 및 사회화 훈련을 담당했습니다."
+      },
+      {
+        "title": "자유 강아지 훈련사",
+        "startDt": "20170101",
+        "endDt": "현재",
+        "description": "인천 지역을 중심으로 강아지 훈련 서비스를 제공하고 있습니다."
+      }
+    ]
+  }
+]

@@ -52,7 +52,7 @@ const tokenGetter = computed(() => store.getters['token/getToken'] || { access_t
 const isLoggedIn = computed(() => true);
 
 const userProfile = ref({
-  id: null,
+  userId: null,
   name: null,
   image: null,
   role: null
@@ -66,9 +66,8 @@ const filteredPosts = ref([]);
 // 아이디가 1인 유저를 호출하는 경우 예시, 나중에 삭제할 것
 onMounted(async () => {
   try {
-    const userId = 4;
+    const userId = 1;
     const fetchedUser = await fetchUserById(userId);
-
     if (fetchedUser) {
       userProfile.value.userId = userId;
       userProfile.value.name = fetchedUser.name;
@@ -90,13 +89,14 @@ onMounted(async () => {
       
     const response = await fetchProblemPosts();
     posts.value = response.map(post => ({
-      id: post.id,
+      userId: post.userId,
       problemCode: post.problem_code,
       tags: post.tag,
       title: post.title,
       body: post.content.substring(0, 58) + '...',
       commentsCount: post.comment.length,
-      recommendsCount: post.recommend
+      recommendsCount: post.recommend,
+      createdAt: post.createdAt
     }));
     filteredPosts.value = posts.value;
   } catch (error) {
