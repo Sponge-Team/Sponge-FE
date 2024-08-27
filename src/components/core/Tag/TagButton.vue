@@ -1,9 +1,9 @@
 <template>
-  <div class="s-title-03 flex flex-justify-between flex-items-center" :style="style">
-    <div class="mr-2">
+  <div class="s-title-03 flex flex-items-center" :style="style">
+    <div style="width: max-content;" class="pr-2">
       <slot></slot>
     </div>
-    <img src="@/lib/assets/svg/ic_close.svg" alt="" @click="removeTag">
+    <img src="@/lib/assets/svg/ic_close.svg" class="pr-2" alt="" @click="removeTag">
   </div>
 </template>
 <script setup>

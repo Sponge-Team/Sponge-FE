@@ -6,7 +6,7 @@
         <img v-if="imageData" :src="imageData" alt="Uploaded Image Preview" style="width: auto; height: 100%;" />
       </div>
     </template>
-    <div class="flex flex-justify-center flex-items-center position-relative" :style="styles">
+    <div class="flex flex-justify-center flex-items-center position-absolute" :style="styles"> <!-- 요기 absolute 부분은 수정하지 말아주세요ㅠ -->
       <label for="file">
       <span>
         <img src="@/lib/assets/svg/ic_camera.svg" alt="파일 업로드 버튼">

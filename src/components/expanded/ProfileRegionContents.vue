@@ -3,37 +3,36 @@
     <div class="overflow-auto">
       <ProfileItem title="주요 활동지역 선택" desc="(중복선택 가능)">
         <template #body-content>
-          <div class="flex flex-wrap">
-            <div v-for="(item, i) in modifiedList">
-              <Button
-                  :color="openMajorRegion === item.major ? 'primary' : 'tertiary'" rounded="square" :key="'major-list'+i"
-                  @click="showRegionList(item.major)" style="width: 100%;">
-                <template #default>
-                  {{item.major}}
-                </template>
-              </Button>
-            </div>
+          <div class="flex flex-wrap" style="gap: 10px;">
+            <Button
+                v-for="(item, i) in modifiedList"
+                :color="openMajorRegion === i ? 'primary' : 'tertiary'" rounded="square" :key="'major-list'+i"
+                @click="showRegionList(i)" :style="buttonStyle">
+              <template #default>
+                {{item.major}}
+              </template>
+            </Button>
             <Button v-if="isActiveOtherRegions === false" @click="[isActiveOtherRegions = true, setList()]" color="tertiary" rounded="square"><template #default>...</template></Button>
           </div>
-          <div v-if="selectedRegionList.length > 0" class="mt-5 mb-5 flex-justify-start flex flex-items-center">
+          <div v-if="selectedRegionList.length > 0" class="mt-5 mb-5 flex-justify-start flex flex-items-center" style="width: 100%; overflow-x: auto;">
             <TagButton v-for="(item, i) in selectedRegionList" :key="'selectedRegionList'+i"
                        :class="selectedRegionList.length !== i ? 'mr-2' : ''"
                        @close="()=>{deleteSelectedRegion(item.major, item.sub)}"
             >
-              <div class="flex flex-justify-between flex-items-center">
+              <div class="flex flex-items-center" style="width: max-content;">
                 <p>{{item.major}}</p>
-                <img class="mr-2 ml-2" src="@/lib/assets/svg/ic_arrow_right_y.svg" alt="#">
+                <img class="mr-2 ml-2" src="@/lib/assets/svg/ic_arrow_right_y.svg" alt="#"">
                 <p>{{item.sub}}</p>
               </div>
             </TagButton>
           </div>
-          <ul v-if="openMajorRegion !== ''">
-            <li v-for="(item, i) in list[openMajorRegion].sub" :key="'region-list-' + i" class="s-body-02 pt-2 pb-2"
+          <div v-if="openMajorRegion !== null" :class="selectedRegionList.length === 0 ? 'mt-5' : ''">
+            <div v-for="(item, i) in list[openMajorRegion].sub" :key="'region-sub-list-'+ i" class="s-body-02 pt-2 pb-2"
                 style="color:var(--s-semantic-primary-font-info-default); border-bottom: 1px solid var(--s-semantic-primary-stroke-info-default);"
                 @click="setSelectedRegionList(openMajorRegion, item)">
               {{item}}
-            </li>
-          </ul>
+            </div>
+          </div>
         </template>
       </ProfileItem>
     </div>
@@ -386,8 +385,10 @@ const modifiedList = ref([])
 
 const setList = () => {
   modifiedList.value = []
-  if(isActiveOtherRegions === true){
-    modifiedList.value.push(list.value)
+  if(isActiveOtherRegions.value === true){
+    for(let i = 0; i < list.value.length; i++){
+      modifiedList.value.push(list.value[i])
+    }
   }else{
     for(let i = 0; i < list.value.length; i++){
       let major = list.value[i].major
@@ -400,36 +401,48 @@ const setList = () => {
 onMounted(()=>{
   setList()
 })
-const isActiveOtherRegions = ref(false)
-const openMajorRegion = ref('')
 
-const showRegionList = (item) => {
-  if(openMajorRegion.value !== item){
-    openMajorRegion.value = item
+const isActiveOtherRegions = ref(false)
+const openMajorRegion = ref(null)
+
+const showRegionList = (index) => {
+  if(openMajorRegion.value !== index) {
+    openMajorRegion.value = index
   }else{
-    openMajorRegion.value = ''
+    openMajorRegion.value = null
   }
 }
 
 const selectedRegionList = ref([])
 
-const setSelectedRegionList = (major, item) => {
-  const exists = selectedRegionList.value.some(region => {
-    return region.major === major && region.sub === item;
-  });
+const setSelectedRegionList = (index, item) => {
+  const exists = list.value[index];
 
-  // 동일한 객체가 없으면 push
-  if (!exists) {
+  // 중복 체크
+  const isDuplicate = selectedRegionList.value.some(
+      region => region.major === exists.major && region.sub === item
+  );
+
+  // 중복되지 않고, 선택된 지역 리스트가 5개 이하일 경우에만 추가
+  if (!isDuplicate && selectedRegionList.value.length <= 5) {
     selectedRegionList.value.push({
-      major: major,
+      major: exists.major,
       sub: item
     });
   }
-}
+};
+
 
 const deleteSelectedRegion = (major, sub) => {
   selectedRegionList.value = selectedRegionList.value.filter(region => {
     return !(region.major === major && region.sub === sub);
   });
 }
+
+const buttonStyle = computed(()=>{
+  return {
+    flex: isActiveOtherRegions.value === false ?  '1 1 calc(20% - 10px)' : '1 1 calc(33.33333% - 10px)',
+    maxWidth: 'calc(33.33333% - 10px)'
+  }
+})
 </script>
