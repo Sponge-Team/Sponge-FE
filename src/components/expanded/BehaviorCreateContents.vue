@@ -5,7 +5,7 @@
       <Button color="primary" class="ml-3">2</Button>
       <Button color="primary" class="ml-3">3</Button>
     </div>
-    <div class="p5" style="padding-bottom: 80px;">
+    <div class="p5">
       <div class="s-heading-00">문제행동에 해당되는 <br> 내용을 선택해주세요</div>
       <p class="text-color mt-2">더 확실한 솔루션을 받는데 도움이 돼요!</p>
 
@@ -53,8 +53,8 @@
           <Card class="outline-card" color="secondary" type="outlined">
             <template #body-content>
               <div class="flex flex-justify-center flex-col flex-items-center">
-                <Inputfile :showDefaultImage="false" class="mb-2" @fileUpload="handleFileUpload" />
-                <p class="text-color">문제행동 시 사진이나 동영상을 첨부해주세요</p>
+                <BehaviorFileUploader class="mb-2" @fileUpload="handleFileUpload" />
+                <p class="text-color">문제행동 사진이나 동영상을 첨부해주세요</p>
               </div>
             </template>
           </Card>
@@ -76,6 +76,17 @@
       </BehaviorCreateItem>
     </div>
 
+    <div class="caution-container p5">
+      <p class="text-color s-body-01">경고 & 주의사항</p>
+      <div class="p1">
+        <p class="text-color s-body-04">• 이 게시글은 모두에게 공개됩니다.</p>
+        <p class="text-color s-body-04">• 공격적이거나 부적절한 표현은 자제해주시기 바랍니다.</p>
+        <p class="text-color s-body-04">• 타인을 비방하거나 허위 사실을 유포하는 게시글은 삭제될 수 있습니다.</p>
+        <p class="text-color s-body-04">• 작성된 내용은 상담 목적으로 내부 검토 및 분석에 활용될 수 있습니다.</p>
+        <p class="text-color s-body-04">• 모든 게시글에 답변이 달리지 않을 수 있으니 양해 부탁드립니다</p>
+      </div>
+    </div>
+
     <div class="button-container flex justify-center">
       <Button class="w45% mr-2" color="quaternary" @click="goBack">뒤로</Button>
       <Button class="w45%" color="primary" @click="openModalWithValidation">완료</Button>
@@ -88,7 +99,7 @@
       @update:translateY="val => translateY = val"
       style="z-index: 2000;"
     >
-      <div class="p5 center-content" style="height: 250px;">
+      <div class="p5 flex flex-col items-center justify-center text-center" style="height: 250px;">
         <p class="s-heading-00">작성한 글을 등록하시겠어요?</p>
         <p class="text-color mt-3 mb-5">작성한 내용을 바탕으로 진단받을 수 있으며,<br>게시글이 올라간 후에도 수정할 수 있어요.</p>
         <Button class="w-full mb-2" color="quaternary" @click="closeModal">닫기</Button>
@@ -104,11 +115,12 @@ import { useRouter } from 'vue-router';
 
 import Button from "@/components/core/Button/Button.vue";
 import Card from "@/components/core/Card/Card.vue";
-import BehaviorCreateItem from "@/components/expanded/BehaviorCreateItem.vue";
 import Input from "@/components/core/Input/Input.vue";
 import InputTextarea from "@/components/core/Input/InputTextarea.vue";
-import Inputfile from "@/components/core/Input/Inputfile.vue";
 import Dialog from "@/components/core/Dialog/Dialog.vue";
+
+import BehaviorCreateItem from "@/components/expanded/BehaviorCreateItem.vue";
+import BehaviorFileUploader from "@/components/expanded/BehaviorFileUploader.vue";
 
 import { useDialog } from "@/composables/useDialog";
 const { isActive, translateY, openModal, closeModal } = useDialog();
@@ -159,9 +171,9 @@ const saveAndComplete = () => {
   localStorage.removeItem('currentPage');
   router.push({ path: '/' });
 };
-
+const emit = defineEmits(['back']);
 const goBack = () => {
-  router.back();
+  emit('back');
 };
 </script>
 
@@ -189,11 +201,10 @@ const goBack = () => {
   z-index: 1000;
 }
 
-.center-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+.caution-container {
+  background-color: var(--s-semantic-primary-background-light-default);
+  width: 100%;
+  height: 200px;
+  padding-bottom: 190px;
 }
 </style>

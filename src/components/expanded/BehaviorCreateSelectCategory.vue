@@ -79,7 +79,7 @@ function goBack() {
 
 function goNext() {
   if (selectedCategories.value.length > 0) {
-    emit('next'); // 다음 페이지로 이동 (currentPage 3로)
+    emit('next');
   }
 }
 </script>
