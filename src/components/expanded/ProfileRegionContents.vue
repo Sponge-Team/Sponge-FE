@@ -21,7 +21,7 @@
             >
               <div class="flex flex-items-center" style="width: max-content;">
                 <p>{{item.major}}</p>
-                <img class="mr-2 ml-2" src="@/lib/assets/svg/ic_arrow_right_y.svg" alt="#"">
+                <img class="mr-2 ml-2" src="@/lib/assets/svg/ic_arrow_right_y.svg" alt="#">
                 <p>{{item.sub}}</p>
               </div>
             </TagButton>
@@ -36,7 +36,7 @@
         </template>
       </ProfileItem>
     </div>
-    <Button class="mt-5" size="l" style="width: 100%;">
+    <Button class="mt-5" size="l" style="width: 100%;" @click="saveRegion">
       <template #default>
         <p class="s-heading-02">저장</p>
       </template>
@@ -48,6 +48,7 @@ import ProfileItem from "@/components/expanded/ProfileItem.vue";
 import Button from "@/components/core/Button/Button.vue";
 import {computed, onMounted, ref} from "vue";
 import TagButton from "@/components/core/Tag/TagButton.vue";
+import store from "@/store/index.js";
 
 const props = defineProps({})
 const list = ref([
@@ -445,4 +446,14 @@ const buttonStyle = computed(()=>{
     maxWidth: 'calc(33.33333% - 10px)'
   }
 })
+
+const saveRegion = () => {
+  const userRegion = {
+    userRegion: selectedRegionList.value,
+  };
+
+  store.dispatch('setProfileLevel', {mode: 'LIST', title: '', step: 'MAIN', percentage: 0})
+
+  localStorage.setItem('userRegion', JSON.stringify(userRegion));
+};
 </script>

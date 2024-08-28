@@ -3,7 +3,7 @@
     <template v-if="showDefaultImage">
       <div class="flex flex-justify-center flex-items-center position-relative" :style="imgStyles">
         <img v-if="!imageData" src="@/lib/assets/svg/ic_user.svg" alt="유저 기본 이미지" style="width: 28px; height: 28px;">
-        <img v-if="imageData" :src="imageData" alt="Uploaded Image Preview" style="width: auto; height: 100%;" />
+        <img v-if="imageData" :src="imageData" alt="Uploaded Image Preview" style="width: 100%; height: 100%;object-fit: cover;" />
       </div>
     </template>
     <div class="flex flex-justify-center flex-items-center position-absolute" :style="styles"> <!-- 요기 absolute 부분은 수정하지 말아주세요ㅠ -->

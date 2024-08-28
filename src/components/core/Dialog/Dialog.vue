@@ -5,7 +5,7 @@
       @click="closeModal"
   >
     <div
-        class="modal-content position-relative pl-5 pr-5 pt-5"
+        class="modal-content position-relative p5"
         :style="{ transform: `translateY(${translateY}px)` }"
         @touchstart="onTouchStart"
         @touchmove="onTouchMove"

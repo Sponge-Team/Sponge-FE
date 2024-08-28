@@ -4,6 +4,7 @@
       <p>{{title}}</p>
       <span v-if="required === true" class="s-heading-03" style="color:var(--s-semantic-head-font-hightlight-default);">*</span>
       <span class="s-title-02 ml-2" style="color:var(--s-semantic-desc-font-normal-default);">{{desc}}</span>
+      <slot class="m1-2" name="title-count"></slot>
     </div>
     <slot name="body-content"></slot>
   </div>
