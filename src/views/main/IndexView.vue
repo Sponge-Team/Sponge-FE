@@ -43,7 +43,7 @@ import MainBanner from "@/components/expanded/MainBanner.vue";
 import MainContent from "@/components/expanded/MainContent.vue";
 import store from "@/store/index.js";
 import { computed, ref, onMounted } from 'vue';
-import { fetchUserById, fetchProblemPosts, fetchProblemCode } from '@/apis/fakeApi.js';
+import { fetchUserById, fetchProblemPosts, fetchProblemCode, fetchAnswerPosts } from '@/apis/fakeApi.js';
 
 import defaultImage from '@/lib/assets/svg/ic_user.svg';
 
@@ -86,15 +86,24 @@ onMounted(async () => {
     } catch (error) {
         console.error("데이터를 불러오는 중 오류가 발생했습니다.", error);
     }
-      
-    const response = await fetchProblemPosts();
-    posts.value = response.map(post => ({
+    const answerResponse  = await fetchAnswerPosts();
+    const problemResponse = await fetchProblemPosts();
+
+    const answerCountMap = answerResponse.reduce((map, answer) => {
+      if (!map[answer.problemPostId]) {
+        map[answer.problemPostId] = 0;
+      }
+      map[answer.problemPostId]++;
+      return map;
+    }, {});
+
+    posts.value = problemResponse.map(post => ({
       userId: post.userId,
       problemCode: post.problem_code,
       tags: post.tag,
       title: post.title,
       body: post.content.substring(0, 58) + '...',
-      commentsCount: post.comment.length,
+      commentsCount: answerCountMap[post.id] || 0,
       recommendsCount: post.recommend,
       createdAt: post.createdAt
     }));

@@ -3,12 +3,12 @@
     <ul class="flex w-full flex-justify-start p2">
       <li class="flex flex-justify-center w25%">
         <RouterLink to="/">
-          <img src="@/lib/assets/svg/ic_nav_home.svg" alt="홈 버튼">
+          <img :src="homeIcon" alt="홈 버튼">
         </RouterLink>
       </li>
       <li class="flex flex-justify-center w25%">
         <RouterLink to="/case">
-          <img src="@/lib/assets/svg/ic_nav_ex_diag.svg" alt="진단사례">
+          <img :src="caseIcon" alt="진단사례">
         </RouterLink>
       </li>
       <li class="flex flex-justify-center w25%">
@@ -25,6 +25,23 @@
   </div>
 </template>
 <script setup>
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+import homeIconInactive from '@/lib/assets/svg/ic_nav_home_g.svg';
+import homeIconActive from '@/lib/assets/svg/ic_nav_home.svg';
+import caseIconActive from '@/lib/assets/svg/ic_nav_ex_diag_y.svg';
+import caseIconInactive from '@/lib/assets/svg/ic_nav_ex_diag.svg';
+
+const route = useRoute();
+
+const homeIcon = computed(() => {
+  return route.path === '/' ? homeIconActive : homeIconInactive;
+});
+
+const caseIcon = computed(() => {
+  return route.path === '/case' ? caseIconActive : caseIconInactive;
+});
 </script>
 <style>
 .nav-bar {

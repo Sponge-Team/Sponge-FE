@@ -51,3 +51,13 @@ export const fetchProblemCode = async () => {
       console.error("네트워크 오류", error);
     });
 };
+
+export const fetchAnswerPosts = async () => {
+  return axios.get('/src/apis/answerData.json')
+    .then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      console.error("네트워크 오류", error);
+    });
+};
