@@ -18,11 +18,11 @@
           :class="{'active-card': checkedDogsMap[dog.id]}"
         >
           <template #body-content>
-            <div class="dog-card-content">
+            <div class="flex items-center justify-between">
               <div class="dog-image-container">
                 <img :src="dog.image || defaultImage" alt="강아지 이미지">
               </div>
-              <div class="dog-info-container">
+              <div class="p-2 w-1/2">
                 <p class="s-title-01">{{ dog.name }} <span class="s-body-01 mb-3 text-color">{{ dog.breed }}</span></p>
                 <span class="mr-2 s-body-01 text-color">{{ dog.gender === 1 ? '수컷' : dog.gender === 3 ? '암컷' : '중성화' }}</span>
                 <span class="mr-2 s-body-01 text-color">•</span>
@@ -40,7 +40,7 @@
       <template v-else>
         <Card class="outline-card" color="secondary" type="outlined">
           <template #body-content>
-            <div class="center-content p2">
+            <div class="p2 flex flex-col items-center justify-center text-center">
               <RouterLink to="#">
                 <div class="add-dog-icon">
                   <img src="@/lib/assets/svg/ic_plus.svg" alt="강아지 추가하기">
@@ -119,14 +119,6 @@ const formatAge = (ageInMonths) => {
   color: var(--s-palette-main-lighten-100);
 }
 
-.center-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
 .outline-card {
   border: 3px dashed var(--s-semantic-primary-background-light-default) !important;
 }
@@ -140,12 +132,6 @@ const formatAge = (ageInMonths) => {
   position: relative;
 }
 
-.dog-card-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .dog-image-container {
   width: 82px;
   height: 82px;
@@ -154,11 +140,6 @@ const formatAge = (ageInMonths) => {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.dog-info-container {
-  padding: 0.5rem;
-  width: 50%;
 }
 
 .add-dog-icon {
