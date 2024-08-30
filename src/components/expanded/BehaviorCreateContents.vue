@@ -162,13 +162,17 @@ const validateFields = () => {
 
 const openModalWithValidation = () => {
   if (validateFields()) {
+    const behaviorContents = {'title': title.value, 'content': content.value, 'duration': duration.value, 'tag': tag.value, 'imageData': imageData.value}
+    localStorage.setItem('behaviorContents', JSON.stringify(behaviorContents));
     openModal(); 
   }
 };
 
 const saveAndComplete = () => {
-  localStorage.removeItem('selectedCategories');
+  // db 저장 로직 추가
   localStorage.removeItem('currentPage');
+  localStorage.removeItem('selectedCategories');
+  localStorage.removeItem('behaviorContents');
   router.push({ path: '/' });
 };
 const emit = defineEmits(['back']);

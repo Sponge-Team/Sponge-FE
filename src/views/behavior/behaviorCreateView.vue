@@ -47,6 +47,8 @@ watch(currentPage, (newPage) => {
 });
 
 const handleConfirm = () => {
+  localStorage.removeItem('currentPage');
+  localStorage.removeItem('selectedCategories');
   router.back();
   showDialog.value = false;
 };

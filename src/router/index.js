@@ -5,6 +5,7 @@ import profileRouter from "@/router/modules/profileRouter.js";
 import loginRouter from '@/router/modules/loginRouter.js';
 import behaviorRouter from '@/router/modules/behaviorRouter.js';
 import caseRouter from "@/router/modules/caseRouter.js";
+import myProfileRouter from '@/router/modules/myProfileRouter.js';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,7 +15,8 @@ const router = createRouter({
     profileRouter,
     loginRouter,
     ...behaviorRouter,
-    caseRouter
+    caseRouter,
+    ...myProfileRouter,
   ]
 })
 
