@@ -1,9 +1,10 @@
 <template>
-  <div class="flex justify-between pt4 pr4 pl4 buttons-container">
+  <div class="flex justify-between pr4 pl4 buttons-container">
     <Button
         v-for="(buttonText, index) in buttons"
         :key="index"
         color="transparent"
+        class="ml2 mr2"
         :class="{'active-button': activeButtonIndex === index}"
         @click="fnActiveButton(buttonText, index)"
         size="s"
@@ -41,7 +42,7 @@ const fnActiveButton = (item, idx) => {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -10px;
+  bottom: 0;
   width: 100%;
   height: 4px;
   background-color: var(--s-semantic-primary-font-strong-default);

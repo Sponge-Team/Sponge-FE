@@ -4,42 +4,69 @@
     <div v-if="caseViewMode === 'LIST'">
       <div class="overflow-hidden position-relative">
         <CaseTitle class="pt15 mb10"/>
-        <CaseContents
-            :buttons="['전체', '분리불안', '사회성', '요구성 짖음', '입질']"
-            :cards="filteredCases"
-            @updateButtonData="(data) => {fnFilteredCases(data)}">
-          <template #floatingButton>
-            <div class="position-fixed" style="bottom: 85px; right: 20px;">
-              <Button size="l" style="box-shadow: 4px 4px 20px 0 rgba(0, 0, 0, 0.25);" :rounded="isScroll === false ? 'rounded-circle' : 'circle'">
-                <template #default>
-                  <div class="flex flex-justify-between">
-                    <img src="@/lib/assets/svg/ic_write_full.svg" alt="문제행동 상담받기 이미지" :class="isScroll === false ? 'mr3' : ''">
-                    <p v-if="isScroll === false" class="s-heading-03">문제행동 상담받기</p>
-                  </div>
-                </template>
-              </Button>
+
+        <Card color="white" style="padding: 0;">
+          <template #body-content>
+            <div style="border-bottom: 1px solid #E8E8E8; height: 49px;">
+              <ToggleButtons :buttons="['전체', '분리불안', '배변', '짖음', '사회성', '공격성', '기본교육']" style="overflow-x: auto; height: 100%; white-space: nowrap;"/>
             </div>
+            <PostsCardContainer :cards="filteredCases" shape="square" @clickCase="(data) => {openTheCaseDetail(data)}"/>
           </template>
-        </CaseContents>
+        </Card>
+
+        <div class="position-fixed" style="bottom: 85px; right: 20px;">
+          <Button size="l" style="box-shadow: 4px 4px 20px 0 rgba(0, 0, 0, 0.25);" :rounded="isScroll === false ? 'rounded-circle' : 'circle'">
+            <template #default>
+              <div class="flex flex-justify-between">
+                <img src="@/lib/assets/svg/ic_write_full.svg" alt="문제행동 상담받기 이미지" :class="isScroll === false ? 'mr3' : ''">
+                <p v-if="isScroll === false" class="s-heading-03">문제행동 상담받기</p>
+              </div>
+            </template>
+          </Button>
+        </div>
       </div>
+
       <NavBar class="nav-bar"/>
     </div>
-    <div v-if="caseViewMode === 'SEARCH'">
-      <CaseContents
-          class="pt15"
-          :is-exits-buttons="false"
-          :cards="searchedCases"/>
+
+    <div v-if="caseViewMode === 'SEARCH'" class="pt15">
+      <Card color="white" style="padding: 0;">
+        <template #body-content>
+          <PostsCardContainer :cards="searchedCases" shape="square"/>
+        </template>
+      </Card>
+    </div>
+
+    <div v-if="caseViewMode === 'DETAIL'" class="pl5 pr5">
+      <div v-if="caseDetail !== {}" class="pt25">
+        <div class="flex justify-start">
+          <Tag :text="'#'+caseDetail.tag.main" class="mr2"/>
+          <Tag v-for="(item, i) in caseDetail.tag.sub" :key="'caseDetail.tag.sub.'+i" :text="'#'+item" color="secondary" :class="{'mr2' : caseDetail.tag.sub.length !== i}"/>
+        </div>
+        <div>
+          <p class="s-title-00">{{caseDetail.title}}</p>
+        </div>
+        <div>
+          <p>{{caseDetail.content.text}}</p>
+        </div>
+        <div>
+          <span v-for="(item, i) in caseDetail.tag.sub" class="s-body-00" :class="{'mr2' : i !== caseDetail.tag.sub.length}" :key="'caseDetail.tags.'+i" style="color: var(--s-semantic-primary-font-strong-default)">#{{item}}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script setup>
 import CaseWebBar from "@/components/expanded/CaseWebBar.vue";
-import CaseContents from "@/components/expanded/CaseContents.vue";
 import NavBar from "@/components/expanded/NavBar.vue";
 import {computed, onMounted, onUnmounted, ref} from "vue";
 import {fetchCsePosts} from "@/apis/fakeApi.js";
 import CaseTitle from "@/components/expanded/CaseTitle.vue";
 import Button from "@/components/core/Button/Button.vue";
+import PostsCardContainer from "@/components/core/Card/PostsCardContainer.vue";
+import ToggleButtons from "@/components/core/Button/ToggleButtons.vue";
+import Card from "@/components/core/Card/Card.vue";
+import Tag from "@/components/core/Tag/Tag.vue";
 
 const caseViewMode = ref('LIST')
 
@@ -54,7 +81,7 @@ const getCases = async () => {
     id: post.id,
     tags: post.tag,
     title: post.title,
-    body: post.content.substring(0, 58) + '...',
+    body: post.content.text.substring(0, 58) + '...',
     commentsCount: post.comment.length,
     recommendsCount: post.recommend
   }));
@@ -131,4 +158,14 @@ const fnFilteredCases = (selectedTags) => {
   }
 }
 
+const caseDetail = ref({})
+const openTheCaseDetail = async (id) => {
+  caseViewMode.value = 'DETAIL'
+  caseDetail.value = {}
+  const allData = await fetchCsePosts();
+
+  if (allData) {
+    caseDetail.value = allData.find(item => item.id === id);
+  }
+}
 </script>

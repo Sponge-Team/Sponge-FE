@@ -121,7 +121,6 @@ onMounted(()=> {
     userInfo.value = '';
   }
 
-  console.log(userInfo.value)
   if (localStorage.getItem('userRegion')) {
     const userRegions = JSON.parse(localStorage.getItem('userRegion')).userRegion;
     userRegion.value = userRegions.map(region => region.major + " " + region.sub).join(", ");

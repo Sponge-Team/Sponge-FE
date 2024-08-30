@@ -1,12 +1,13 @@
 <template>
   <div class="cards-container flex flex-wrap p3 pt2">
-    <Card :shape="shape" color="white" v-for="(card, i) in cards" :key="'case-card'+i" class="card-divider">
+    <Card :shape="shape" color="white" v-for="(card, i) in cards" :key="'case-card'+i" class="card-divider" @click="clickCase(card.id)">
       <template #body-content>
         <div class="flex items-center gap-2">
+          <Tag :text="'#' + card.tags.main" color="primary"/>
           <Tag
-              v-for="(tag, index) in card.tags"
+              v-for="(tag, index) in card.tags.sub"
               :key="index" :text="'#' + tag"
-              :color="index === 0 ? 'primary' : 'secondary'"
+              color="secondary"
           />
         </div>
 
@@ -40,6 +41,11 @@ const props = defineProps({
     default: 'rounded'
   }
 });
+
+const emit = defineEmits(['clickCase'])
+const clickCase = (id) => {
+  emit('clickCase', id)
+}
 </script>
 <style>
 .content-body {
