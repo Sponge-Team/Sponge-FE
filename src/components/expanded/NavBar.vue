@@ -17,7 +17,7 @@
         </RouterLink>
       </li>
       <li class="flex flex-justify-center w25%">
-        <RouterLink to="#">
+        <RouterLink to="/myprofile">
           <img src="@/lib/assets/svg/ic_nav_my.svg" alt="마이페이지">
         </RouterLink>
       </li>
