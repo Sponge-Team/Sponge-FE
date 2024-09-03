@@ -2,8 +2,9 @@
   {
     "id": 1,
     "name": "홍길동",
-    "createdAt": "2024/08/16 14:06:00",
+    "createdAt": "2024-08-16 14:06:00",
     "pet": {
+      "name": "라운",
       "species": "포메라니안",
       "gender": "M",
       "neutering": true,
@@ -34,9 +35,9 @@
       {
         "id": 2,
         "name": "최강희",
-        "selectedCommentCount": 54,
-        "advice": 12,
-        "selectYn": true,
+        "selectedCommentCount": 32,
+        "advice": 2,
+        "selectYn": false,
         "content": "안안녕하세요, 라운견주님,\n최강의 훈련사 최강희 입니다.\n\n견주님께서 써주신 설명만으로는 정확한 문제행동의 진단이 어려울 것 같습니다.\n강아지의 성격이나, 주인의 애착 관계, 외출 빈도 등 영향을 끼치는 요소가 다양하다보니 정확한 행동교정을 위해 요로케 해주셔야 할거같아용"
       }
     ],
@@ -46,7 +47,7 @@
   {
     "id": 2,
     "name": "유제니",
-    "createdAt": "2024/08/21 14:06:00",
+    "createdAt": "2024-08-21 14:06:00",
     "pet": {
       "species": "골든리트리버",
       "gender": "M",

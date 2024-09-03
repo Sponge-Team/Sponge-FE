@@ -83,6 +83,6 @@ const clickCase = (id) => {
 }
 
 .card-divider {
-  border-bottom: 1px solid #E8E8E8 !important;
+  border-bottom: 1px solid var(--s-semantic-secondary-border-default) !important;
 }
 </style>

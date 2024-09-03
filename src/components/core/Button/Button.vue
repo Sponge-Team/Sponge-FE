@@ -14,7 +14,7 @@ const props = defineProps({
   color: {
     type: String,
     default: 'primary',
-    validator: value => ['primary', 'secondary', 'tertiary', 'quaternary', 'quinary', 'outline-primary', 'transparent'].includes(value)
+    validator: value => ['primary', 'secondary', 'tertiary', 'quaternary', 'quinary', 'outline-primary', 'outline-secondary', 'transparent'].includes(value)
   },
   size: {
     type: String,
@@ -32,6 +32,7 @@ const buttonClasses = computed(() => {
   return {
     'primary-color': props.color === 'primary',
     'outline-primary-color': props.color === 'outline-primary',
+    'outline-secondary-color': props.color === 'outline-secondary',
     'secondary-color': props.color === 'secondary',
     'tertiary-color': props.color === 'tertiary',
     'quaternary-color': props.color === 'quaternary',
@@ -81,6 +82,12 @@ button {
   background-color: transparent;
   color: var(--s-palette-main-lighten-950);
   border: 2px solid var(--s-palette-main-lighten-950);
+}
+
+.outline-secondary-color {
+  background-color: transparent;
+  color: var(--s-semantic-secondary-font-strong-default);
+  border: 2px solid var(--s-semantic-secondary-border-light-default);
 }
 
 .secondary-color {

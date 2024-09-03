@@ -15,7 +15,7 @@ const props = defineProps({
   color: {
     type: String,
     default: 'primary',
-    validator: value => ['primary', 'secondary', 'white'].includes(value),
+    validator: value => ['primary', 'secondary', 'white', 'light'].includes(value),
   },
   shape: {
     type: String,
@@ -32,6 +32,8 @@ const style = computed(() => {
     componentColor = 'var(--s-semantic-primary-background-light-default)';
   } else if (color === 'white') {
     componentColor = 'var(--s-semantic-primary-background-white-default)';
+  } else if (color === 'light') {
+    componentColor = 'var(--s-semantic-tag-background-primary-default)';
   }
   return {
     background: type === 'filled' ? componentColor : 'transparent',
