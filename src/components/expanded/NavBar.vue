@@ -18,7 +18,7 @@
       </li>
       <li class="flex flex-justify-center w25%">
         <RouterLink to="/myprofile">
-          <img src="@/lib/assets/svg/ic_nav_my.svg" alt="마이페이지">
+          <img :src="myIcon" alt="마이페이지">
         </RouterLink>
       </li>
     </ul>
@@ -32,6 +32,8 @@ import homeIconInactive from '@/lib/assets/svg/ic_nav_home_g.svg';
 import homeIconActive from '@/lib/assets/svg/ic_nav_home.svg';
 import caseIconActive from '@/lib/assets/svg/ic_nav_ex_diag_y.svg';
 import caseIconInactive from '@/lib/assets/svg/ic_nav_ex_diag.svg';
+import myIconActive from '@/lib/assets/svg/ic_nav_my_y.svg';
+import myIconInactive from '@/lib/assets/svg/ic_nav_my.svg';
 
 const route = useRoute();
 
@@ -41,6 +43,10 @@ const homeIcon = computed(() => {
 
 const caseIcon = computed(() => {
   return route.path === '/case' ? caseIconActive : caseIconInactive;
+});
+
+const myIcon = computed(() => {
+  return route.path === '/myprofile' ? myIconActive : myIconInactive;
 });
 </script>
 <style>

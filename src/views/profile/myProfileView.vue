@@ -7,14 +7,18 @@
         </template>
       </Button>
     </div>
-    <MyProfileContents></MyProfileContents>
+    <MyProfileContents />
+    <MyProfileActivityHistory />
+    <NavBar />
   </div>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router';
 import Button from '@/components/core/Button/Button.vue';
+import NavBar from '@/components/expanded/NavBar.vue';
 import MyProfileContents from '@/components/expanded/MyProfileContents.vue';
+import MyProfileActivityHistory from '@/components/expanded/MyProfileActivityHistory.vue';
 
 const router = useRouter();
 const goBack = () => {

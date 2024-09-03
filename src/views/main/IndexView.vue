@@ -30,7 +30,7 @@
     >
       <template #title>최신 진단 사례</template>
     </MainContent>
-    <NavBar class="nav-bar"/>
+    <NavBar />
   </div>
 </template>
 

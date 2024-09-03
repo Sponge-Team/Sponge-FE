@@ -81,7 +81,7 @@ button {
 .outline-primary-color {
   background-color: transparent;
   color: var(--s-palette-main-lighten-950);
-  border: 2px solid var(--s-palette-main-lighten-950);
+  border: 1px solid var(--s-palette-main-lighten-950);
 }
 
 .outline-secondary-color {
