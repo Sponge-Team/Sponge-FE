@@ -65,7 +65,12 @@
             </div>
           </div>
           <div class="pt3 pb3">
-            <p>{{caseDetail.content.text}}</p>
+            <div>
+              <div v-if="caseDetail.img !== null">
+<!--                <img :src="caseDetail.content.img" alt="">-->
+              </div>
+              <p>{{caseDetail.content.text}}</p>
+            </div>
             <div class="pt3 pb3">
               <span v-for="(item, i) in caseDetail.tag.sub" class="s-body-00" :class="{'mr2' : i !== caseDetail.tag.sub.length}" :key="'caseDetail.tags.'+i" style="color: var(--s-semantic-primary-font-strong-default)">#{{item}}</span>
             </div>
@@ -105,21 +110,64 @@
           </div>
         </div>
         <div class="pl3 pr3">
-          <Card v-for="(item, i) in caseDetail.comment" :key="'caseDetail.comment'+i" :color="item.selectYn === true ? 'light' : 'secondary'">
-            <template #body-content>
-              <div class="flex flex-items-center">
-                <div style="content: ''; width: 50px; height: 50px; background-color: #fff; border-radius: 50%"></div>
-                <div>
-                  <p class="s-heading-03">{{item.name}} 훈련사님</p>
-                  <div class="s-body-02 flex flex-item-center" style="color: var(--s-semantic-secondary-font-neutral-default)">
-                    <p>채택된 답변 <span class="s-title-03">{{ item.selectedCommentCount }}건</span></p>
-                    <span class="ml2 mr3" style="content: ''; height: 9px; width: 0; border-right: 1px solid var(--s-sementic-primary-border-default)"></span>
-                    <p>1:1상담 <span class="s-title-03">{{ item.advice }}회</span></p>
+          <div v-for="(item, i) in caseDetail.comment" :key="'caseDetail.comment'+i" :class="i !== caseDetail.comment.length ? 'mb2' : ''">
+            <Card :color="item.selectYn === true ? 'light' : 'secondary'">
+              <template #body-content>
+                <div class="flex flex-items-center">
+                  <div class="mr3" style="content: ''; width: 50px; height: 50px; background-color: gray; border-radius: 50%"></div>
+                  <div>
+                    <p class="s-heading-03">{{item.name}} 훈련사님</p>
+                    <div class="s-body-02 flex flex-item-center" style="color: var(--s-semantic-secondary-font-neutral-default)">
+                      <p>채택된 답변 <span class="s-title-03">{{ item.selectedCommentCount }}건</span></p>
+                      <span class="ml2 mr3" style="content: ''; height: 9px; width: 0; border-right: 1px solid var(--s-sementic-primary-border-default)"></span>
+                      <p>1:1상담 <span class="s-title-03">{{ item.advice }}회</span></p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </template>
-          </Card>
+              </template>
+            </Card>
+            <Tag v-if="item.selectYn === true" color="strong" size="lg" text="채택된 답변" class="mt2 mb2"/>
+            <div class="s-body-01 mb2" style="color: var(--s-semantic-secondary-font-neutral-default);
+                      width: 100%;
+                      max-width: 600px;
+                      line-height: 1.6;
+                      white-space: pre-wrap;
+                      position: relative;"
+            >
+              <p style="max-height: 125px;
+                      overflow: hidden;
+                      position: relative;"
+              >
+                {{item.content}}
+              </p>
+            </div>
+            <div class="flex flex-justify-between flex-items-center">
+              <Button color="transparent" rounded="square" class="mr-2" style="padding: 0; color: var(--s-semantic-primary-font-strong-default)">
+                <template #default>
+                  <div class="flex">
+                    <img src="@/lib/assets/svg/Ic_like_s.svg" alt="추천" class="mr2">
+                    <p class="s-body-01">추천 {{item.like}}</p>
+                  </div>
+                </template>
+              </Button>
+              <p class="s-body-02" style="color: var(--s-semantic-secondary-font-strong-default)">
+                {{
+                  moment().diff(moment(item.createdAt), 'days') >= 1
+                      ? moment().diff(moment(item.createdAt), 'days') + '일 전'
+                      : moment().diff(moment(item.createdAt), 'hours') >= 1
+                          ? moment().diff(moment(item.createdAt), 'hours') + '시간 전'
+                          : moment().diff(moment(item.createdAt), 'minutes') + '분 전'
+                }} 답변
+              </p>
+            </div>
+            <Button class="mt2 mb2" color="transparent" @click="" style="padding: 0;">
+              <template #default>
+                <p class="s-body-03" style="color: var(--s-semantic-secondary-font-strong-default)">
+                  자세히 보기..
+                </p>
+              </template>
+            </Button>
+          </div>
         </div>
       </div>
 

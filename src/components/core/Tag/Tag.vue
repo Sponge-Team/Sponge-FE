@@ -1,5 +1,5 @@
 <template>
-  <div class="s-caption-01" :style="style">
+  <div :class="size === 'md' ? 's-caption-01' : 's-caption-00'" :style="style">
     <p>{{text}}</p>
   </div>
 </template>
@@ -14,16 +14,21 @@ const props = defineProps({
   color: {
     type: String,
     default: 'primary',
-    validator: value => ['primary', 'secondary', 'tertiary'].includes(value)
+    validator: value => ['primary', 'secondary', 'tertiary', 'strong'].includes(value)
   },
+  size: {
+    type: String,
+    default: 'md',
+    validator: value => ['md', 'lg'].includes(value)
+  }
 })
 const style = computed( () => {
-  let { color } = props;
+  let { color, size } = props;
   return {
     width: 'max-content',
-    padding: '0 10px',
+    padding: size === 'md' ? '0 10px' : '2px 8px',
     borderRadius: '100px',
-    background: color === 'primary' ? 'var(--s-semantic-tag-background-primary-default)' : color === 'secondary' ? 'var(--s-semantic-tag-background-secondary-default)' : 'var(--s-semantic-primary-background-strong-default)',
+    background: color === 'primary' ? 'var(--s-semantic-tag-background-primary-default)' : color === 'secondary' ? 'var(--s-semantic-tag-background-secondary-default)' : color === 'tertiary' ? 'var(--s-semantic-primary-background-strong-default)' : 'var(--s-semantic-primary-background-normal-default)',
     color: color === 'primary' ? 'var(--s-semantic-primary-font-strong-default)' : color === 'secondary' ? 'var(--s-semantic-primary-font-light-default)' : 'var(--s-palette-main-lighten-white)'
   };
 })
