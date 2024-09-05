@@ -1,14 +1,14 @@
 <template>
   <div :style="caseViewStyle">
     <CaseWebBar class="position-fixed" :style="caseWebBarStyle" @updateMode="(data) => {caseViewMode = data}" @updateInputData="(data)=>{fnSearchedCases(data)}"/>
-    <div v-if="caseViewMode === 'LIST'">
-      <div class="overflow-hidden position-relative">
+    <div v-if="caseViewMode === 'LIST'" style="height: 100%;">
+      <div class="overflow-hidden position-relative" style="height: 100%;">
         <CaseTitle class="pt15 mb10"/>
 
-        <Card color="white" style="padding: 0;">
+        <Card color="white" style="padding: 0; height: 100%;">
           <template #body-content>
             <div style="border-bottom: 1px solid var(--s-semantic-secondary-border-default); height: 49px;">
-              <ToggleButtons :buttons="['전체', '분리불안', '배변', '짖음', '사회성', '공격성', '기본교육']" style="overflow-x: auto; height: 100%; white-space: nowrap;"/>
+              <ToggleButtons :buttons="['전체', '분리불안', '배변', '짖음', '사회성', '공격성', '기본교육']" @updateButton="(data)=>{fnFilteredCases(data)}" style="overflow-x: auto; height: 100%; white-space: nowrap;"/>
             </div>
             <PostsCardContainer :cards="filteredCases" shape="square" @clickCase="(data) => {openTheCaseDetail(data)}"/>
           </template>
@@ -47,7 +47,17 @@
             </div>
           </div>
 
-          <p class="s-title-00 mt2">{{caseDetail.title}}</p>
+          <div class="flex flex-justify-between flex-items-center">
+            <p class="s-title-00 mt2">{{caseDetail.title}}</p>
+            <div class="position-relative">
+              <Button color="transparent" style="padding: 0;" @click="isOpenDropdown = !isOpenDropdown">
+                <template #icon>
+                  <img src="@/lib/assets/svg/ic_more.svg" alt="">
+                </template>
+              </Button>
+              <Dropdown :isActive="isOpenDropdown" :list="[{name: '게시물 수정', value: 'edit'}, {name: '게시물 삭제', value: 'delete'}]" @selectedItem="(data)=>{selectedItem = data}"/>
+            </div>
+          </div>
 
           <div class="flex pt3 pb3" style="width: 100%; border-bottom: 1px solid var(--s-semantic-secondary-border-default);">
             <img class="mr2" src="@/lib/assets/svg/default_user_img.svg" alt="유저 프로필 이미지">
@@ -66,10 +76,10 @@
           </div>
           <div class="pt3 pb3">
             <div>
-              <div v-if="caseDetail.img !== null">
-<!--                <img :src="caseDetail.content.img" alt="">-->
+              <div v-if="caseDetail.content.img !== null">
+                <img :src="`${caseDetail.content.img}`" alt="">
               </div>
-              <p>{{caseDetail.content.text}}</p>
+              <p style="white-space: pre-wrap">{{caseDetail.content.text}}</p>
             </div>
             <div class="pt3 pb3">
               <span v-for="(item, i) in caseDetail.tag.sub" class="s-body-00" :class="{'mr2' : i !== caseDetail.tag.sub.length}" :key="'caseDetail.tags.'+i" style="color: var(--s-semantic-primary-font-strong-default)">#{{item}}</span>
@@ -94,6 +104,18 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="flex flex-justify-between flex-items-center p3" style="border-bottom: 8px solid var(--s-semantic-secondary-border-neutral-default)">
+        <div class="s-heading-03">
+          <p>강훈련 훈련사님의</p>
+          <p>진단이 필요한 게시물이에요</p>
+        </div>
+        <Button rounded="square">
+          <template #default>
+            답변 쓰기
+          </template>
+        </Button>
       </div>
 
       <div>
@@ -123,6 +145,18 @@
                       <p>1:1상담 <span class="s-title-03">{{ item.advice }}회</span></p>
                     </div>
                   </div>
+                </div>
+                <div class="mt2 flex-justify-between flex">
+                  <Button class="mr3" rounded="square" @click="openModal" style="background-color: var(--s-sementic-secondary-background-neutral-default); width: 50%;">
+                    <template #default>
+                      답변 채택하기
+                    </template>
+                  </Button>
+                  <Button rounded="square" style="background-color: var(--s-sementic-secondary-background-neutral-default); width: 50%;">
+                    <template #default>
+                      1:1 채팅하기
+                    </template>
+                  </Button>
                 </div>
               </template>
             </Card>
@@ -173,6 +207,31 @@
 
       <NavBar class="nav-bar"/>
     </div>
+    <AlertDialog message="게시글을 삭제하시겠어요?" :visible="selectedItem === 'delete'" @confirm="selectedItem = ''" @cancel="selectedItem = ''"/>
+    <Dialog
+        class="pb15"
+        :isActive="isActive"
+        :translateY="translateY"
+        @close="closeModal"
+        @update:translateY="val => translateY = val">
+      <template #default>
+        <div class="mt5 s-title-00 text-align-center">선택한 답변을 채택하시겠어요?</div>
+        <div class="s-body-00 text-align-center" style="color:var(--s-semantic-secondary-font-neutral-default);">
+          <p>답변이 도움이 되었나요?</p>
+          <p>답변 채택 시 훈련사에게 큰 힘이 될 수 있어요.</p>
+        </div>
+        <Button class="mt-5" color="quaternary" size="l" style="width: 100%;" @click="closeModal">
+          <template #default>
+            <p class="s-heading-02">닫기</p>
+          </template>
+        </Button>
+        <Button class="mt-5" size="l" style="width: 100%;" @click="closeModal">
+          <template #default>
+            <p class="s-heading-02">채택하기</p>
+          </template>
+        </Button>
+      </template>
+    </Dialog>
   </div>
 </template>
 <script setup>
@@ -187,6 +246,13 @@ import ToggleButtons from "@/components/core/Button/ToggleButtons.vue";
 import Card from "@/components/core/Card/Card.vue";
 import Tag from "@/components/core/Tag/Tag.vue";
 import moment from "moment";
+import AlertDialog from "@/components/core/Dialog/AlertDialog.vue";
+import Dropdown from "@/components/core/Dropdown/Dropdown.vue"
+import Dialog from "@/components/core/Dialog/Dialog.vue";
+
+import { useDialog } from "@/composables/useDialog";
+
+const { isActive, translateY, openModal, closeModal } = useDialog();
 
 const caseViewMode = ref('LIST')
 
@@ -216,6 +282,7 @@ onMounted(()=> {
 
 const caseViewStyle = computed(()=>{
   return{
+    height: '100%',
     background: caseViewMode.value === 'LIST' ? '#f4f4f4' : '#ffffff'
   }
 })
@@ -249,30 +316,52 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
 });
 
+
 const fnSearchedCases = (selectedTags) => {
   if (!Array.isArray(selectedTags)) {
     selectedTags = [selectedTags];
   }
 
-  if (selectedTags.length > 0) {
-    searchedCases.value = theCase.value.filter(caseItem =>
-        selectedTags.some(tag => caseItem.tags.includes(tag))
-    );
+  if (selectedTags[0] !== '전체') {
+    searchedCases.value = theCase.value.filter(caseItem => {
+      const tags = caseItem.tags;
+
+      // tag 객체가 정의되어 있는지 확인
+      if (tags && typeof tags === 'object') {
+        // main이 selectedTags에 포함되거나, sub 배열의 요소 중 하나라도 selectedTags에 포함되는지 확인
+        return (
+            selectedTags.includes(tags.main) ||
+            (Array.isArray(tags.sub) && tags.sub.some(subTag => selectedTags.includes(subTag)))
+        );
+      }
+
+      return false
+    });
   } else {
     searchedCases.value = theCase.value;
   }
 }
 
-
-const fnFilteredCases = (selectedTags) => {
-  if (!Array.isArray(selectedTags)) {
-    selectedTags = [selectedTags];
+const fnFilteredCases = (filteredTags) => {
+  if (!Array.isArray(filteredTags)) {
+    filteredTags = [filteredTags];
   }
 
-  if (selectedTags[0] !== '전체') {
-    filteredCases.value = theCase.value.filter(caseItem =>
-        selectedTags.some(tag => caseItem.tags.includes(tag))
-    );
+  if (filteredTags[0] !== '전체') {
+    filteredCases.value = theCase.value.filter(caseItem => {
+      const tags = caseItem.tags;
+
+      // tag 객체가 정의되어 있는지 확인
+      if (tags && typeof tags === 'object') {
+        // main이 selectedTags에 포함되거나, sub 배열의 요소 중 하나라도 selectedTags에 포함되는지 확인
+        return (
+            filteredTags.includes(tags.main) ||
+            (Array.isArray(tags.sub) && tags.sub.some(subTag => filteredTags.includes(subTag)))
+        );
+      }
+
+      return false
+    });
   } else {
     filteredCases.value = theCase.value;
   }
@@ -320,4 +409,7 @@ const openTheCaseDetail = async (id) => {
 
 const filteringType = ref('추천순')
 const filteringTypeList = ref(['추천순', '최신순'])
+
+const selectedItem = ref('')
+const isOpenDropdown = ref(false)
 </script>
