@@ -5,25 +5,7 @@
         <p><span class="black-color">{{ userName }}</span> 견주님 <br> 안녕하세요</p>
       </div>
       <div class="p5 position-relative" v-for="dog in dogs" :key="dog.id">
-        <Card
-          color="secondary" 
-          type="outlined"
-        >
-          <template #body-content>
-            <p class="s-body-02 secondary-color">반려견 이름</p>
-            <p class="s-title-01 primary-color">{{ dog.name }}</p>
-            <p class="s-body-02 secondary-color">견종 <span class="s-title-01 black-color">{{ dog.breed }}</span></p>
-            <p class="s-body-02 secondary-color">기본정보
-              <span class="mr-2 s-title-01 black-color">{{ dog.gender === 1 ? '수컷' : dog.gender === 3 ? '암컷' : '중성화' }}</span>
-              <span class="mr-2 s-title-01 black-color">•</span>
-              <span class="s-title-01 black-color">{{ formatAge(dog.age) }}</span>
-            </p>
-            <p class="s-body-02 secondary-color">사는곳 <span class="s-title-01 black-color">{{ dog.city }} {{ dog.town }}</span></p>
-          </template>
-        </Card>
-        <div class="img-style">
-          <img src="@/lib/assets/svg/ic_dog_g.svg" alt="반려견 이미지" class="profile-image">
-        </div>
+        <MyProfileCard :dog="dog"/>
       </div>
     </template>
     <template v-else>
@@ -55,6 +37,7 @@
 import { useRoute } from 'vue-router';
 import { ref, onMounted } from 'vue';
 import Card from '@/components/core/Card/Card.vue';
+import MyProfileCard from '@/components/expanded/MyProfileCard.vue';
 import { fetchDogsByUserId, fetchUserById } from '@/apis/fakeApi.js';
 
 const route = useRoute();
@@ -72,12 +55,6 @@ onMounted(async () => {
     }
   }
 });
-
-const formatAge = (ageInMonths) => {
-  const years = Math.floor(ageInMonths / 12);
-  const months = ageInMonths % 12;
-  return years > 0 ? `${years}년 ${months}개월` : `${months}개월`;
-};
 </script>
 
 <style scoped>
@@ -112,7 +89,7 @@ const formatAge = (ageInMonths) => {
 
 .img-style {
   position: absolute;
-  top: -60px;
+  top: -40px;
   right: 28%;
   transform: translateX(50%);
   width: 120px;

@@ -20,20 +20,22 @@
           <template #body-content>
             <div class="flex items-center justify-between">
               <div class="dog-image-container">
-                <img :src="dog.image || defaultImage" alt="강아지 이미지">
+                <img :src="dog.image || defaultImage" alt="강아지 이미지" class="dog-image">
               </div>
               <div class="p-2 w-1/2">
-                <p class="s-title-01">{{ dog.name }} <span class="s-body-01 mb-3 text-color">{{ dog.breed }}</span></p>
-                <span class="mr-2 s-body-01 text-color">{{ dog.gender === 1 ? '수컷' : dog.gender === 3 ? '암컷' : '중성화' }}</span>
-                <span class="mr-2 s-body-01 text-color">•</span>
-                <span class="s-body-01 text-color">{{ formatAge(dog.age) }}</span>
-                <p class="s-body-01 text-color">{{ dog.city }} {{ dog.town }}</p>
+                <p class="s-title-01">{{ dog.name }} <span class="s-body-01 mb-3 ml-1 text-color">{{ dog.breed }}</span></p>
+                <span class="s-body-02 text-color" style="white-space: nowrap;">
+                  {{ dog.gender === 2 ? '수컷' : dog.gender === 3 ? '암컷' : '중성화' }} · 
+                  {{ formatAge(dog.age) }} · 
+                  {{ dog.weight }}kg
+                </span>
+                <p class="s-body-02 text-color">{{ dog.city }} {{ dog.town }}</p>
               </div>
               <Checkbox class="w10%" v-model="checkedDogsMap[dog.id]" />
             </div>
           </template>
         </Card>
-        <RouterLink to="#">
+        <RouterLink :to="`/myprofile?userId=${userId}`">
           <div class="text-color flex flex-justify-end mr-2 underline">수정하기</div>
         </RouterLink>
       </template>
@@ -41,7 +43,7 @@
         <Card class="outline-card" color="secondary" type="outlined">
           <template #body-content>
             <div class="p2 flex flex-col items-center justify-center text-center">
-              <RouterLink to="#">
+              <RouterLink :to="`/myprofile?userId=${userId}`">
                 <div class="add-dog-icon">
                   <img src="@/lib/assets/svg/ic_plus.svg" alt="강아지 추가하기">
                 </div>
@@ -73,6 +75,7 @@ import { fetchDogsByUserId } from '@/apis/fakeApi.js';
 import Card from "@/components/core/Card/Card.vue";
 import Checkbox from "@/components/core/Checkbox/Checkbox.vue";
 import Button from "@/components/core/Button/Button.vue";
+import formatAge from '@/composables/fotmatAge.js';
 import defaultImage from '@/lib/assets/svg/ic_dog.svg';
 
 const route = useRoute();
@@ -80,8 +83,8 @@ const dogs = ref([]);
 const checkedDogsMap = ref({});
 const isNextButtonEnabled = ref(false);
 
+const userId = parseInt(route.query.userId);
 onMounted(async () => {
-  const userId = parseInt(route.query.userId);
   if (userId) {
     try {
       dogs.value = await fetchDogsByUserId(userId);
@@ -97,12 +100,6 @@ onMounted(async () => {
 watch(checkedDogsMap, (newCheckedDogsMap) => {
   isNextButtonEnabled.value = Object.values(newCheckedDogsMap).some(status => status);
 }, { deep: true });
-
-const formatAge = (ageInMonths) => {
-  const years = Math.floor(ageInMonths / 12);
-  const months = ageInMonths % 12;
-  return years > 0 ? `${years}년 ${months}개월` : `${months}개월`;
-};
 </script>
 
 <style scoped>
@@ -140,6 +137,12 @@ const formatAge = (ageInMonths) => {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.dog-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 100px;
 }
 
 .add-dog-icon {

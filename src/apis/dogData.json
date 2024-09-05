@@ -9,7 +9,9 @@
     "town": "강남구",
     "created_at": "2023-01-20T10:20:30Z",
     "modified_at": "2023-01-20T10:20:30Z",
-    "user_id": 1
+    "user_id": 1,
+    "weight": 30,
+    "image": "/lib/assets/img/dog_01.jpg"
   },
   {
     "id": 2,
@@ -21,7 +23,9 @@
     "town": "마포구",
     "created_at": "2023-02-12T11:22:33Z",
     "modified_at": "2023-02-12T11:22:33Z",
-    "user_id": 2
+    "user_id": 2,
+    "weight": 20,
+    "image": ""
   },
   {
     "id": 3,
@@ -33,7 +37,9 @@
     "town": "남동구",
     "created_at": "2023-03-08T09:18:45Z",
     "modified_at": "2023-03-08T09:18:45Z",
-    "user_id": 3
+    "user_id": 3,
+    "weight": 12,
+    "image": ""
   },
   {
     "id": 4,
@@ -45,7 +51,9 @@
     "town": "해운대구",
     "created_at": "2023-04-25T08:45:50Z",
     "modified_at": "2023-04-25T08:45:50Z",
-    "user_id": 4
+    "user_id": 4,
+    "weight": 6,
+    "image": ""
   },
   {
     "id": 6,
@@ -57,7 +65,9 @@
     "town": "강남구",
     "created_at": "2023-06-01T12:22:40Z",
     "modified_at": "2023-06-01T12:22:40Z",
-    "user_id": 1
+    "user_id": 1,
+    "weight": 5,
+    "image": "/lib/assets/img/dog_02.jpg"
   },
   {
     "id": 7,
@@ -69,7 +79,9 @@
     "town": "마포구",
     "created_at": "2023-06-15T15:40:00Z",
     "modified_at": "2023-06-15T15:40:00Z",
-    "user_id": 2
+    "user_id": 2,
+    "weight": 35,
+    "image": ""
   },
   {
     "id": 8,
@@ -81,6 +93,8 @@
     "town": "남동구",
     "created_at": "2023-07-10T16:50:30Z",
     "modified_at": "2023-07-10T16:50:30Z",
-    "user_id": 3
+    "user_id": 3,
+    "weight": 3,
+    "image": ""
   }
 ]
