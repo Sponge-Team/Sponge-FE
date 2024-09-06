@@ -70,5 +70,6 @@ const genderText = computed(() => {
   width: 120px;
   height: 120px;
   border-radius: 100px;
+  object-fit: cover;
 }
 </style>

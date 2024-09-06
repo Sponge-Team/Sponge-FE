@@ -4,8 +4,25 @@
       <div class="pl-5 pt-5 s-title-01 secondary-color">
         <p><span class="black-color">{{ userName }}</span> 견주님 <br> 안녕하세요</p>
       </div>
-      <div class="p5 position-relative" v-for="dog in dogs" :key="dog.id">
-        <MyProfileCard :dog="dog"/>
+      <div class="slider-container">
+        <div class="cards-container" ref="cardsContainer">
+          <div
+            class="p5 position-relative card"
+            v-for="dog in dogs"
+            :key="dog.id"
+          >
+            <MyProfileCard :dog="dog" />
+          </div>
+        </div>
+        <div class="pagination">
+          <span
+            v-for="(dog, index) in dogs"
+            :key="index"
+            class="dot"
+            :class="{ active: index === currentIndex }"
+            @click="scrollToCard(index)"
+          ></span>
+        </div>
       </div>
     </template>
     <template v-else>
@@ -35,7 +52,7 @@
 
 <script setup>
 import { useRoute } from 'vue-router';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import Card from '@/components/core/Card/Card.vue';
 import MyProfileCard from '@/components/expanded/MyProfileCard.vue';
 import { fetchDogsByUserId, fetchUserById } from '@/apis/fakeApi.js';
@@ -43,6 +60,9 @@ import { fetchDogsByUserId, fetchUserById } from '@/apis/fakeApi.js';
 const route = useRoute();
 const userName = ref('');
 const dogs = ref([]);
+const currentIndex = ref(0);
+const cardsContainer = ref(null);
+
 onMounted(async () => {
   const userId = parseInt(route.query.userId);
   if (userId) {
@@ -54,10 +74,83 @@ onMounted(async () => {
       console.error("데이터를 불러오는 중 오류가 발생했습니다.", error);
     }
   }
+
+  if (cardsContainer.value) {
+    cardsContainer.value.addEventListener('scroll', onScroll);
+  }
 });
+
+onUnmounted(() => {
+  if (cardsContainer.value) {
+    cardsContainer.value.removeEventListener('scroll', onScroll);
+  }
+});
+
+const scrollToCard = (index) => {
+  currentIndex.value = index;
+  const cardWidth = cardsContainer.value.offsetWidth;
+  cardsContainer.value.scrollTo({
+    left: cardWidth * index,
+    behavior: 'smooth',
+  });
+};
+
+const onScroll = () => {
+  const scrollLeft = cardsContainer.value.scrollLeft;
+  const cardWidth = cardsContainer.value.offsetWidth;
+  currentIndex.value = Math.round(scrollLeft / cardWidth);
+};
 </script>
 
 <style scoped>
+/* Horizontal Scroll Container */
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+}
+
+.cards-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+
+.card {
+  min-width: 100%;
+  scroll-snap-align: start;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Pagination Dots */
+.pagination {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  margin: 0 5px;
+  background-color: var(--s-palette-gray-300);
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.dot.active {
+  background-color: var(--s-semantic-primary-background-normal-default);
+}
+
+/* Card Styling remains unchanged */
 .primary-color {
   color: var(--s-semantic-primary-background-normal-default);
 }
@@ -70,23 +163,11 @@ onMounted(async () => {
   color: var(--s-palette-gray-700);
 }
 
-.outline-card {
-  border: 2px dashed var(--s-semantic-primary-background-light-default) !important;
-  position: relative;
-  padding-top: 20px;
+.secondary-hr {
+  
+  height: 8px;
+  background: var(--s-palette-gray-300);
 }
-
-.icon {
-  width: 20px;
-  height: 20px;
-  border-radius: 100px;
-  background-color: var(--s-semantic-primary-background-normal-default);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
 .img-style {
   position: absolute;
   top: -40px;
@@ -99,16 +180,5 @@ onMounted(async () => {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-}
-
-.profile-image {
-  position: relative;
-  bottom: -5px;
-}
-
-.secondary-hr {
-  border: 0;
-  height: 8px;
-  background: var(--s-palette-gray-300);
 }
 </style>
