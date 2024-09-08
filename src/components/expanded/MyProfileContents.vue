@@ -1,51 +1,35 @@
 <template>
   <div>
-    <template v-if="dogs.length > 0">
-      <div class="pl-5 pt-5 s-title-01 secondary-color">
-        <p><span class="black-color">{{ userName }}</span> 견주님 <br> 안녕하세요</p>
+    <div class="slider-container">
+      <div class="pl-5 pt-5 s-title-00 secondary-color">
+        <p v-if="dogs.length > 0">
+          <span class="black-color s-heading-01">{{ userName }}</span> 견주님 <br> 안녕하세요
+        </p>
+        <p v-else>
+          등록된 내용이 없어요 <br> 프로필을 작성해 주세요
+        </p>
       </div>
-      <div class="slider-container">
-        <div class="cards-container" ref="cardsContainer">
-          <div
-            class="p5 position-relative card"
-            v-for="dog in dogs"
-            :key="dog.id"
-          >
-            <MyProfileCard :dog="dog" />
-          </div>
-        </div>
-        <div class="pagination">
-          <span
-            v-for="(dog, index) in dogs"
-            :key="index"
-            class="dot"
-            :class="{ active: index === currentIndex }"
-            @click="scrollToCard(index)"
-          ></span>
+      <div class="cards-container" ref="cardsContainer">
+        <div
+          class="p5 position-relative card"
+          v-for="dog in dogs.length > 0 ? dogs : emptyDogList"
+          :key="dog.id || 'empty-card'"
+        >
+          <MyProfileCard :dog="dog" :isEmpty="dogs.length === 0" />
         </div>
       </div>
-    </template>
-    <template v-else>
-      <div class="pl-5 pt-5 s-title-01 secondary-color">
-        <p>등록된 내용이 없어요 <br> 프로필을 작성해 주세요</p>
+
+      <div v-if="dogs.length > 0" class="pagination mb-2">
+        <span
+          v-for="(dog, index) in dogs"
+          :key="index"
+          class="dot"
+          :class="{ active: index === currentIndex }"
+          @click="scrollToCard(index)"
+        ></span>
       </div>
-      <Card class="outline-card" color="secondary" type="outlined">
-        <template #body-content>
-          <div class="p2 flex flex-col items-center justify-center text-center">
-            <RouterLink to="/myprofile/create">
-              <div class="icon">
-                <img src="@/lib/assets/svg/ic_plus.svg" alt="프로필 추가하기">
-              </div>
-            </RouterLink>
-            <p class="secondary-color">나의 반려견을 소개해주세요!</p>
-            <p class="s-title-02 mb-3 primary-color">프로필 작성하기</p>
-          </div>
-        </template>
-      </Card>
-      <div class="img-style">
-        <img src="@/lib/assets/svg/ic_dog_g.svg" alt="반려견 이미지" class="profile-image">
-      </div>
-    </template>
+    </div>
+
     <hr class="secondary-hr">
   </div>
 </template>
@@ -53,15 +37,30 @@
 <script setup>
 import { useRoute } from 'vue-router';
 import { ref, onMounted, onUnmounted } from 'vue';
-import Card from '@/components/core/Card/Card.vue';
 import MyProfileCard from '@/components/expanded/MyProfileCard.vue';
 import { fetchDogsByUserId, fetchUserById } from '@/apis/fakeApi.js';
+import defaultImage from '@/lib/assets/svg/ic_dog.svg';
 
 const route = useRoute();
 const userName = ref('');
 const dogs = ref([]);
 const currentIndex = ref(0);
 const cardsContainer = ref(null);
+
+// 비어 있는 카드 기본값
+const emptyDogList = [
+  {
+    id: null,
+    name: '',
+    breed: '',
+    gender: null,
+    age: null,
+    weight: null,
+    city: '',
+    town: '',
+    image: defaultImage,
+  },
+];
 
 onMounted(async () => {
   const userId = parseInt(route.query.userId);
@@ -71,7 +70,7 @@ onMounted(async () => {
       userName.value = fetchedUser.name;
       dogs.value = await fetchDogsByUserId(userId);
     } catch (error) {
-      console.error("데이터를 불러오는 중 오류가 발생했습니다.", error);
+      console.error('데이터를 불러오는 중 오류가 발생했습니다.', error);
     }
   }
 
@@ -106,7 +105,7 @@ const onScroll = () => {
 /* Horizontal Scroll Container */
 .slider-container {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   width: 100%;
 }
 
@@ -117,6 +116,7 @@ const onScroll = () => {
   scroll-snap-type: x mandatory;
   scrollbar-width: none; /* Hide scrollbar for Firefox */
   -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+  /* padding-top: 50px; */
 }
 
 .cards-container::-webkit-scrollbar {
@@ -128,6 +128,7 @@ const onScroll = () => {
   scroll-snap-align: start;
   padding: 10px;
   box-sizing: border-box;
+  position: relative;
 }
 
 /* Pagination Dots */
@@ -137,8 +138,8 @@ const onScroll = () => {
 }
 
 .dot {
-  height: 10px;
-  width: 10px;
+  height: 8px;
+  width: 8px;
   margin: 0 5px;
   background-color: var(--s-palette-gray-300);
   border-radius: 50%;
@@ -150,7 +151,10 @@ const onScroll = () => {
   background-color: var(--s-semantic-primary-background-normal-default);
 }
 
-/* Card Styling remains unchanged */
+.outline-card {
+  border: 2px dashed var(--s-semantic-primary-background-light-default) !important;
+}
+
 .primary-color {
   color: var(--s-semantic-primary-background-normal-default);
 }
@@ -164,10 +168,11 @@ const onScroll = () => {
 }
 
 .secondary-hr {
-  
+  border: 0;
   height: 8px;
   background: var(--s-palette-gray-300);
 }
+
 .img-style {
   position: absolute;
   top: -40px;
@@ -180,5 +185,13 @@ const onScroll = () => {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  z-index: 100;
+}
+
+.dog-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 100px;
+  object-fit: cover;
 }
 </style>
