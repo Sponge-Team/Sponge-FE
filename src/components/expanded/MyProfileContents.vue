@@ -1,14 +1,14 @@
 <template>
   <div>
+    <div class="pl-5 s-title-00 secondary-color">
+      <p v-if="dogs.length > 0">
+        <span class="black-color s-heading-01">{{ userName }}</span> 견주님 <br> 안녕하세요
+      </p>
+      <p v-else>
+        등록된 내용이 없어요 <br> 프로필을 작성해 주세요
+      </p>
+    </div>
     <div class="slider-container">
-      <div class="pl-5 pt-5 s-title-00 secondary-color">
-        <p v-if="dogs.length > 0">
-          <span class="black-color s-heading-01">{{ userName }}</span> 견주님 <br> 안녕하세요
-        </p>
-        <p v-else>
-          등록된 내용이 없어요 <br> 프로필을 작성해 주세요
-        </p>
-      </div>
       <div class="cards-container" ref="cardsContainer">
         <div
           class="p5 position-relative card"
@@ -18,7 +18,6 @@
           <MyProfileCard :dog="dog" :isEmpty="dogs.length === 0" />
         </div>
       </div>
-
       <div v-if="dogs.length > 0" class="pagination mb-2">
         <span
           v-for="(dog, index) in dogs"
@@ -29,7 +28,18 @@
         ></span>
       </div>
     </div>
-
+    <div class="justify-center text-center mb-5">
+      <RouterLink to="/myprofile/create">
+        <Button color="outline-primary">
+          <template #icon>
+            <div class="icon">
+              <img src="@/lib/assets/svg/ic_plus.svg" alt="프로필 추가하기" />
+            </div>
+            <span class="ml-2">반려견 추가하기</span>
+          </template>
+        </Button>
+      </RouterLink>
+    </div>
     <hr class="secondary-hr">
   </div>
 </template>
@@ -37,9 +47,10 @@
 <script setup>
 import { useRoute } from 'vue-router';
 import { ref, onMounted, onUnmounted } from 'vue';
+import Button from '@/components/core/Button/Button.vue';
 import MyProfileCard from '@/components/expanded/MyProfileCard.vue';
 import { fetchDogsByUserId, fetchUserById } from '@/apis/fakeApi.js';
-import defaultImage from '@/lib/assets/svg/ic_dog.svg';
+import defaultImage from '@/lib/assets/svg/ic_dog_g.svg';
 
 const route = useRoute();
 const userName = ref('');
@@ -116,7 +127,7 @@ const onScroll = () => {
   scroll-snap-type: x mandatory;
   scrollbar-width: none; /* Hide scrollbar for Firefox */
   -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
-  /* padding-top: 50px; */
+  padding-top: 20px;  
 }
 
 .cards-container::-webkit-scrollbar {
@@ -125,10 +136,11 @@ const onScroll = () => {
 
 .card {
   min-width: 100%;
+  min-height: 175px;
   scroll-snap-align: start;
-  padding: 10px;
   box-sizing: border-box;
   position: relative;
+  padding-bottom: 0;
 }
 
 /* Pagination Dots */
@@ -151,6 +163,18 @@ const onScroll = () => {
   background-color: var(--s-semantic-primary-background-normal-default);
 }
 
+/*  */
+.icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 100px;
+  background-color: var(--s-semantic-primary-background-normal-default);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
 .outline-card {
   border: 2px dashed var(--s-semantic-primary-background-light-default) !important;
 }
@@ -171,27 +195,5 @@ const onScroll = () => {
   border: 0;
   height: 8px;
   background: var(--s-palette-gray-300);
-}
-
-.img-style {
-  position: absolute;
-  top: -40px;
-  right: 28%;
-  transform: translateX(50%);
-  width: 120px;
-  height: 120px;
-  background-color: var(--s-palette-gray-200);
-  border-radius: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  z-index: 100;
-}
-
-.dog-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 100px;
-  object-fit: cover;
 }
 </style>

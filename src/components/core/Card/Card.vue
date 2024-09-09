@@ -21,10 +21,14 @@ const props = defineProps({
     type: String,
     default: 'rounded',
     validator: value => ['rounded', 'square'].includes(value),
+  },
+  boxShadow: {
+    type: Boolean,
+    default: false
   }
 })
 const style = computed(() => {
-  let {type, color, shape} = props;
+  let {type, color, shape, boxShadow} = props;
   let componentColor;
   if (color === 'primary') {
     componentColor = 'var(--s-semantic-primary-background-normal-default)';
@@ -38,7 +42,8 @@ const style = computed(() => {
   return {
     background: type === 'filled' ? componentColor : 'transparent',
     border: type === 'outlined' ? `1px solid ${componentColor}` : 'none',
-    borderRadius: shape === 'rounded' ? '14px' : '0'
+    borderRadius: shape === 'rounded' ? '14px' : '0',
+    boxShadow: boxShadow ? '0 2px 4px rgba(0, 0, 0, 0.1)' : 'none'
   };
 })
 </script>

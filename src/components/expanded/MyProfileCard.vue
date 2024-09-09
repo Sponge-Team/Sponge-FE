@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Card color="secondary" type="outlined">
+    <Card color="secondary" type="outlined" :boxShadow="!isEmpty" :class="{ 'outline-card': isEmpty }">
       <template #body-content>
-        <div v-if="isEmpty" class="p2 flex flex-col items-center justify-center text-center">
+        <div v-if="isEmpty" class="pt-10 pb-3 flex flex-col items-center justify-center text-center">
           <RouterLink to="/myprofile/create">
             <div class="icon">
               <img src="@/lib/assets/svg/ic_plus.svg" alt="프로필 추가하기" />
@@ -26,9 +26,9 @@
         </div>
       </template>
     </Card>
-    <!-- <div v-if="!isEmpty" class="img-style">
+    <div class="img-style">
       <img :src="dog.image || defaultImage" alt="강아지 이미지" class="dog-image" />
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -36,7 +36,7 @@
 import { computed } from 'vue';
 import Card from '@/components/core/Card/Card.vue';
 import formatAge from '@/composables/fotmatAge.js';
-import defaultImage from '@/lib/assets/svg/ic_dog.svg';
+import defaultImage from '@/lib/assets/svg/ic_dog_g.svg';
 
 const props = defineProps({
   dog: Object,
@@ -63,13 +63,17 @@ const genderText = computed(() => {
   color: var(--s-palette-gray-700);
 }
 
+.outline-card {
+  border: 2px dashed var(--s-semantic-primary-background-light-default) !important;
+}
+
 .img-style {
   position: absolute;
-  top: -50px;
+  top: -20px;
   right: 28%;
   transform: translateX(50%);
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   background-color: var(--s-palette-gray-200);
   border-radius: 100px;
   display: flex;
@@ -79,9 +83,20 @@ const genderText = computed(() => {
 }
 
 .dog-image {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 100px;
   object-fit: cover;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 100px;
+  background-color: var(--s-semantic-primary-background-normal-default);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
 </style>
