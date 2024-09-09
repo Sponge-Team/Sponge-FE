@@ -1,11 +1,11 @@
 <template>
-  <div :style="caseViewStyle">
+  <div :style="caseViewStyle" ref="scrollContainer">
     <CaseWebBar class="position-fixed" :style="caseWebBarStyle" @updateMode="(data) => {caseViewMode = data}" @updateInputData="(data)=>{fnSearchedCases(data)}"/>
     <div v-if="caseViewMode === 'LIST'" style="height: 100%;">
-      <div class="overflow-hidden position-relative" style="height: 100%;">
+      <div class="overflow-hidden position-relative" style="height: 100%; overflow-y: auto;">
         <CaseTitle class="pt15 mb10"/>
 
-        <Card color="white" style="padding: 0; height: 100%;">
+        <Card color="white" style="padding: 0; height: max-content; min-height: calc(100% - 140px);">
           <template #body-content>
             <div style="border-bottom: 1px solid var(--s-semantic-secondary-border-default); height: 49px;">
               <ToggleButtons :buttons="['전체', '분리불안', '배변', '짖음', '사회성', '공격성', '기본교육']" @updateButton="(data)=>{fnFilteredCases(data)}" style="overflow-x: auto; height: 100%; white-space: nowrap;"/>
@@ -263,7 +263,7 @@ const searchedCases = ref([])
 const getCases = async () => {
   const response = await fetchCsePosts();
 
-  theCase.value = response.slice(0, 5).map(post => ({
+  theCase.value = response.slice(0, 10).map(post => ({
     id: post.id,
     tags: post.tag,
     title: post.title,
@@ -299,17 +299,19 @@ const caseWebBarStyle = computed(() => {
 /**
  * 스크롤이벤트
  */
-const isScroll = ref(false)
+const scrollContainer = ref(null);
+const isScroll = ref(false);
 const scrollPosition = ref(0);
-const showAtPosition = 30; // 스크롤 위치가 200px 이상일 때 보여줌
+const showAtPosition = 10; // Show element after 10px of scrolling
+
 const handleScroll = () => {
-  scrollPosition.value = window.scrollY;
+  console.log("???")
+  scrollPosition.value = scrollContainer.value.scrollTop;
   isScroll.value = scrollPosition.value > showAtPosition;
 };
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-  scrollPosition.value = window.scrollY;
+  scrollContainer.value.addEventListener("scroll", handleScroll);
 });
 
 onUnmounted(() => {
