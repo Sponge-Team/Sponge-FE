@@ -1,9 +1,13 @@
 import axios from 'axios';
 
-export const fetchProblemPosts = async () => {
+export const fetchProblemPosts = async (userId) => {
   return axios.get('/src/apis/problemData.json')
     .then(response => {
-      return response.data;
+      const data = response.data;
+      if (userId) {
+        return data.filter(post => post.userId === userId);
+      }
+      return data;
     })
     .catch(error => {
       console.error("네트워크 오류", error);

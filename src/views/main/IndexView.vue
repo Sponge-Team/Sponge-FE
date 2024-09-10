@@ -1,33 +1,30 @@
 <template>
   <div class="w100%">
     <div class="p3 flex flex-justify-between items-center">
-      <MainHeader/>
+      <MainHeader />
       <template v-if="isLoggedIn">
         <div class="user-info flex items-center">
           <p class="user-name mr-2">
-            <span>{{ userProfile.name }}</span>
-            {{ userProfile.role }}
+            <span>{{ userProfile.name }}</span> {{ userProfile.role }}
           </p>
-          <img :src="userProfile.image" alt="유저 기본이미지" class="user-image"/>
+          <img :src="userProfile.image" alt="유저 기본이미지" class="user-image" />
         </div>
       </template>
       <template v-else>
         <RouterLink to="/login">
-          <Button color="tertiary" rounded="square" size="m"><p>로그인/가입</p></Button>
+          <Button color="tertiary" rounded="square" size="m">
+            <p>로그인/가입</p>
+          </Button>
         </RouterLink>
       </template>
     </div>
     <Input type="outlined" :icon="true" placeholder="반려견의 문제행동이 궁금해요" class="mb-3 ml-2" style="width: 95%;">
-      <template #icon>
-        <img src="@/lib/assets/svg/ic_search.svg" alt="검색 버튼" class="pl3" style="width: max-content; height: max-content;">
-      </template>
+    <template #icon>
+      <img src="@/lib/assets/svg/ic_search.svg" alt="검색 버튼" class="pl3" style="width: max-content; height: max-content;">
+    </template>
     </Input>
     <MainBanner :userId="userProfile.userId" :isLoggedIn="isLoggedIn" />
-    <MainContent
-      :buttons="categoryName"
-      :cards="filteredPosts.slice(0, 5)"
-      @filterPosts="filterPostsByCode"
-    >
+    <MainContent :buttons="categoryName" :cards="filteredPosts.slice(0, 5)" @filterPosts="filterPostsByCode">
       <template #title>최신 진단 사례</template>
     </MainContent>
     <NavBar />
@@ -81,12 +78,12 @@ onMounted(async () => {
     try {
       categoryName.value = ['전체', ...ProblemCodes.map(category => category.name)];
       ProblemCodes.forEach(category => {
-      problemCodeMap.value[category.name] = category.code;
-    });
+        problemCodeMap.value[category.name] = category.code;
+      });
     } catch (error) {
-        console.error("데이터를 불러오는 중 오류가 발생했습니다.", error);
+      console.error("데이터를 불러오는 중 오류가 발생했습니다.", error);
     }
-    const answerResponse  = await fetchAnswerPosts();
+    const answerResponse = await fetchAnswerPosts();
     const problemResponse = await fetchProblemPosts();
 
     const answerCountMap = answerResponse.reduce((map, answer) => {

@@ -43,7 +43,7 @@ const style = computed(() => {
     background: type === 'filled' ? componentColor : 'transparent',
     border: type === 'outlined' ? `1px solid ${componentColor}` : 'none',
     borderRadius: shape === 'rounded' ? '14px' : '0',
-    boxShadow: boxShadow ? '0 2px 4px rgba(0, 0, 0, 0.1)' : 'none'
+    boxShadow: boxShadow ? '0px 4px 8px rgba(0, 0, 0, 0.1)' : 'none'
   };
 })
 </script>

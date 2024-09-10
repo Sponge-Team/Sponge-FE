@@ -28,11 +28,11 @@
         ></span>
       </div>
     </div>
-    <div class="justify-center text-center mb-5">
+    <div class="flex items-center justify-center text-center mb-5">
       <RouterLink to="/myprofile/create">
         <Button color="outline-primary">
           <template #icon>
-            <div class="icon">
+            <div class="icon mt-1">
               <img src="@/lib/assets/svg/ic_plus.svg" alt="프로필 추가하기" />
             </div>
             <span class="ml-2">반려견 추가하기</span>
