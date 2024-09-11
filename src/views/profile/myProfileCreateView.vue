@@ -8,18 +8,30 @@
       </Button>
       <p class="s-title-01 secondary-color position-absolute header">프로필</p>
     </div>
-
+    <div class="pl-5 pr-5 pt-2 flex flex-justify-between flex-items-center">
+      <div class="position-relative progressBar">
+        <span class="position-absolute" :style="`width: ${percentage}%`"></span>
+      </div>
+      <span class="s-heading-02" style="color: var(--s-semantic-secondary-font-light-default)">완성도 {{percentage}}%</span>
+    </div>
+    <MyProfileCreateInfo />
   </div>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router';
+import { computed } from "vue";
 import Button from '@/components/core/Button/Button.vue';
+import MyProfileCreateInfo from '@/components/expanded/MyProfileCreateInfo.vue';
 
 const router = useRouter();
 const goBack = () => {
   router.back();
 };
+
+const percentage = computed(()=>{
+  return 0
+})
 </script>
 
 <style scoped>
@@ -31,5 +43,19 @@ const goBack = () => {
   top: 70%; 
   left: 50%; 
   transform: translate(-50%, -50%);
+}
+
+.progressBar{
+  width: 70%;
+  height: 6px;
+  content: '';
+  background-color: var(--s-semantic-primary-background-neutral-default);
+  border-radius: 100px;
+  span{
+    height: 6px;
+    content: '';
+    background-color: var(--s-semantic-primary-background-normal-default);
+    border-radius: 100px;
+  }
 }
 </style>
