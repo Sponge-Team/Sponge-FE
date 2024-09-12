@@ -459,13 +459,12 @@ const buttonStyle = computed(() => {
   }
 });
 
-const currentPage = ref(2);
+const emit = defineEmits(['updatePage']);
 const saveRegion = () => {
   const userRegion = {
     userRegion: selectedRegionList.value,
   };
   localStorage.setItem('userRegion', JSON.stringify(userRegion));
-  currentPage.value = 1;
-  localStorage.setItem('currentPage', 1);
+  emit('updatePage', 1);
 };
 </script>

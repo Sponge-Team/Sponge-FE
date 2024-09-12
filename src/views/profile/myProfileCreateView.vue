@@ -14,24 +14,44 @@
       </div>
       <span class="s-heading-02" style="color: var(--s-semantic-secondary-font-light-default)">완성도 {{percentage}}%</span>
     </div>
-    <MyProfileCreateInfo />
+    <MyProfileCreateInfo v-if="currentPage == 1" @next="goToPage(2)" />
+    <MyProfileCreatePetInfo v-if="currentPage == 2" @next="goToPage(3)" @back="goToPage(1)" />
   </div>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router';
-import { computed } from "vue";
+import { ref, onMounted, watch } from 'vue';
 import Button from '@/components/core/Button/Button.vue';
 import MyProfileCreateInfo from '@/components/expanded/MyProfileCreateInfo.vue';
+import MyProfileCreatePetInfo from '@/components/expanded/MyProfileCreatePetInfo.vue';
 
 const router = useRouter();
+const currentPage = ref(1);
+const percentage = ref(0);
+
+watch(currentPage, (newPage) => {
+  localStorage.setItem('currentPage', newPage);
+});
+
+onMounted(() => {
+  const savePercentage = localStorage.getItem('percentage');
+  const savedPage = localStorage.getItem('currentPage');
+  if (savePercentage) {
+    percentage.value = parseInt(savePercentage, 10);
+  }
+  if (savedPage) {
+    currentPage.value = parseInt(savedPage, 10);
+  }
+});
+
+function goToPage(pageNumber) {
+  currentPage.value = pageNumber;
+};
+
 const goBack = () => {
   router.back();
 };
-
-const percentage = computed(()=>{
-  return 0
-})
 </script>
 
 <style scoped>
