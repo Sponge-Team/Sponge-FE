@@ -65,22 +65,32 @@ const isNextButtonEnabled = ref(false);
 
 watch([name, userRegion], ([newName, newRegion]) => {
   isNextButtonEnabled.value = newName.trim() !== '' && newRegion.trim() !== '';
+  if (newName.trim() !== '') {
+    localStorage.setItem('name', JSON.stringify(newName));
+  }
 });
+
+const setUserRegionFromStorage = () => {
+  const storedRegion = localStorage.getItem('userRegion');
+  if (storedRegion) {
+    const userRegions = JSON.parse(storedRegion).userRegion;
+    userRegion.value = userRegions.map(region => region.major + " " + region.sub).join(", ");
+  }
+};
 
 onMounted(() => {
   const saveName = localStorage.getItem('name');
   if (saveName) {
     name.value = saveName.replace(/\"/gi, "");
   };
-
-  if (localStorage.getItem('userRegion')) {
-    const userRegions = JSON.parse(localStorage.getItem('userRegion')).userRegion;
-    userRegion.value = userRegions.map(region => region.major + " " + region.sub).join(", ");
-  } else {
-    userRegion.value = '';
-  };
+  setUserRegionFromStorage();
 });
 
+watch(currentPage, (newPage) => {
+  if (newPage === 1) {
+    setUserRegionFromStorage();
+  }
+});
 
 const validateFields = () => {
   const fields = [

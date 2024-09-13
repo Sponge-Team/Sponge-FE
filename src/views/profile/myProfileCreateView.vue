@@ -16,6 +16,7 @@
     </div>
     <MyProfileCreateInfo v-if="currentPage == 1" @next="goToPage(2)" />
     <MyProfileCreatePetInfo v-if="currentPage == 2" @next="goToPage(3)" @back="goToPage(1)" />
+    <MyProfileCreateImage v-if="currentPage == 3" @back="goToPage(2)"/>
   </div>
 </template>
 
@@ -25,6 +26,7 @@ import { ref, onMounted, watch } from 'vue';
 import Button from '@/components/core/Button/Button.vue';
 import MyProfileCreateInfo from '@/components/expanded/MyProfileCreateInfo.vue';
 import MyProfileCreatePetInfo from '@/components/expanded/MyProfileCreatePetInfo.vue';
+import MyProfileCreateImage from '@/components/expanded/MyProfileCreateImage.vue';
 
 const router = useRouter();
 const currentPage = ref(1);

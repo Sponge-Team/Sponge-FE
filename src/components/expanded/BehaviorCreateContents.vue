@@ -162,7 +162,7 @@ const validateFields = () => {
 
 const openModalWithValidation = () => {
   if (validateFields()) {
-    const behaviorContents = {'title': title.value, 'content': content.value, 'duration': duration.value, 'tag': tag.value, 'imageData': imageData.value}
+    const behaviorContents = { 'title': title.value, 'content': content.value, 'duration': duration.value, 'tag': tag.value, 'imageData': imageData.value };
     localStorage.setItem('behaviorContents', JSON.stringify(behaviorContents));
     openModal(); 
   }
