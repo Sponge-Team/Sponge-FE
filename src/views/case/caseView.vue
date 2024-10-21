@@ -251,6 +251,7 @@ import Dropdown from "@/components/core/Dropdown/Dropdown.vue"
 import Dialog from "@/components/core/Dialog/Dialog.vue";
 
 import { useDialog } from "@/composables/useDialog";
+import {getCaseCategory} from "@/apis/comp/caseComp.js"
 
 const { isActive, translateY, openModal, closeModal } = useDialog();
 
@@ -414,4 +415,13 @@ const filteringTypeList = ref(['추천순', '최신순'])
 
 const selectedItem = ref('')
 const isOpenDropdown = ref(false)
+
+
+onMounted(()=>{
+  getCate()
+})
+// 카테고리 조회
+const getCate = () => {
+  getCaseCategory()
+}
 </script>

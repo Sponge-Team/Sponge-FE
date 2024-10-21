@@ -3,7 +3,7 @@ import store from "@/store";
 
 // axios.defaults.baseUrl =
 const rest = axios.create({
-    baseUrl: import.meta.env.VITE_APP_BASE_URL,
+    baseURL: import.meta.env.VITE_APP_BASE_URL,
     withCredentials: false,
     timeout: 5000
 })

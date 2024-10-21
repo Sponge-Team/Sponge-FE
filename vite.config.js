@@ -9,5 +9,13 @@ export default defineConfig({
     alias: [
       { find: "@", replacement: path.resolve(__dirname, "src") },
     ],
+  },
+  server: {
+    proxy:{
+      '/api/category':{
+        target: 'http://sponge-server-env.eba-7p3qkfbm.ap-northeast-2.elasticbeanstalk.com/',
+        changeOrigin: true,
+      },
+    }
   }
 });
