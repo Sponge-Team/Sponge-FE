@@ -2,20 +2,31 @@
   <div class="w100%">
     <div class="p3 flex flex-justify-between items-center">
       <MainHeader />
-      <template v-if="isLoggedIn">
+      <template v-if="store.getters.getToken.access_token !== '' && store.getters.getToken.refresh_token !== ''">
         <div class="user-info flex items-center">
           <p class="user-name mr-2">
             <span>{{ userProfile.name }}</span> {{ userProfile.role }}
           </p>
-          <img :src="userProfile.image" alt="유저 기본이미지" class="user-image" />
         </div>
       </template>
-      <template v-else>
+      <template v-if="store.getters.getToken.access_token === '' && store.getters.getGoogle.google === null">
         <RouterLink to="/login">
           <Button color="tertiary" rounded="square" size="m">
             <p>로그인/가입</p>
           </Button>
         </RouterLink>
+      </template>
+      <template v-if="store.getters.getToken.access_token !== '' || store.getters.getGoogle.google !== null">
+        <div class="user-info flex items-center">
+          <p class="user-name mr-2">
+            <span>{{ userProfile.name }}</span> {{ userProfile.role }}
+          </p>
+        </div>
+        <div>
+          <Button color="tertiary" rounded="square" size="m" @click="store.commit('SET_GOOGLE', {google: null, userType: null})">
+            <p>로그아웃</p>
+          </Button>
+        </div>
       </template>
     </div>
     <Input type="outlined" :icon="true" placeholder="반려견의 문제행동이 궁금해요" class="mb-3 ml-2" style="width: 95%;">
@@ -23,7 +34,7 @@
       <img src="@/lib/assets/svg/ic_search.svg" alt="검색 버튼" class="pl3" style="width: max-content; height: max-content;">
     </template>
     </Input>
-    <MainBanner :userId="userProfile.userId" :isLoggedIn="isLoggedIn" />
+    <MainBanner :userId="userProfile.userId"/>
     <MainContent :buttons="categoryName" :cards="filteredPosts.slice(0, 5)" @filterPosts="filterPostsByCode">
       <template #title>최신 진단 사례</template>
     </MainContent>
@@ -45,8 +56,6 @@ import { fetchUserById, fetchProblemPosts, fetchProblemCode, fetchAnswerPosts } 
 import defaultImage from '@/lib/assets/svg/ic_user.svg';
 
 const tokenGetter = computed(() => store.getters['token/getToken'] || { access_token: '' });
-// const isLoggedIn = computed(() => !!tokenGetter.value.access_token);
-const isLoggedIn = computed(() => true);
 
 const userProfile = ref({
   userId: null,
@@ -63,16 +72,6 @@ const filteredPosts = ref([]);
 // 아이디가 1인 유저를 호출하는 경우 예시, 나중에 삭제할 것
 onMounted(async () => {
   try {
-    const userId = 1;
-    const fetchedUser = await fetchUserById(userId);
-    if (fetchedUser) {
-      userProfile.value.userId = userId;
-      userProfile.value.name = fetchedUser.name;
-      userProfile.value.image = fetchedUser.profile_img_url || defaultImage;
-      userProfile.value.role = '견주님';
-    } else {
-      console.error("유저를 찾을 수 없습니다.");
-    }
 
     const ProblemCodes = await fetchProblemCode();
     try {

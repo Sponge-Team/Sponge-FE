@@ -4,7 +4,7 @@ import store from "@/store";
 // axios.defaults.baseUrl =
 const rest = axios.create({
     baseURL: import.meta.env.VITE_APP_BASE_URL,
-    withCredentials: false,
+    withCredentials: true,
     timeout: 5000
 })
 
